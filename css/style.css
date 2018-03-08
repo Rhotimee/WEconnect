@@ -90,3 +90,15 @@ body {
 .category a{
   text-decoration: none;
 }
+
+.foot-icons i{
+  margin-right: 10px;
+  font-size: 150%;
+}
+
+
+footer{
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
