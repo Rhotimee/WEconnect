@@ -34,3 +34,42 @@ body {
 .navbar-dark .navbar-nav .nav-link {
   color: ghostwhite;
 }
+
+.content {
+  margin-top: 5rem;
+
+}
+
+.content .heading h1{
+  color: #fff;
+  font-weight: bolder;
+  letter-spacing: -1px;
+  line-height: 150%;
+
+}
+
+.content .heading h4{
+  color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 140%;
+  width: 70%;
+  margin: auto;
+
+}
+
+.auth .card{
+  width: 25rem;
+  overflow: hidden;
+}
+
+.auth .card-form {
+  opacity: 0.9;
+  float: none;
+  margin: 0 auto;
+}
+
+.auth .card-form input{
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16),
+  0 0 0 1px rgba(0,0,0,0.08);
+}
