@@ -90,3 +90,24 @@ describe('POST businesses/', () => {
       });
   });
 });
+
+//  Update a business
+describe('POST businesses/1', () => {
+  it('should be able to update a business', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses')
+      .send({
+        name: 'Rotimi Texh',
+        details: 'Software company',
+        location: 'lagos',
+        category: 'ICT',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+});
