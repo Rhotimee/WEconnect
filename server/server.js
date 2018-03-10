@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import index from './routes/v1/index';
 
-
 const app = express();
 
 const port = process.env.PORT || '3000';
@@ -17,7 +16,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+
+app.use('/api/v1', index);
+
+app.use('/', (req, res) => {
+  res.json({
+    message: 'Welocme to Weconnect',
+    error: false,
+  });
+});
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

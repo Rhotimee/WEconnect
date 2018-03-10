@@ -3,11 +3,9 @@ import BusinessController from '../../controller/businessController';
 
 const router = express.Router();
 
-// GET home page.
-router.get('/', BusinessController.home);
-// Post register business
-router.post('/api/v1/businesses', BusinessController.register);
-// Post register business
-router.put('/api/v1/businesses/:id', BusinessController.update);
+// POST register business
+router.post('/businesses', BusinessController.register);
+// PUT register business
+router.put('/businesses/:id', BusinessController.update);
 
 module.exports = router;
