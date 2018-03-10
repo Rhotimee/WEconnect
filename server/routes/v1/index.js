@@ -7,5 +7,7 @@ const router = express.Router();
 router.post('/businesses', BusinessController.register);
 // PUT register business
 router.put('/businesses/:id', BusinessController.update);
+// PUT register business
+router.delete('/businesses/:id', BusinessController.deleteById);
 
 module.exports = router;
