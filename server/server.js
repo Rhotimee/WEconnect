@@ -43,7 +43,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-
 /**
  * Listen on provided port
  */
