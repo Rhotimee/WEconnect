@@ -6,7 +6,6 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const Business = {
-  id: 1,
   name: 'Moremi Gloals',
   details: 'Best Ict Resources',
   location: 'lagos',
@@ -34,6 +33,57 @@ describe('POST businesses/', () => {
       .end((err, res) => {
         expect(res)
           .to.have.status(201);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 400 if no business name', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses')
+      .send({
+        details: 'Best Ict Resources',
+        location: 'lagos',
+        category: 'ICT',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+  it('should return 400 if name is undefined', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses')
+      .send({
+        name: undefined,
+        details: 'Best Ict Resources',
+        location: 'lagos',
+        category: 'ICT',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+  it('should return 400 if name is empty', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses')
+      .send({
+        name: '',
+        details: 'Best Ict Resources',
+        location: 'lagos',
+        category: 'ICT',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
         expect(res.body)
           .to.be.a('object');
         done();
