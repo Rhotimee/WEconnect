@@ -49,4 +49,38 @@ export default class BusinessController {
       business: newBusiness,
     });
   }
+
+  /**
+   * Update a business
+   *
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static update(req, res) {
+    const { id } = req.params;
+    let editBusiness;
+    db.business.forEach((bus) => {
+      console.log(bus);
+      if (bus.id === parseInt(id, 10)) {
+        bus.name = req.body.name || bus.name;
+        bus.details = req.body.details || bus.details;
+        bus.location = req.body.location || bus.location;
+        bus.category = req.body.category || bus.category;
+
+        editBusiness = bus;
+      }
+    });
+    if (editBusiness) {
+      return res.status(200).json({
+        message: 'Business Updated',
+        error: false,
+        business: editBusiness,
+      });
+    }
+    return res.status(404).json({
+      message: 'Business Not Found',
+      error: true
+    });
+  }
 }

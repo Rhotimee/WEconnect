@@ -7,5 +7,7 @@ const router = express.Router();
 router.get('/', BusinessController.home);
 // Post register business
 router.post('/api/v1/businesses', BusinessController.register);
+// Post register business
+router.put('/api/v1/businesses/:id', BusinessController.update);
 
 module.exports = router;
