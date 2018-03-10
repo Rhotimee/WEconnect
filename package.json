@@ -1,16 +1,26 @@
 {
   "name": "weconnect",
   "version": "1.0.0",
-  "private": true,
+  "description": "WeConnect provides a platform that brings businesses and individuals together.",
+  "main": "./server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node ./dist/server.js",
     "dev-start": "nodemon --exec babel-node server/server.js",
-    "build": "babel server -d server/dist --ignore server/dist",
+    "build": "babel server -d ./dist --ignore server/dist",
     "postinstall": "npm run build",
     "test": "nyc --reporter=html --reporter=text mocha server/tests/ --exit --compilers js:babel-register",
     "test-watch": "nodemon --exec \"npm test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rhotimee/weconnect.git"
+  },
+  "author": "Yemitan Isaiah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rhotimee/weconnect/issues"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
