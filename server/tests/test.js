@@ -108,4 +108,41 @@ describe('PUT businesses/1', () => {
         done();
       });
   });
+  it('should return 404, if business cannot be found', (done) => {
+    chai.request(server)
+      .put('/api/v1/businesses/193992932')
+      .send({
+        name: 'Rotimi Texh',
+        details: 'Software company',
+        location: 'lagos',
+        category: 'ICT',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+});
+
+// Delete Business
+describe('DELETE businesses/3', () => {
+  it('should be able to delete a business', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/3')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404 if page cannot be found', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/6382392')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
 });
