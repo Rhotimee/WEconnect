@@ -15,13 +15,12 @@ const Business = {
 
 // Get home route
 describe('GET /', () => {
-  it('should get home', (done) => {
+  it('should get home', () => {
     chai.request(server)
       .get('/')
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        done();
       });
   });
 });
