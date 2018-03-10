@@ -18,4 +18,18 @@ describe('GET /', () => {
   });
 });
 
-
+//  Add a business
+describe('POST businesses/', () => {
+  it('should be able to register a business', (done) => {
+    chai.request(app)
+      .post('/api/v1/businesses')
+      .send(Business)
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(201);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+});

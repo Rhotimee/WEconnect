@@ -1,13 +1,9 @@
 import express from 'express';
-
+import { BusinessController } from '../../controller';
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.json({
-    message: 'Welocme to Weconnect',
-    error: false,
-  });
-});
+router.get('/', BusinessController.home);
+
 
 module.exports = router;
