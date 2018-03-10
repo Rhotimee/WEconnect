@@ -6,7 +6,11 @@ import bodyParser from 'body-parser';
 import index from './routes/index';
 import users from './routes/users';
 
+
 const app = express();
+
+const port = process.env.PORT || '3000';
+app.set('port', port);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -38,5 +42,11 @@ app.use((err, req, res, next) => {
   });
   next();
 });
+
+
+/**
+ * Listen on provided port
+ */
+app.listen(port);
 
 export default app;

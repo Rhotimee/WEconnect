@@ -1,15 +1,15 @@
 {
-  "name": "server",
-  "version": "0.0.0",
+  "name": "Weconnect",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node server/bin/www",
-    "dev-start": "nodemon --exec babel-node server/bin/www"
+    "start": "node server/server.js",
+    "dev-start": "nodemon --exec babel-node server/server.js",
+    "build": "babel server -d server/dist --ignore server/dist"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
     "express": "~4.15.5",
     "morgan": "~1.9.0"
   },
