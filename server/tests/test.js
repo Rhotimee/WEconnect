@@ -5,6 +5,14 @@ import server from '../server';
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const Business = {
+  id: 1,
+  name: 'Moremi Gloals',
+  details: 'Best Ict Resources',
+  location: 'lagos',
+  category: 'ICT',
+};
+
 // Get home route
 describe('GET /', () => {
   it('should get home', (done) => {
@@ -21,7 +29,7 @@ describe('GET /', () => {
 //  Add a business
 describe('POST businesses/', () => {
   it('should be able to register a business', (done) => {
-    chai.request(app)
+    chai.request(server)
       .post('/api/v1/businesses')
       .send(Business)
       .end((err, res) => {

@@ -11,7 +11,7 @@ export default class BusinessController {
    * @param {object} res The response body.
    * @returns {object} res.
    */
-  static home(req, res){
+  static home(req, res) {
     res.json({
       message: 'Welocme to Weconnect',
       error: false,

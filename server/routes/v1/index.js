@@ -1,5 +1,6 @@
 import express from 'express';
-import { BusinessController } from '../../controller';
+import BusinessController from '../../controller/businessController';
+
 const router = express.Router();
 
 /* GET home page. */
