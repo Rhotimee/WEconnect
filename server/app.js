@@ -1,10 +1,10 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const index = require('./routes/index');
-const users = require('./routes/users');
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import index from './routes/index';
+import users from './routes/users';
 
 const app = express();
 
@@ -39,4 +39,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-module.exports = app;
+export default app;
