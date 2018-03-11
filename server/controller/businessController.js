@@ -92,4 +92,18 @@ export default class BusinessController {
       error: true
     });
   }
+
+  /**
+   * List all businesses
+   *
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static list(req, res) {
+    return res.status(200).json({
+      businesses: db.business,
+      error: false,
+    });
+  }
 }
