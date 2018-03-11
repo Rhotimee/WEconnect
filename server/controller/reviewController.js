@@ -28,4 +28,37 @@ export default class ReviewController {
       error: true,
     });
   }
+
+  /**
+   * Add a new Review
+   *
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static addReview(req, res) {
+    const { id } = req.params;
+    const { reviewer, content, stars } = req.body;
+
+
+    db.business.forEach((business) => {
+      if (parseInt(id, 10) === business.id) {
+        const reviewId = business.reviews.length + 1;
+        const newReview = {
+          reviewId, reviewer, content, stars
+        };
+
+        business.reviews.push(newReview);
+        return res.status(201).json({
+          newReview,
+          error: false,
+        });
+      }
+    });
+
+    return res.status(404).json({
+      message: 'Business Not Found',
+      error: true
+    });
+  }
 }

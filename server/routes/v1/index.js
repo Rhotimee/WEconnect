@@ -35,5 +35,7 @@ router.post('/api/v1/auth/signup', UserController.signUp);
 router.post('/api/v1/auth/login', UserController.logIn);
 // GET get all reviews
 router.get('/api/v1/businesses/:id/reviews', ReviewController.listReview);
+// POST add reviews
+router.post('/api/v1/businesses/:id/reviews', ReviewController.addReview);
 
 export default router;
