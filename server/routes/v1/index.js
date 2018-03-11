@@ -1,6 +1,7 @@
 import express from 'express';
 import BusinessController from '../../controller/businessController';
 import Middleware from '../../middleware';
+import UserController from '../../controller/userController';
 
 const router = express.Router();
 
@@ -25,4 +26,6 @@ router.delete('/api/v1/businesses/:id', BusinessController.deleteById);
 router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
 // Get a Business
 router.get('/api/v1/businesses/:id', BusinessController.getById);
+// Get all Users
+router.get('/api/v1/users', UserController.list);
 export default router;
