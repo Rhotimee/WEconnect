@@ -375,3 +375,32 @@ describe('Get businesses/3/reviews', () => {
       });
   });
 });
+
+// Add A Review
+describe('POST reviews/1', () => {
+  it('should be able to add reviews to a business', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses/1/reviews')
+      .send({
+        reviewer: 'Solomon',
+        content: 'Lorem ipsum dolor sit amet.',
+        stars: 4,
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(201);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/3627827/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
