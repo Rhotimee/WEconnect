@@ -158,4 +158,16 @@ describe('GET businesses/', () => {
         done();
       });
   });
+  // Get Individual Business
+  describe('GET busineesses/3', () => {
+    it('should be able to get a business', (done) => {
+      chai.request(server)
+        .get('/api/v1/businesses/3')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('object');
+          done();
+        });
+    });
+  });
 });
