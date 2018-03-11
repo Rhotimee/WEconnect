@@ -1,9 +1,10 @@
 # weconnect
-[![Build Status](https://travis-ci.org/Rhotimee/weconnect.svg?branch=develop)](https://travis-ci.org/Rhotimee/weconnect) [![Coverage Status](https://coveralls.io/repos/github/Rhotimee/weconnect/badge.svg?branch=develop)](https://coveralls.io/github/Rhotimee/weconnect?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/maintainability)](https://codeclimate.com/github/Rhotimee/weconnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/test_coverage)](https://codeclimate.com/github/Rhotimee/weconnect/test_coverage)
+[![Build Status](https://travis-ci.org/Rhotimee/weconnect.svg?branch=develop)](https://travis-ci.org/Rhotimee/weconnect) [![Coverage Status](https://coveralls.io/repos/github/Rhotimee/weconnect/badge.svg)](https://coveralls.io/github/Rhotimee/weconnect) [![Maintainability](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/maintainability)](https://codeclimate.com/github/Rhotimee/weconnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/test_coverage)](https://codeclimate.com/github/Rhotimee/weconnect/test_coverage)
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
-Live at: https://rhotimee.github.io/weconnect/index.html
+Live Template: https://rhotimee.github.io/weconnect/index.html
+Live API: https://weconnect-business.herokuapp.com/
 
 ### Features
 - Sign up
