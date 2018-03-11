@@ -146,3 +146,16 @@ describe('DELETE businesses/3', () => {
       });
   });
 });
+
+//  Get all businesses
+describe('GET businesses/', () => {
+  it('should get all businesses', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+});
