@@ -12,5 +12,6 @@ router.put('/businesses/:id', BusinessController.update);
 router.delete('/businesses/:id', BusinessController.deleteById);
 // GET get all businesses
 router.get('/businesses/', Middleware.sorter, BusinessController.list);
-
+// Get a Business
+router.get('/businesses/:id', BusinessController.getById);
 module.exports = router;
