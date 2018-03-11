@@ -1,0 +1,36 @@
+swagger: '2.0'
+info:
+  description: API for Weconnect
+  version: 1.0.0
+  title: Weconnect
+  # Contact info for your development or API team
+  contact:
+    email: isaroy007@gmail.com
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+- name: users
+  description: Operations for user details
+- name: business
+  description: Business operations
+
+
+paths:
+  /api/v1:
+    get:
+      tags:
+      - developers
+      summary: Index route of API
+      operationId: Index
+      description: Index endpoint for Events Manager API version 1
+      produces:
+      - application/json
+      responses:
+        200:
+          description: welcome message
+          schema:
+            type: object

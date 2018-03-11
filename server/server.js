@@ -3,9 +3,17 @@ import path from 'path';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
+import YAML from 'yamljs';
 import index from './routes/v1/index';
 
 const app = express();
+
+const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
+
+app.use(cors({ credentials: true, origin: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
