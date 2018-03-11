@@ -12,6 +12,11 @@ const Business = {
   category: 'ICT',
 };
 
+const User = {
+  email: 'user1@gmail.com',
+  password: 'passw0RD',
+};
+
 // Redirect to API v1
 describe('GET /', () => {
   it('should get home', () => {
@@ -183,5 +188,166 @@ describe('GET businesses/', () => {
           done();
         });
     });
+  });
+});
+
+//  Get all Users
+describe('GET users/', () => {
+  it('should get all users', (done) => {
+    chai.request(server)
+      .get('/api/v1/users')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+});
+
+//  POST - Should create a new User
+describe('POST auth/signup/', () => {
+  it('should create new user', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send(User)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.equal(false);
+        done();
+      });
+  });
+
+  // POST Sign up- should return 400 if no email
+  it('should return 400 if no eamil', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: '',
+        password: 'timi'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.equal(true);
+        done();
+      });
+  });
+
+  // POST Sign up - should return 400 if no password
+  it('should return 400 if no eamil', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'timi@gmail.com',
+        password: ''
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.equal(true);
+        done();
+      });
+  });
+});
+
+//  Post Sign up- Should return 400
+describe('(Bad Requests) POST auth/login/', () => {
+  it('should return 400 if no password', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'rotimi',
+        password: '',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 400 if no email', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        email: '',
+        password: 'passw0RD',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 400 if undefined', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        username: undefined,
+        password: undefined,
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 400 if username or password is wrong', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        username: 'user1@gmail.com',
+        password: 'passw0RD',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+});
+
+//  Post Sign up- Should Login Successfully
+describe('POST auth/login/', () => {
+  it('should authenticate successfully', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        username: 'rotimi',
+        password: 'isaiah',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
+  it('should authenticate successfully', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        username: User.username,
+        password: User.password,
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
   });
 });
