@@ -18,14 +18,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/v1', index);
-
 app.use('/', (req, res) => {
-  res.json({
-    message: 'Welocme to Weconnect',
-    error: false,
-  });
+  res.redirect('/api/v1/businesses');
 });
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
