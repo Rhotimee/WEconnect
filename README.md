@@ -3,7 +3,8 @@
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
-Live at: https://rhotimee.github.io/weconnect/index.html
+Live Template: https://rhotimee.github.io/weconnect/index.html
+Live API: https://weconnect-business.herokuapp.com/
 
 ### Features
 - Sign up
