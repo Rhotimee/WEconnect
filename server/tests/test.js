@@ -204,8 +204,9 @@ describe('GET users/', () => {
   });
 });
 
-//  POST - Should create a new User
+//  POST - Sign up
 describe('POST auth/signup/', () => {
+  //  POST - Should create a new User
   it('should create new user', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
@@ -251,7 +252,7 @@ describe('POST auth/signup/', () => {
   });
 });
 
-//  Post Sign up- Should return 400
+//  Post Log In- Should return 400
 describe('(Bad Requests) POST auth/login/', () => {
   it('should return 400 if no password', (done) => {
     chai.request(server)
@@ -318,7 +319,7 @@ describe('(Bad Requests) POST auth/login/', () => {
   });
 });
 
-//  Post Sign up- Should Login Successfully
+//  Post Log in - Should Login Successfully
 describe('POST auth/login/', () => {
   it('should authenticate successfully', (done) => {
     chai.request(server)

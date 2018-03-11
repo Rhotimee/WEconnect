@@ -28,4 +28,8 @@ router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
 router.get('/api/v1/businesses/:id', BusinessController.getById);
 // Get all Users
 router.get('/api/v1/users', UserController.list);
+// POST register business
+router.post('/api/v1/auth/signup', UserController.signUp);
+
+
 export default router;
