@@ -21,4 +21,11 @@ Live at: https://rhotimee.github.io/weconnect/index.html
 ### Installation
 - Create a parent folder on your system
 - Clone repo. `$ git clone https://github.com/Rhotimee/weconnect`
-
+- Instll all dependencies
+`$ npm install`
+- Switch to develop branch
+`$ git checkout develop`
+- Start the server
+`$ npm start`
+- Run Tests
+`$ npm test`
