@@ -2,6 +2,7 @@ import express from 'express';
 import BusinessController from '../../controller/businessController';
 import Middleware from '../../middleware';
 import UserController from '../../controller/userController';
+import ReviewController from '../../controller/reviewController';
 
 const router = express.Router();
 
@@ -32,6 +33,7 @@ router.get('/api/v1/users', UserController.list);
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User
 router.post('/api/v1/auth/login', UserController.logIn);
-
+// GET get all reviews
+router.get('/api/v1/businesses/:id/reviews', ReviewController.listReview);
 
 export default router;

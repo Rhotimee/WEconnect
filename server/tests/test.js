@@ -352,3 +352,26 @@ describe('POST auth/login/', () => {
       });
   });
 });
+
+// Get Business Reviews
+describe('Get businesses/3/reviews', () => {
+  it('should be able to get reviews of a business', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/2/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/3627827/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
