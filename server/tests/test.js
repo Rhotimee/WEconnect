@@ -12,7 +12,7 @@ const Business = {
   category: 'ICT',
 };
 
-// Get home route
+// Redirect to API v1
 describe('GET /', () => {
   it('should get home', () => {
     chai.request(server)
@@ -20,6 +20,20 @@ describe('GET /', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
+        expect(res.body.message).to.equals('welcome to version 1 of Weconnect');
+      });
+  });
+});
+
+// GET /api/v1
+describe('GET /api/v1', () => {
+  it('should get home', () => {
+    chai.request(server)
+      .get('/api/v1')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.message).to.equals('welcome to version 1 of Weconnect');
       });
   });
 });
