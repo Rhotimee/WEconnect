@@ -68,4 +68,28 @@ export default class BusinessController {
       error: true
     });
   }
+  /**
+   * Delete a business
+   *
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static deleteById(req, res) {
+    const { id } = req.params;
+
+    db.business.forEach((bus, i) => {
+      if (bus.id === parseInt(id, 10)) {
+        db.business.splice(i, 1);
+        return res.status(200).json({
+          message: 'Business Deleted',
+          error: false,
+        });
+      }
+    });
+    return res.status(404).json({
+      message: 'Business Not Found',
+      error: true
+    });
+  }
 }
