@@ -1,5 +1,6 @@
 import express from 'express';
 import BusinessController from '../../controller/businessController';
+import Middleware from '../../middleware';
 
 const router = express.Router();
 
@@ -10,6 +11,6 @@ router.put('/businesses/:id', BusinessController.update);
 // DELETE delete business
 router.delete('/businesses/:id', BusinessController.deleteById);
 // GET get all businesses
-router.get('/businesses/', BusinessController.list);
+router.get('/businesses/', Middleware.sorter, BusinessController.list);
 
 module.exports = router;
