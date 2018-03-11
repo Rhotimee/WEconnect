@@ -236,12 +236,27 @@ describe('POST auth/signup/', () => {
   });
 
   // POST Sign up - should return 400 if no password
-  it('should return 400 if no eamil', (done) => {
+  it('should return 400 if no password', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
         email: 'timi@gmail.com',
         password: ''
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.equal(true);
+        done();
+      });
+  });
+  // POST Sign up - should return 400
+  it('should return 400 if user already exists', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'user1@gmail.com',
+        password: 'password'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -307,11 +322,11 @@ describe('(Bad Requests) POST auth/login/', () => {
       .post('/api/v1/auth/login')
       .send({
         username: 'user1@gmail.com',
-        password: 'passw0RD',
+        password: 'passw0RD1',
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(200);
+          .to.have.status(400);
         expect(res.body)
           .to.be.a('object');
         done();
@@ -325,22 +340,7 @@ describe('POST auth/login/', () => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        username: 'rotimi',
-        password: 'isaiah',
-      })
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(200);
-        expect(res.body)
-          .to.be.a('object');
-        done();
-      });
-  });
-  it('should authenticate successfully', (done) => {
-    chai.request(server)
-      .post('/api/v1/auth/login')
-      .send({
-        username: User.username,
+        email: User.email,
         password: User.password,
       })
       .end((err, res) => {
