@@ -106,4 +106,28 @@ export default class BusinessController {
       error: false,
     });
   }
+  /**
+   * Get a business
+   *
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static getById(req, res) {
+    const { id } = req.params;
+
+    db.business.forEach((bus) => {
+      if (parseInt(id, 10) === bus.id) {
+        return res.status(200).json({
+          message: 'Success',
+          error: false,
+          business: bus,
+        });
+      }
+    });
+    return res.status(404).json({
+      message: 'Business Not Found',
+      error: true
+    });
+  }
 }
