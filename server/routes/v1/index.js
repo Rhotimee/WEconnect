@@ -10,12 +10,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.redirect('/api/v1');
 });
-// GET welcome message
+// Redirect '/' to '/api-docs'
 router.get('/api/v1', (req, res) => {
-  res.json({
-    message: 'welcome to version 1 of Weconnect',
-    error: false
-  });
+  res.redirect('/api-docs');
 });
 // POST register business
 router.post('/api/v1/businesses', BusinessController.register);
