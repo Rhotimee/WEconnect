@@ -193,3 +193,32 @@ paths:
           examples:
             application/json:
               error: true
+    post:
+      tags:
+      - reviews
+      summary: Add review
+      description: Add review of a business
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: id of the business to add review
+        type: integer
+        minimum: 1
+        required: true
+      responses:
+        200:
+          description: Review Added
+          examples:
+            application/json:
+              error: false
+              review:
+                user: Solomon
+                content: Amazing service
+                stars: 5
+        400:
+          description: Business could not be found
+          examples:
+            application/json:
+              error: true
