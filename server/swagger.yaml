@@ -244,3 +244,25 @@ paths:
             application/json:
               error: true
               message: Unable to login
+
+  /auth/signup:
+    post:
+      tags:
+      - auth
+      summary: Signup a user
+      description: Signup user into the application
+      consumes:
+      - application/json
+      responses:
+        200:
+          description: Success, user is signed up
+          examples:
+            application/json:
+              error: false
+              message: 'signup in successfully'
+        400:
+          description: Invalid Input
+          examples:
+            application/json:
+              error: true
+              message: Unable to login
