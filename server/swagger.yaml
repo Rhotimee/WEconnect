@@ -130,3 +130,34 @@ paths:
             application/json:
               error: 'true'
               message: 'Business not found'
+    delete:
+      summary: delete specific business
+      tags:
+        - business
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The id of the business to retrieve
+          type: integer
+      responses:
+        200:
+          description: Business deleted
+          examples:
+            application/json:
+              error: false
+              message: 'Business deleted'
+        403:
+          description: Forbidden
+          examples:
+            application/json:
+              error: true
+              message: 'You do not have the priviledge to delete this business'
+        404:
+          description: business not found
+          examples:
+            application/json:
+              error: 'true'
+              message: 'Business not found'
