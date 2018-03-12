@@ -12,7 +12,7 @@ basePath: /api/v1
 tags:
 - name: business
   description: Business operations
-- name: users
+- name: auth
   description: Operations for user details
 - name: reviews
   description: Operations for reviews
@@ -222,3 +222,25 @@ paths:
           examples:
             application/json:
               error: true
+
+  /auth/login:
+    post:
+      tags:
+      - auth
+      summary: login a user
+      description: Log in a user to the application
+      consumes:
+      - application/json
+      responses:
+        200:
+          description: Success, user is logged in
+          examples:
+            application/json:
+              error: false
+              message: 'logged in successfully'
+        400:
+          description: Invalid Input
+          examples:
+            application/json:
+              error: true
+              message: Unable to login
