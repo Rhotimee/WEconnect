@@ -98,3 +98,35 @@ paths:
             application/json:
               error: 'true'
               message: 'Business not found'
+    put:
+      summary: update specific business
+      tags:
+        - business
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The id of the business to retrieve
+          type: integer
+      responses:
+        200:
+          description: Expected response to be valid request
+          examples:
+            application/json:
+              message: 'Success'
+              error: false
+              business:
+                id: 3
+                name: 'Bukka'
+                details: 'Delicious Foods'
+                location: 'Lagos'
+                category: 'Resturant'
+                reviews: []
+        404:
+          description: business not found
+          examples:
+            application/json:
+              error: 'true'
+              message: 'Business not found'
