@@ -64,3 +64,37 @@ paths:
             application/json:
               error: true
               message: 'Business Name Missing'
+
+  /businesses/{id}:
+    get:
+      summary: Info for a specific business
+      tags:
+        - business
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the business to retrieve
+          type: integer
+      responses:
+        200:
+          description: Success, business found
+          examples:
+            application/json:
+              message: 'Success'
+              error: false
+              business:
+                id: 3
+                name: 'Bukka'
+                details: 'Delicious Foods'
+                location: 'Lagos'
+                category: 'Resturant'
+                reviews: []
+        404:
+          description: business not found
+          examples:
+            application/json:
+              error: 'true'
+              message: 'Business not found'
