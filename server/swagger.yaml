@@ -6,6 +6,7 @@ info:
   # My Contact Info
   contact:
     email: isaroy007@gmail.com
+basePath: /api/v1
 
 # tags are used for organizing operations
 tags:
@@ -140,7 +141,7 @@ paths:
         - in: path
           name: id
           required: true
-          description: The id of the business to retrieve
+          description: The id of the business to delete
           type: integer
       responses:
         200:
@@ -161,3 +162,34 @@ paths:
             application/json:
               error: 'true'
               message: 'Business not found'
+
+  /businesses/{id}/reviews:
+    get:
+      tags:
+      - reviews
+      summary: list reviews
+      description: List reviews of a business
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        description: id of the business to get reviews
+        in: path
+        type: integer
+        minimum: 1
+        required: true
+      responses:
+        200:
+          description: an array of reviews
+          examples:
+            application/json:
+              error: false
+              review:
+                user: Timi
+                content: Great resturant
+                stars: 4
+        400:
+          description: Business could not be found
+          examples:
+            application/json:
+              error: true
