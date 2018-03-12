@@ -24,8 +24,6 @@ describe('GET /', () => {
       .get('/')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.equals('welcome to version 1 of Weconnect');
       });
   });
 });
@@ -37,8 +35,6 @@ describe('GET /api/v1', () => {
       .get('/api/v1')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.equals('welcome to version 1 of Weconnect');
       });
   });
 });

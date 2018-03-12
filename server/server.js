@@ -10,6 +10,7 @@ import index from './routes/v1/index';
 
 const app = express();
 
+// API Docs
 const swaggerDocument = YAML.load(`${process.cwd()}/server/swagger.yaml`);
 
 app.use(cors({ credentials: true, origin: true }));
