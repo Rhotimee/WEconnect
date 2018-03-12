@@ -31,3 +31,36 @@ paths:
           description: A paged array of businesses
           examples:
             application/json:
+    post:
+      summary: Register a business
+      tags:
+       - business
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - in: formData
+        name: name
+        type: string
+        description: Name of business
+        required: true
+      responses:
+        201:
+          description: Created Business Successfully
+          examples:
+            application/json:
+              error: false
+              message: New Business Added
+              business:
+                id: 1
+                name: Andela
+                details: Hire the best software engineers
+                category: Ict
+                location: Lagos
+        400:
+          description: Invalid input
+          examples:
+            application/json:
+              error: true
+              message: 'Business Name Missing'
