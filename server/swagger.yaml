@@ -23,8 +23,7 @@ paths:
       tags:
       - business
       summary: list all businesses
-      operationId: Index
-      description: Index endpoint for Events Manager API version 1
+      description: List all businesses in the application
       produces:
       - application/json
       responses:
@@ -32,13 +31,30 @@ paths:
           description: A paged array of businesses
           examples:
             application/json:
+              error: false
+              business:
+              - id: 1
+                name: Andela
+                details: Hire the best software engineers
+                category: Ict
+                location: Lagos
+                reviews:
+                - user: rotimi
+                  content: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit, ullam
+                  stars: 3
+              - id: 1
+                name: Timi Engineering
+                details: Build your house
+                category: Engineering
+                location: Lagos
 
     post:
       summary: Register a business
       tags:
        - business
-      consumes:
-      - multipart/form-data
+      summary: Add business
+      description: Add business to the application
+      operationId: add-business
       produces:
       - application/json
       parameters:
@@ -47,6 +63,18 @@ paths:
         type: string
         description: Name of business
         required: true
+      - in: formData
+        name: details
+        type: string
+        description: Details of business
+      - in: formData
+        name: location
+        type: string
+        description: Location of business
+      - in: formData
+        name: category
+        type: string
+        description: Category of business
       responses:
         201:
           description: Created Business Successfully
@@ -71,9 +99,9 @@ paths:
     get:
       tags:
       - business
-      summary: list all businesses
-      operationId: Index
-      description: Index endpoint for Events Manager API version 1
+      summary: list businesses in location
+      operationId: location
+      description: List all busnesses in a given location
       produces:
       - application/json
       parameters:
@@ -93,6 +121,7 @@ paths:
       tags:
       - business
       summary: list all businesses
+      operationId: category
       description: List all businesses in a category
       produces:
       - application/json
@@ -153,6 +182,23 @@ paths:
           required: true
           description: The id of the business to retrieve
           type: integer
+        - in: formData
+          name: name
+          type: string
+          description: Name of business
+          required: true
+        - in: formData
+          name: details
+          type: string
+          description: Details of business
+        - in: formData
+          name: location
+          type: string
+          description: Location of business
+        - in: formData
+          name: category
+          type: string
+          description: Category of business
       responses:
         200:
           description: Expected response to be valid request
@@ -249,6 +295,24 @@ paths:
         type: integer
         minimum: 1
         required: true
+      - name: reviewer
+        in: formData
+        description: Name of reviewer
+        type: string
+        required: true
+      - name: content
+        in: formData
+        description: Content of the review
+        type: string
+        required: true
+      - name: stars
+        in: formData
+        description: Amount of stars given
+        type: integer
+        minimum: 1
+        maximum: 5
+        required: true
+
       responses:
         200:
           description: Review Added
@@ -271,8 +335,19 @@ paths:
       - auth
       summary: login a user
       description: Log in a user to the application
-      consumes:
+      produces:
       - application/json
+      parameters:
+      - name: email
+        in: formData
+        description: email of the user
+        type: string
+        required: true
+      - name: password
+        in: formData
+        description: password of the user
+        type: string
+        required: true
       responses:
         200:
           description: Success, user is logged in
@@ -293,8 +368,20 @@ paths:
       - auth
       summary: Signup a user
       description: Signup user into the application
-      consumes:
+      produces:
       - application/json
+      parameters:
+      - name: email
+        in: formData
+        description: email of the user
+        type: string
+        required: true
+      - name: password
+        in: formData
+        description: password of the user
+        type: string
+        required: true
+
       responses:
         200:
           description: Success, user is signed up
