@@ -23,6 +23,7 @@
     "url": "https://github.com/Rhotimee/weconnect/issues"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "~1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",

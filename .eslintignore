@@ -2,5 +2,4 @@ dist/
 server/models/index.js
 server/migrations/
 server/controller/business.js
-server/controller/user.js
 server/controller/review.js

@@ -13,8 +13,10 @@ const Business = {
 };
 
 const User = {
-  email: 'user1@gmail.com',
+  email: 'user10101@gmail.com',
   password: 'passw0RD',
+  firstName: 'Timi',
+  lastName: 'Yemi'
 };
 
 // Redirect to API v1
@@ -221,7 +223,9 @@ describe('POST auth/signup/', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: '',
-        password: 'timi'
+        password: 'timi',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -237,7 +241,9 @@ describe('POST auth/signup/', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: 'timi@gmail.com',
-        password: ''
+        password: '',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -251,8 +257,10 @@ describe('POST auth/signup/', () => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'user1@gmail.com',
-        password: 'password'
+        email: 'user10101@gmail.com',
+        password: 'password',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
