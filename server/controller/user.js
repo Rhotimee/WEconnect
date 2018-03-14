@@ -124,4 +124,17 @@ export default class UserController {
         message: 'Server Error',
       }));
   }
+
+  /**
+   * Log out
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static logout(req, res) {
+    return res.status(200).send({
+      error: false,
+      message: 'User has been logged out',
+    });
+  }
 }

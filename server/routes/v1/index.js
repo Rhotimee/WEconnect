@@ -31,6 +31,8 @@ router.get('/api/v1/users', UserController.list);
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User
 router.post('/api/v1/auth/login', UserController.logIn);
+// POST Login User
+router.get('/api/v1/auth/logout', UserController.logout);
 // GET get all reviews
 router.get('/api/v1/businesses/:id/reviews', DumReviewController.listReview);
 // POST add reviews

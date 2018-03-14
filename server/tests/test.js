@@ -341,6 +341,17 @@ describe('POST auth/login/', () => {
   });
 });
 
+describe('Get logout/', () => {
+  it('should logout a user', (done) => {
+    chai.request(server)
+      .get('/api/v1/auth/logout')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
 // Get Business Reviews
 describe('Get businesses/3/reviews', () => {
   it('should be able to get reviews of a business', (done) => {
