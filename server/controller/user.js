@@ -93,7 +93,35 @@ export default class UserController {
    * @param {object} res The response body.
    * @returns {object} res.
    */
-  // static logIn(req, res) {
-
-  // }
+  static logIn(req, res) {
+    const { email, password } = req.body;
+    User.findOne({ where: { email: email.trim().toLowerCase() } })
+      .then((user) => {
+        if (!user) {
+          return res.status(400).json({
+            error: true,
+            message: 'Email or Password Incorrect'
+          });
+        }
+        const correctPassword = bcrypt.compareSync(password, user.password);
+        if (!correctPassword) {
+          return res.status(400).json({
+            error: true,
+            message: 'Email or Password Incorrect'
+          });
+        }
+        return res.status(200).json({
+          error: false,
+          message: 'Logged in Successfully',
+          user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          }
+        });
+      }).catch(() => res.status(500).json({
+        error: true,
+        message: 'Server Error',
+      }));
+  }
 }

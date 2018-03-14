@@ -305,27 +305,11 @@ describe('(Bad Requests) POST auth/login/', () => {
       });
   });
 
-  it('should return 400 if undefined', (done) => {
-    chai.request(server)
-      .post('/api/v1/auth/login')
-      .send({
-        username: undefined,
-        password: undefined,
-      })
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(400);
-        expect(res.body)
-          .to.be.a('object');
-        done();
-      });
-  });
-
   it('should return 400 if username or password is wrong', (done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        username: 'user1@gmail.com',
+        email: 'user1@gmail.com',
         password: 'passw0RD1',
       })
       .end((err, res) => {
