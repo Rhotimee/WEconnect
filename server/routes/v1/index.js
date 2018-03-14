@@ -29,6 +29,8 @@ router.get('/api/v1/businesses/:id', DumBusinessController.getById);
 router.get('/api/v1/users', UserController.list);
 // Get one User
 router.get('/api/v1/users/:id', UserController.getUser);
+// Get one User
+router.put('/api/v1/users/:id', UserController.updateUser);
 // POST register User
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User

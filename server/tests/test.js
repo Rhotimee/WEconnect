@@ -361,6 +361,29 @@ describe('Get users/1/', () => {
         done();
       });
   });
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/users/10090886')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('Update users/1/', () => {
+  it('should update a user', (done) => {
+    chai.request(server)
+      .put('/api/v1/users/1')
+      .send({
+        firstName: 'Marsa',
+        lastName: 'Hanna'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
 });
 
 // Get Business Reviews

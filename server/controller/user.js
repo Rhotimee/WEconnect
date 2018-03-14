@@ -136,7 +136,6 @@ export default class UserController {
   static getUser(req, res) {
     User.findOne({
       where: { id: req.params.id },
-      attribute: { exclude: ['password'] }
     }).then((user) => {
       if (!user) {
         return res.status(404).json({
@@ -155,5 +154,40 @@ export default class UserController {
         }
       });
     });
+  }
+  /**
+   * Update user details
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static updateUser(req, res) {
+    User.findById(req.params.id)
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({
+            error: true,
+            message: 'User not found'
+          });
+        }
+        User.update({
+          firstName: req.body.firstName || user.firstName,
+          lastName: req.body.lastName || user.lastName,
+        }, {
+          where: { id: req.params.id, },
+        }).then((updatedUser) => {
+          if (!updatedUser) {
+            return res.status(500).json({
+              error: true,
+              message: 'Server error'
+            });
+          }
+          return res.status(200).json({
+            error: false,
+            message: 'User updated',
+            data: updatedUser
+          });
+        });
+      });
   }
 }
