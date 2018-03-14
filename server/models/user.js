@@ -17,12 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  }, {});
+  });
 
   User.associate = (models) => {
     // associations can be defined here
     User.hasMany(models.Business, {
       foreignKey: 'businessId'
+    });
+    User.hasMany(models.Review, {
+      foreignKey: 'reviewId'
     });
   };
   return User;

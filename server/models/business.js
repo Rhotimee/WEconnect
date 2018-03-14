@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
 
-  }, {});
+  });
   Business.associate = (models) => {
     // associations can be defined here
     Business.belongsTo(models.User, {

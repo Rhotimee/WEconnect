@@ -1,29 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Businesses', {
+    return queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      content: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: false
       },
-      details: {
-        type: Sequelize.STRING,
+      star: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      location: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      category: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        validate: { min: 1, max: 5 }
       },
       createdAt: {
         allowNull: false,
@@ -42,9 +34,18 @@ module.exports = {
           key: 'id',
         },
       },
+      businessId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        allowNull: false,
+        references: {
+          model: 'Business',
+          key: 'id',
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Businesses');
+    return queryInterface.dropTable('Reviews');
   }
 };
