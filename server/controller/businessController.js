@@ -1,4 +1,4 @@
-import db from '../models/dummyBusinesses';
+import db from '../models-dum/dummyBusinesses';
 
 /**
  * Business Controller.
