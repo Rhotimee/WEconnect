@@ -28,12 +28,6 @@ export default class UserController {
           error: false,
           users,
         });
-      }).catch((e) => {
-        res.status(500).send({
-          error: true,
-          message: 'Server error',
-          details: e,
-        });
       });
   }
   /**
@@ -75,14 +69,11 @@ export default class UserController {
       error: false,
       message: 'User created and logged in',
       user: {
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
       }
-    })).catch(e => res.status(500).status({
-      error: true,
-      message: 'server error',
-      details: e,
     }));
   }
 
@@ -114,15 +105,13 @@ export default class UserController {
           error: false,
           message: 'Logged in Successfully',
           user: {
+            id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
           }
         });
-      }).catch(() => res.status(500).json({
-        error: true,
-        message: 'Server Error',
-      }));
+      });
   }
 
   /**
@@ -135,6 +124,36 @@ export default class UserController {
     return res.status(200).send({
       error: false,
       message: 'User has been logged out',
+    });
+  }
+
+  /**
+   * Log out
+   * @param {object} req The request body of the request.
+   * @param {object} res The response body.
+   * @returns {object} res.
+   */
+  static getUser(req, res) {
+    User.findOne({
+      where: { id: req.params.id },
+      attribute: { exclude: ['password'] }
+    }).then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          error: true,
+          message: 'User not found',
+        });
+      }
+      return res.status(200).json({
+        error: false,
+        message: 'User found',
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        }
+      });
     });
   }
 }

@@ -27,6 +27,8 @@ router.get('/api/v1/businesses/', Middleware.sorter, DumBusinessController.list)
 router.get('/api/v1/businesses/:id', DumBusinessController.getById);
 // Get all Users
 router.get('/api/v1/users', UserController.list);
+// Get one User
+router.get('/api/v1/users/:id', UserController.getUser);
 // POST register User
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User
