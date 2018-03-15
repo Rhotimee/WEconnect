@@ -1,5 +1,5 @@
 import express from 'express';
-import DumBusinessController from '../../controller/businessController';
+// import DumBusinessController from '../../controller/businessController';
 import Middleware from '../../middleware';
 // import DumUserController from '../../controller/userController';
 import UserController from '../../controller/user';
@@ -19,13 +19,13 @@ router.get('/api/v1', (req, res) => {
 // POST register business
 router.post('/api/v1/businesses', BusinessController.register);
 // PUT update business
-router.put('/api/v1/businesses/:id', DumBusinessController.update);
+router.put('/api/v1/businesses/:id', BusinessController.update);
 // DELETE delete business
-router.delete('/api/v1/businesses/:id', DumBusinessController.deleteById);
+router.delete('/api/v1/businesses/:id', BusinessController.deleteById);
 // GET get all businesses
 router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
 // Get a Business
-router.get('/api/v1/businesses/:id', DumBusinessController.getById);
+router.get('/api/v1/businesses/:id', BusinessController.getById);
 // Get all Users
 router.get('/api/v1/users', UserController.list);
 // Get one User
