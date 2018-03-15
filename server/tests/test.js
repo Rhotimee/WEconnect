@@ -6,15 +6,18 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const Business = {
-  name: 'Moremi Gloals',
+  name: `Moremi Gloals ${Math.random() * 100}`,
   details: 'Best Ict Resources',
   location: 'lagos',
   category: 'ICT',
+  userId: 4,
 };
 
 const User = {
-  email: 'user1@gmail.com',
+  email: `user${Math.random() * 100}@gmail.com`,
   password: 'passw0RD',
+  firstName: 'Timi',
+  lastName: 'Yemi'
 };
 
 // Redirect to API v1
@@ -141,10 +144,10 @@ describe('PUT businesses/1', () => {
 });
 
 // Delete Business
-describe('DELETE businesses/3', () => {
+describe('DELETE businesses/2', () => {
   it('should be able to delete a business', (done) => {
     chai.request(server)
-      .delete('/api/v1/businesses/3')
+      .delete('/api/v1/businesses/2')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -174,10 +177,10 @@ describe('GET businesses/', () => {
       });
   });
   // Get Individual Business
-  describe('GET busineesses/3', () => {
+  describe('GET busineesses/1', () => {
     it('should be able to get a business', (done) => {
       chai.request(server)
-        .get('/api/v1/businesses/2')
+        .get('/api/v1/businesses/1')
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.a('object');
@@ -221,7 +224,9 @@ describe('POST auth/signup/', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: '',
-        password: 'timi'
+        password: 'timi',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -237,7 +242,9 @@ describe('POST auth/signup/', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: 'timi@gmail.com',
-        password: ''
+        password: '',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -251,8 +258,10 @@ describe('POST auth/signup/', () => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'user1@gmail.com',
-        password: 'password'
+        email: 'admin@admin.com',
+        password: 'password',
+        lastName: 'mimi',
+        firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -297,27 +306,11 @@ describe('(Bad Requests) POST auth/login/', () => {
       });
   });
 
-  it('should return 400 if undefined', (done) => {
-    chai.request(server)
-      .post('/api/v1/auth/login')
-      .send({
-        username: undefined,
-        password: undefined,
-      })
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(400);
-        expect(res.body)
-          .to.be.a('object');
-        done();
-      });
-  });
-
   it('should return 400 if username or password is wrong', (done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        username: 'user1@gmail.com',
+        email: 'user1@gmail.com',
         password: 'passw0RD1',
       })
       .end((err, res) => {
@@ -349,11 +342,56 @@ describe('POST auth/login/', () => {
   });
 });
 
+describe('Get logout/', () => {
+  it('should logout a user', (done) => {
+    chai.request(server)
+      .get('/api/v1/auth/logout')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Get users/1/', () => {
+  it('should get a user', (done) => {
+    chai.request(server)
+      .get('/api/v1/users/1')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/users/10090886')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('Update users/1/', () => {
+  it('should update a user', (done) => {
+    chai.request(server)
+      .put('/api/v1/users/1')
+      .send({
+        firstName: 'Marsa',
+        lastName: 'Hanna'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
 // Get Business Reviews
-describe('Get businesses/3/reviews', () => {
+describe('Get businesses/1/reviews', () => {
   it('should be able to get reviews of a business', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses/2/reviews')
+      .get('/api/v1/businesses/1/reviews')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -378,9 +416,10 @@ describe('POST reviews/1', () => {
     chai.request(server)
       .post('/api/v1/businesses/1/reviews')
       .send({
-        reviewer: 'Solomon',
+        businessId: 1,
+        userId: 1,
         content: 'Lorem ipsum dolor sit amet.',
-        stars: 4,
+        star: 4,
       })
       .end((err, res) => {
         expect(res)

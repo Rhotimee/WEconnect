@@ -11,5 +11,12 @@ env:
 cache:
   directories:
     - "node_modules"
+services:
+  - postgresql
+before_script:
+  - createuser rhotimee -s -U postgres
+  - createdb database_test --username=rhotimee
+  - sequelize db:migrate
+  - sequelize db:seed:all
 after_success :
     - npm run coverage

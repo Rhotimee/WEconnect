@@ -1,4 +1,6 @@
-import db from '../models-dum/dummyBusinesses';
+import Model from '../models';
+
+const { Business } = Model;
 /**
  * Middleware
  * @class Middleware
@@ -16,7 +18,7 @@ export default class Middleware {
     const { location, category } = req.query;
     const hold = [];
     if (location) {
-      db.business.forEach((business) => {
+      Business.forEach((business) => {
         if (business.location.toLowerCase() === location.toLowerCase()) {
           hold.push(business);
         }
@@ -30,7 +32,7 @@ export default class Middleware {
       return res.status(200).json(hold);
     }
     if (category) {
-      db.business.forEach((business) => {
+      Business.forEach((business) => {
         if (business.category.toLowerCase() === category.toLowerCase()) {
           hold.push(business);
         }
