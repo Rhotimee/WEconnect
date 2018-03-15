@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
   });
   Review.associate = (models) => {
     Review.belongsTo(models.User, {
-      foriegnKey: 'userId',
+      foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
     Review.belongsTo(models.Business, {
-      foriegnKey: 'businessId',
+      foreignKey: 'businessId',
       onDelete: 'CASCADE'
     });
   };

@@ -3,6 +3,7 @@ import DumBusinessController from '../../controller/businessController';
 import Middleware from '../../middleware';
 // import DumUserController from '../../controller/userController';
 import UserController from '../../controller/user';
+import BusinessController from '../../controller/business';
 import DumReviewController from '../../controller/reviewController';
 
 const router = express.Router();
@@ -16,13 +17,13 @@ router.get('/api/v1', (req, res) => {
   res.redirect('/api-docs');
 });
 // POST register business
-router.post('/api/v1/businesses', DumBusinessController.register);
+router.post('/api/v1/businesses', BusinessController.register);
 // PUT update business
 router.put('/api/v1/businesses/:id', DumBusinessController.update);
 // DELETE delete business
 router.delete('/api/v1/businesses/:id', DumBusinessController.deleteById);
 // GET get all businesses
-router.get('/api/v1/businesses/', Middleware.sorter, DumBusinessController.list);
+router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
 // Get a Business
 router.get('/api/v1/businesses/:id', DumBusinessController.getById);
 // Get all Users

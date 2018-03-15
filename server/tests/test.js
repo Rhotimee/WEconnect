@@ -6,14 +6,15 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const Business = {
-  name: 'Moremi Gloals',
+  name: `Moremi Gloals ${Math.random() * 100}`,
   details: 'Best Ict Resources',
   location: 'lagos',
   category: 'ICT',
+  userId: 4,
 };
 
 const User = {
-  email: 'user10101@gmail.com',
+  email: `user${Math.random() * 100}@gmail.com`,
   password: 'passw0RD',
   firstName: 'Timi',
   lastName: 'Yemi'
