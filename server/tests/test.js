@@ -144,10 +144,10 @@ describe('PUT businesses/1', () => {
 });
 
 // Delete Business
-describe('DELETE businesses/3', () => {
+describe('DELETE businesses/2', () => {
   it('should be able to delete a business', (done) => {
     chai.request(server)
-      .delete('/api/v1/businesses/3')
+      .delete('/api/v1/businesses/2')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -177,10 +177,10 @@ describe('GET businesses/', () => {
       });
   });
   // Get Individual Business
-  describe('GET busineesses/3', () => {
+  describe('GET busineesses/1', () => {
     it('should be able to get a business', (done) => {
       chai.request(server)
-        .get('/api/v1/businesses/2')
+        .get('/api/v1/businesses/1')
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.a('object');
@@ -258,7 +258,7 @@ describe('POST auth/signup/', () => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'user10101@gmail.com',
+        email: 'admin@admin.com',
         password: 'password',
         lastName: 'mimi',
         firstName: 'Riri'
@@ -388,10 +388,10 @@ describe('Update users/1/', () => {
 });
 
 // Get Business Reviews
-describe('Get businesses/3/reviews', () => {
+describe('Get businesses/1/reviews', () => {
   it('should be able to get reviews of a business', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses/2/reviews')
+      .get('/api/v1/businesses/1/reviews')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -416,9 +416,10 @@ describe('POST reviews/1', () => {
     chai.request(server)
       .post('/api/v1/businesses/1/reviews')
       .send({
-        reviewer: 'Solomon',
+        businessId: 1,
+        userId: 1,
         content: 'Lorem ipsum dolor sit amet.',
-        stars: 4,
+        star: 4,
       })
       .end((err, res) => {
         expect(res)

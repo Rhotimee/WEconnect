@@ -60,13 +60,13 @@ export default class ReviewController {
       }
       Review.create({
         content, star, userId, businessId
-      }).then(review => res.status(200).json({
+      }).then(review => res.status(201).json({
         error: false,
         review,
-      })).catch((e) => {
+      })).catch(() => {
         res.status(500).json({
           error: true,
-          message: e
+          message: 'Server Error'
         });
       });
     });
