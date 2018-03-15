@@ -1,5 +1,4 @@
 dist/
 server/models/index.js
 server/migrations/
-server/controller/business.js
-server/controller/review.js
+

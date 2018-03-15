@@ -4,7 +4,8 @@ import Middleware from '../../middleware';
 // import DumUserController from '../../controller/userController';
 import UserController from '../../controller/user';
 import BusinessController from '../../controller/business';
-import DumReviewController from '../../controller/reviewController';
+import ReviewController from '../../controller/review';
+// import DumReviewController from '../../controller/reviewController';
 
 const router = express.Router();
 
@@ -39,8 +40,8 @@ router.post('/api/v1/auth/login', UserController.logIn);
 // POST Login User
 router.get('/api/v1/auth/logout', UserController.logout);
 // GET get all reviews
-router.get('/api/v1/businesses/:id/reviews', DumReviewController.listReview);
+router.get('/api/v1/businesses/:id/reviews', ReviewController.listReview);
 // POST add reviews
-router.post('/api/v1/businesses/:id/reviews', DumReviewController.addReview);
+router.post('/api/v1/businesses/:id/reviews', ReviewController.addReview);
 
 export default router;
