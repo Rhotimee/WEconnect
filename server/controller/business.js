@@ -18,8 +18,8 @@ export default class BusinessController {
     const {
       name, details, location, category
     } = req.body;
-    // const { userId } = req;
-    const userId = 1;
+
+    const { userId } = req;
 
     if (!name || !details || !location || !category) {
       return res.status(400).json({
@@ -58,6 +58,12 @@ export default class BusinessController {
             message: 'Business not found'
           });
         }
+        if (req.userId !== business.userId) {
+          return res.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this business'
+          });
+        }
         Business.update({
           name: name || business.name,
           details: details || business.details,
@@ -78,6 +84,11 @@ export default class BusinessController {
             data: updatedBusiness
           });
         });
+      }).catch(() => {
+        res.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
       });
   }
 
@@ -94,6 +105,12 @@ export default class BusinessController {
         return res.status(404).json({
           error: true,
           message: 'No business found',
+        });
+      }
+      if (req.userId !== business.userId) {
+        return res.status(400).json({
+          error: true,
+          message: 'You do not have the permission to delete this business'
         });
       }
       Business.destroy({
@@ -121,6 +138,38 @@ export default class BusinessController {
    * @returns {object} res.
    */
   static list(req, res) {
+    const { location, category } = req.query;
+
+    if (location) {
+      Business.findAll({ where: { location } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return res.status(404).json({
+            error: true,
+            message: `No business found in ${location}`
+          });
+        }
+        return res.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
+    if (category) {
+      Business.findAll({ where: { category } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return res.status(404).json({
+            error: true,
+            message: `No business found in ${category}`
+          });
+        }
+        return res.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
     Business.findAll({}).then((businesses) => {
       if (businesses.length === 0) {
         return res.status(404).json({

@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+import isEmail from 'validator/lib/isEmail';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
@@ -28,6 +30,11 @@ export default class UserController {
           error: false,
           users,
         });
+      }).catch(() => {
+        res.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
       });
   }
   /**
@@ -42,9 +49,9 @@ export default class UserController {
       email, password, firstName, lastName
     } = req.body;
 
-    if (!email || !password || !firstName || !lastName) {
+    if (!isEmail(email) || !password || !firstName || !lastName) {
       return res.status(400).json({
-        message: 'Input all necessary fields',
+        message: 'Enter Valid Input',
         error: true,
       });
     }
@@ -65,16 +72,20 @@ export default class UserController {
       lastName,
       email: email.trim().toLowerCase(),
       password: hash,
-    }).then(user => res.status(201).json({
-      error: false,
-      message: 'User created and logged in',
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      }
-    }));
+    }).then((user) => {
+      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
+      return res.status(201).json({
+        error: false,
+        message: 'User created and logged in',
+        token,
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+      });
+    });
   }
 
   /**
@@ -101,9 +112,12 @@ export default class UserController {
             message: 'Email or Password Incorrect'
           });
         }
+        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
+
         return res.status(200).json({
           error: false,
           message: 'Logged in Successfully',
+          token,
           user: {
             id: user.id,
             firstName: user.firstName,
@@ -121,14 +135,16 @@ export default class UserController {
    * @returns {object} res.
    */
   static logout(req, res) {
+    res.setHeader('x-access-token', null);
     return res.status(200).send({
       error: false,
       message: 'User has been logged out',
+      token: null
     });
   }
 
   /**
-   * Log out
+   * Get User
    * @param {object} req The request body of the request.
    * @param {object} res The response body.
    * @returns {object} res.
@@ -170,6 +186,14 @@ export default class UserController {
             message: 'User not found'
           });
         }
+
+        if (req.userId !== user.id) {
+          return res.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this user'
+          });
+        }
+
         User.update({
           firstName: req.body.firstName || user.firstName,
           lastName: req.body.lastName || user.lastName,
