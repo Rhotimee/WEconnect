@@ -1,3 +1,4 @@
+import isEmail from 'validator/lib/isEmail';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
@@ -42,9 +43,9 @@ export default class UserController {
       email, password, firstName, lastName
     } = req.body;
 
-    if (!email || !password || !firstName || !lastName) {
+    if (!isEmail(email) || !password || !firstName || !lastName) {
       return res.status(400).json({
-        message: 'Input all necessary fields',
+        message: 'Enter Valid Input',
         error: true,
       });
     }

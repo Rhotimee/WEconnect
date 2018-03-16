@@ -37,6 +37,7 @@
     "sequelize": "^4.36.1",
     "sequelize-cli": "^4.0.0",
     "swagger-ui-express": "^2.0.15",
+    "validator": "^9.4.1",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
