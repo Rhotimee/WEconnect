@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import Model from '../models';
 
 const { Business } = Model;

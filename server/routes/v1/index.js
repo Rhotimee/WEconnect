@@ -32,7 +32,7 @@ router.get('/api/v1/users', UserController.list);
 // Get one User
 router.get('/api/v1/users/:id', UserController.getUser);
 // Get one User
-router.put('/api/v1/users/:id', UserController.updateUser);
+router.put('/api/v1/users/:id', isLoggedIn, UserController.updateUser);
 // POST register User
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User
@@ -42,6 +42,6 @@ router.get('/api/v1/auth/logout', UserController.logout);
 // GET get all reviews
 router.get('/api/v1/businesses/:id/reviews', ReviewController.listReview);
 // POST add reviews
-router.post('/api/v1/businesses/:id/reviews', ReviewController.addReview);
+router.post('/api/v1/businesses/:id/reviews', isLoggedIn, ReviewController.addReview);
 
 export default router;

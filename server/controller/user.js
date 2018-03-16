@@ -178,6 +178,14 @@ export default class UserController {
             message: 'User not found'
           });
         }
+
+        if (req.userId !== user.id) {
+          return res.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this user'
+          });
+        }
+
         User.update({
           firstName: req.body.firstName || user.firstName,
           lastName: req.body.lastName || user.lastName,
