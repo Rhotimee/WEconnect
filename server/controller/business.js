@@ -103,6 +103,12 @@ export default class BusinessController {
           message: 'No business found',
         });
       }
+      if (req.userId !== business.userId) {
+        return res.status(400).json({
+          error: true,
+          message: 'You do not have the permission to delete this business'
+        });
+      }
       Business.destroy({
         where: { id: req.params.id }
       }).then((deleteStatus) => {
