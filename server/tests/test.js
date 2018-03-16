@@ -12,8 +12,6 @@ const Business = {
   details: 'Best Ict Resources',
   location: 'lagos',
   category: 'ICT',
-  userId: 1,
-  token,
 };
 
 const User = {
@@ -50,6 +48,7 @@ describe('POST businesses/', () => {
   it('should be able to register a business', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
+      .set('x-access-token', token)
       .send(Business)
       .end((err, res) => {
         expect(res)
@@ -117,12 +116,12 @@ describe('PUT businesses/1', () => {
   it('should be able to update a business', (done) => {
     chai.request(server)
       .put('/api/v1/businesses/1')
+      .set('x-access-token', token)
       .send({
         name: 'Rotimi Texh',
         details: 'Software company',
         location: 'lagos',
         category: 'ICT',
-        token,
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -133,12 +132,12 @@ describe('PUT businesses/1', () => {
   it('should return 404, if business cannot be found', (done) => {
     chai.request(server)
       .put('/api/v1/businesses/193992932')
+      .set('x-access-token', token)
       .send({
         name: 'Rotimi Texh',
         details: 'Software company',
         location: 'lagos',
         category: 'ICT',
-        token
       })
       .end((err, res) => {
         expect(res).to.have.status(404);
@@ -201,12 +200,12 @@ describe('POST reviews/1', () => {
   it('should be able to add reviews to a business', (done) => {
     chai.request(server)
       .post('/api/v1/businesses/1/reviews')
+      .set('x-access-token', token)
       .send({
         businessId: 1,
         userId: 1,
         content: 'Lorem ipsum dolor sit amet.',
         star: 4,
-        token
       })
       .end((err, res) => {
         expect(res)
@@ -233,7 +232,7 @@ describe('DELETE businesses/2', () => {
   it('should be able to delete a business', (done) => {
     chai.request(server)
       .delete('/api/v1/businesses/1')
-      .send({ token })
+      .set('x-access-token', token)
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -243,7 +242,7 @@ describe('DELETE businesses/2', () => {
   it('should return 404 if page cannot be found', (done) => {
     chai.request(server)
       .delete('/api/v1/businesses/6382392')
-      .send({ token })
+      .set('x-access-token', token)
       .end((err, res) => {
         expect(res)
           .to.have.status(404);
@@ -442,8 +441,8 @@ describe('Update users/1/', () => {
       .send({
         firstName: 'Marsa',
         lastName: 'Hanna',
-        token
       })
+      .set('x-access-token', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
         done();
