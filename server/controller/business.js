@@ -138,6 +138,38 @@ export default class BusinessController {
    * @returns {object} res.
    */
   static list(req, res) {
+    const { location, category } = req.query;
+
+    if (location) {
+      Business.findAll({ where: { location } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return res.status(404).json({
+            error: true,
+            message: `No business found in ${location}`
+          });
+        }
+        return res.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
+    if (category) {
+      Business.findAll({ where: { category } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return res.status(404).json({
+            error: true,
+            message: `No business found in ${category}`
+          });
+        }
+        return res.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
     Business.findAll({}).then((businesses) => {
       if (businesses.length === 0) {
         return res.status(404).json({
