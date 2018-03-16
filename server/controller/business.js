@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import Model from '../models';
 
 const { Business } = Model;
@@ -18,8 +19,8 @@ export default class BusinessController {
     const {
       name, details, location, category
     } = req.body;
-    // const { userId } = req;
-    const userId = 1;
+
+    const { userId } = req;
 
     if (!name || !details || !location || !category) {
       return res.status(400).json({
@@ -56,6 +57,12 @@ export default class BusinessController {
           return res.status(404).json({
             error: true,
             message: 'Business not found'
+          });
+        }
+        if (req.userId !== business.userId) {
+          return res.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this business'
           });
         }
         Business.update({

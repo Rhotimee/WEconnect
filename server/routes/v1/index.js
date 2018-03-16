@@ -1,6 +1,6 @@
 import express from 'express';
 // import DumBusinessController from '../../controller/businessController';
-import Middleware from '../../middleware';
+import isLoggedIn from '../../middleware/isLoggedIn';
 // import DumUserController from '../../controller/userController';
 import UserController from '../../controller/user';
 import BusinessController from '../../controller/business';
@@ -18,13 +18,13 @@ router.get('/api/v1', (req, res) => {
   res.redirect('/api-docs');
 });
 // POST register business
-router.post('/api/v1/businesses', BusinessController.register);
+router.post('/api/v1/businesses', isLoggedIn, BusinessController.register);
 // PUT update business
-router.put('/api/v1/businesses/:id', BusinessController.update);
+router.put('/api/v1/businesses/:id', isLoggedIn, BusinessController.update);
 // DELETE delete business
-router.delete('/api/v1/businesses/:id', BusinessController.deleteById);
+router.delete('/api/v1/businesses/:id', isLoggedIn, BusinessController.deleteById);
 // GET get all businesses
-router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
+router.get('/api/v1/businesses/', BusinessController.list);
 // Get a Business
 router.get('/api/v1/businesses/:id', BusinessController.getById);
 // Get all Users

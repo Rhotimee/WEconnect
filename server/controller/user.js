@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import isEmail from 'validator/lib/isEmail';
 import bcrypt from 'bcrypt';
 import Model from '../models';
@@ -66,16 +67,20 @@ export default class UserController {
       lastName,
       email: email.trim().toLowerCase(),
       password: hash,
-    }).then(user => res.status(201).json({
-      error: false,
-      message: 'User created and logged in',
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      }
-    }));
+    }).then((user) => {
+      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
+      return res.status(201).json({
+        error: false,
+        message: 'User created and logged in',
+        token,
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+      });
+    });
   }
 
   /**
@@ -89,6 +94,7 @@ export default class UserController {
     const { email, password } = req.body;
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((user) => {
+        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
         if (!user) {
           return res.status(400).json({
             error: true,
@@ -105,6 +111,7 @@ export default class UserController {
         return res.status(200).json({
           error: false,
           message: 'Logged in Successfully',
+          token,
           user: {
             id: user.id,
             firstName: user.firstName,
@@ -129,7 +136,7 @@ export default class UserController {
   }
 
   /**
-   * Log out
+   * Get User
    * @param {object} req The request body of the request.
    * @param {object} res The response body.
    * @returns {object} res.
