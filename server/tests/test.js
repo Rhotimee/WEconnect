@@ -5,16 +5,19 @@ import server from '../server';
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.OeN-Tut9xAg8wYUvC-RPLbTqIcGXH5zZamP_o5wTZrc';
+
 const Business = {
   name: `Moremi Gloals ${Math.random() * 100}`,
   details: 'Best Ict Resources',
   location: 'lagos',
   category: 'ICT',
-  userId: 4,
+  userId: 1,
+  token,
 };
 
 const User = {
-  email: `user${Math.random() * 100}@gmail.com`,
+  email: 'user-test@gmail.com',
   password: 'passw0RD',
   firstName: 'Timi',
   lastName: 'Yemi'
@@ -119,6 +122,7 @@ describe('PUT businesses/1', () => {
         details: 'Software company',
         location: 'lagos',
         category: 'ICT',
+        token,
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -134,32 +138,11 @@ describe('PUT businesses/1', () => {
         details: 'Software company',
         location: 'lagos',
         category: 'ICT',
+        token
       })
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body).to.be.a('object');
-        done();
-      });
-  });
-});
-
-// Delete Business
-describe('DELETE businesses/2', () => {
-  it('should be able to delete a business', (done) => {
-    chai.request(server)
-      .delete('/api/v1/businesses/2')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(200);
-        done();
-      });
-  });
-  it('should return 404 if page cannot be found', (done) => {
-    chai.request(server)
-      .delete('/api/v1/businesses/6382392')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(404);
         done();
       });
   });
@@ -189,6 +172,86 @@ describe('GET businesses/', () => {
     });
   });
 });
+
+// Get Business Reviews
+describe('Get businesses/1/reviews', () => {
+  it('should be able to get reviews of a business', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/1/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/3627827/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
+// Add A Review
+describe('POST reviews/1', () => {
+  it('should be able to add reviews to a business', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses/1/reviews')
+      .send({
+        businessId: 1,
+        userId: 1,
+        content: 'Lorem ipsum dolor sit amet.',
+        star: 4,
+        token
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(201);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/3627827/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
+
+// Delete Business
+describe('DELETE businesses/2', () => {
+  it('should be able to delete a business', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/1')
+      .send({ token })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404 if page cannot be found', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/6382392')
+      .send({ token })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
 
 //  Get all Users
 describe('GET users/', () => {
@@ -278,7 +341,7 @@ describe('(Bad Requests) POST auth/login/', () => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        email: 'rotimi',
+        email: 'rotimi@gm.com',
         password: '',
       })
       .end((err, res) => {
@@ -378,7 +441,8 @@ describe('Update users/1/', () => {
       .put('/api/v1/users/1')
       .send({
         firstName: 'Marsa',
-        lastName: 'Hanna'
+        lastName: 'Hanna',
+        token
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -387,55 +451,3 @@ describe('Update users/1/', () => {
   });
 });
 
-// Get Business Reviews
-describe('Get businesses/1/reviews', () => {
-  it('should be able to get reviews of a business', (done) => {
-    chai.request(server)
-      .get('/api/v1/businesses/1/reviews')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(200);
-        done();
-      });
-  });
-
-  it('should return 404', (done) => {
-    chai.request(server)
-      .get('/api/v1/businesses/3627827/reviews')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(404);
-        done();
-      });
-  });
-});
-
-// Add A Review
-describe('POST reviews/1', () => {
-  it('should be able to add reviews to a business', (done) => {
-    chai.request(server)
-      .post('/api/v1/businesses/1/reviews')
-      .send({
-        businessId: 1,
-        userId: 1,
-        content: 'Lorem ipsum dolor sit amet.',
-        star: 4,
-      })
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(201);
-        expect(res.body).to.be.a('object');
-        done();
-      });
-  });
-
-  it('should return 404', (done) => {
-    chai.request(server)
-      .get('/api/v1/businesses/3627827/reviews')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(404);
-        done();
-      });
-  });
-});

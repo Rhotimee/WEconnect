@@ -99,7 +99,6 @@ export default class UserController {
     const { email, password } = req.body;
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((user) => {
-        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
         if (!user) {
           return res.status(400).json({
             error: true,
@@ -113,6 +112,8 @@ export default class UserController {
             message: 'Email or Password Incorrect'
           });
         }
+        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
+
         return res.status(200).json({
           error: false,
           message: 'Logged in Successfully',
