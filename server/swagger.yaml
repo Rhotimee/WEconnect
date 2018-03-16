@@ -38,15 +38,14 @@ paths:
                 details: Hire the best software engineers
                 category: Ict
                 location: Lagos
-                reviews:
-                - user: rotimi
-                  content: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit, ullam
-                  stars: 3
+                userId: 1
+
               - id: 1
                 name: Timi Engineering
                 details: Build your house
                 category: Engineering
                 location: Lagos
+                userId: 1
 
     post:
       summary: Register a business
@@ -75,6 +74,11 @@ paths:
         name: category
         type: string
         description: Category of business
+      - in: formData
+        name: token
+        type: string
+        description: Token for accessing the endpoint
+        required: true
       responses:
         201:
           description: Created Business Successfully
@@ -88,6 +92,7 @@ paths:
                 details: Hire the best software engineers
                 category: Ict
                 location: Lagos
+                token: eyJhbGciOiJIUzI1NiIdssdjR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.OeN-Tut9xAg8wYUvC-RPLbTqIcGXH5zZamP_o5wTZrc
         400:
           description: Invalid input
           examples:
@@ -191,14 +196,22 @@ paths:
           name: details
           type: string
           description: Details of business
+          required: true
         - in: formData
           name: location
           type: string
           description: Location of business
+          required: true
         - in: formData
           name: category
           type: string
           description: Category of business
+          required: true
+        - in: formData
+          name: token
+          type: string
+          description: Token for accessing endpoint
+          required: true
       responses:
         200:
           description: Expected response to be valid request
@@ -212,7 +225,7 @@ paths:
                 details: 'Delicious Foods'
                 location: 'Lagos'
                 category: 'Resturant'
-                reviews: []
+                token: eyJhbGciOiJIUzI1NiIdssdjR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.OeN-Tut9xAg8wYUvC-RPLbTqIcGXH5zZamP_o5wTZrc
         404:
           description: business not found
           examples:
@@ -231,6 +244,11 @@ paths:
           required: true
           description: The id of the business to delete
           type: integer
+        - in: formData
+          name: token
+          type: string
+          description: Token for accessing endpoint
+          required: true
       responses:
         200:
           description: Business deleted
@@ -273,7 +291,8 @@ paths:
             application/json:
               error: false
               review:
-                user: Timi
+                userId: 1
+                businessId: 3
                 content: Great resturant
                 stars: 4
         400:
@@ -295,11 +314,6 @@ paths:
         type: integer
         minimum: 1
         required: true
-      - name: reviewer
-        in: formData
-        description: Name of reviewer
-        type: string
-        required: true
       - name: content
         in: formData
         description: Content of the review
@@ -312,6 +326,11 @@ paths:
         minimum: 1
         maximum: 5
         required: true
+      - in: formData
+        name: token
+        type: string
+        description: Token for accessing endpoint
+        required: true
 
       responses:
         200:
@@ -320,9 +339,9 @@ paths:
             application/json:
               error: false
               review:
-                user: Solomon
                 content: Amazing service
                 stars: 5
+                token: eyJhbGciOiJIUzI1NiIdssdjR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.OeN-Tut9xAg8wYUvC-RPLbTqIcGXH5zZamP_o5wTZrc
         400:
           description: Business could not be found
           examples:
@@ -379,6 +398,16 @@ paths:
       - name: password
         in: formData
         description: password of the user
+        type: string
+        required: true
+      - name: firstName
+        in: formData
+        description: User First Name
+        type: string
+        required: true
+      - name: lastName
+        in: formData
+        description: User Last name
         type: string
         required: true
 
