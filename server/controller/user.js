@@ -30,6 +30,11 @@ export default class UserController {
           error: false,
           users,
         });
+      }).catch(() => {
+        res.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
       });
   }
   /**
@@ -129,9 +134,11 @@ export default class UserController {
    * @returns {object} res.
    */
   static logout(req, res) {
+    res.setHeader('x-access-token', null);
     return res.status(200).send({
       error: false,
       message: 'User has been logged out',
+      token: null
     });
   }
 
