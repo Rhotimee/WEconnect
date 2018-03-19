@@ -1,5 +1,5 @@
 # weconnect
-[![Build Status](https://travis-ci.org/Rhotimee/weconnect.svg?branch=develop)](https://travis-ci.org/Rhotimee/weconnect) [![Coverage Status](https://coveralls.io/repos/github/Rhotimee/weconnect/badge.svg)](https://coveralls.io/github/Rhotimee/weconnect) [![Maintainability](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/maintainability)](https://codeclimate.com/github/Rhotimee/weconnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/test_coverage)](https://codeclimate.com/github/Rhotimee/weconnect/test_coverage)
+[![Build Status](https://travis-ci.org/Rhotimee/weconnect.svg?branch=develop)](https://travis-ci.org/Rhotimee/weconnect) [![Coverage Status](https://coveralls.io/repos/github/Rhotimee/weconnect/badge.svg)](https://coveralls.io/github/Rhotimee/weconnect) [![Maintainability](https://api.codeclimate.com/v1/badges/876431ea563b9f8a8972/maintainability)](https://codeclimate.com/github/Rhotimee/weconnect/maintainability)
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
@@ -19,7 +19,7 @@ Live API: https://weconnect-business.herokuapp.com/
 - Filter businesses by location
 - Filter businesses by category
 
-### Installation
+### How To Contribute
 - Create a parent folder on your system
 - Clone repo. `$ git clone https://github.com/Rhotimee/weconnect`
 - Instll all dependencies
@@ -30,3 +30,23 @@ Live API: https://weconnect-business.herokuapp.com/
 `$ npm start`
 - Run Tests
 `$ npm test`
+
+#### Major Dependencies
+
+Template
+- Bootstrap : Open-source front-end library for designing websites and web applications
+
+Server Side
+- Express JS: Web application framework for Node.js.
+- Babel: The compiler for writing next generation JavaScript.
+- Mocha & Chai: Testing the Web Application
+- Bcrypt: Hashing the Password
+- Jsonwebtoken: Authentication
+
+- Nodemon: Utility that will monitor for any changes in your source and automatically restart your server.
+
+#### Author
+[Yemitan Isaiah Olurotimi](https://twitter.com/rhotimee)
+
+#### License
+This project is licensed under the MIT license. See the [LICENSE](https://github.com/Rhotimee/weconnect/blob/develop/LICENSE) file for more info.
