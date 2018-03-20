@@ -1,4 +1,6 @@
-import db from '../models-dum/dummyBusinesses';
+import Model from '../models';
+
+const { Business } = Model;
 
 /**
  * Business Controller.
@@ -8,126 +10,195 @@ export default class BusinessController {
   /**
    * Register a new business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static register(req, res) {
+  static register(request, response) {
     const {
       name, details, location, category
-    } = req.body;
+    } = request.body;
 
-    if (!req.body.name) {
-      return res.status(400).json({
-        message: 'Business Name Missing',
-        error: true
+    const { userId } = request;
+
+    if (!name || !details || !location || !category) {
+      return response.status(403).json({
+        error: true,
+        message: 'Some fields missing'
       });
     }
 
-    const id = db.business.length + 1;
-    const newBusiness = {
-      id, name, details, category, location
-    };
-    db.business.push(newBusiness);
-    return res.status(201).json({
-      message: 'New Business Added',
-      error: false,
-      business: newBusiness,
+    // Check if business name already exists
+    Business.find({ where: { name } }).then((business) => {
+      if (business.name === name) {
+        return response.status(403).json({
+          error: true,
+          message: 'Business name already exists',
+        });
+      }
     });
+
+    // Create the business
+    Business.create({
+      name, details, location, category, userId,
+    }).then(business => response.status(201).json({
+      error: false,
+      business,
+    })).catch(() => response.status(500).json({
+      error: true,
+      message: 'Server Error'
+    }));
   }
 
   /**
    * Update a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static update(req, res) {
-    const { id } = req.params;
-    let editBusiness;
-    db.business.forEach((bus) => {
-      if (bus.id === parseInt(id, 10)) {
-        bus.name = req.body.name || bus.name;
-        bus.details = req.body.details || bus.details;
-        bus.location = req.body.location || bus.location;
-        bus.category = req.body.category || bus.category;
+  static update(request, response) {
+    const {
+      name, details, location, category
+    } = request.body;
+    Business.findById(request.params.id)
+      .then((business) => {
+        if (!business) {
+          return response.status(404).json({
+            error: true,
+            message: 'Business not found'
+          });
+        }
 
-        editBusiness = bus;
-      }
-    });
-    if (editBusiness) {
-      return res.status(200).json({
-        message: 'Business Updated',
-        error: false,
-        business: editBusiness,
+        if (request.userId !== business.userId) {
+          return response.status(401).json({
+            error: true,
+            message: 'You do not have the permission to update this business'
+          });
+        }
+
+        // Check if business name already exists
+        Business.find({ where: { name } }).then((findBusiness) => {
+          if (findBusiness.name === name) {
+            return response.status(403).json({
+              error: true,
+              message: 'Business name already exists',
+            });
+          }
+        });
+
+        // Update the business
+        Business.update({
+          name: name || business.name,
+          details: details || business.details,
+          location: location || business.location,
+          category: category || business.category
+        }, {
+          where: { id: request.params.id, },
+        }).then((updateBusiness) => {
+          if (!updateBusiness) {
+            return response.status(500).json({
+              error: true,
+              message: 'Server error'
+            });
+          }
+          return response.status(200).json({
+            error: false,
+            message: 'Business updated',
+          });
+        });
+      }).catch(() => {
+        response.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
       });
-    }
-    return res.status(404).json({
-      message: 'Business Not Found',
-      error: true
-    });
   }
+
   /**
    * Delete a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static deleteById(req, res) {
-    const { id } = req.params;
-
-    db.business.forEach((bus, i) => {
-      if (bus.id === parseInt(id, 10)) {
-        db.business.splice(i, 1);
-        return res.status(200).json({
-          message: 'Business Deleted',
-          error: false,
+  static deleteById(request, response) {
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found',
         });
       }
-    });
-    return res.status(404).json({
-      message: 'Business Not Found',
-      error: true
+      if (request.userId !== business.userId) {
+        return response.status(401).json({
+          error: true,
+          message: 'You do not have the permission to delete this business'
+        });
+      }
+      Business.destroy({
+        where: { id: request.params.id }
+      }).then((deleteStatus) => {
+        if (!deleteStatus) {
+          response.status(500).json({
+            error: true,
+            message: 'Unable to delete Business'
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          message: 'Business Deleted',
+        });
+      });
     });
   }
 
   /**
    * List all businesses
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
-    return res.status(200).json({
-      businesses: db.business,
-      error: false,
-    });
+  static list(request, response) {
+    Business.findAll({}).then((businesses) => {
+      if (businesses.length === 0) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found'
+        });
+      }
+      return response.status(200).json({
+        error: false,
+        businesses,
+      });
+    }).catch(e => response.status(500).json({
+      error: true,
+      message: e
+    }));
   }
   /**
    * Get a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static getById(req, res) {
-    const { id } = req.params;
-
-    db.business.forEach((bus) => {
-      if (parseInt(id, 10) === bus.id) {
-        return res.status(200).json({
-          message: 'Success',
-          error: false,
-          business: bus,
+  static getById(request, response) {
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found',
         });
       }
-    });
-    return res.status(404).json({
-      message: 'Business Not Found',
-      error: true
-    });
+      return response.status(200).json({
+        error: false,
+        business,
+      });
+    }).catch(() => response.status(500).json({
+      error: true,
+      message: 'Server error'
+    }));
   }
 }

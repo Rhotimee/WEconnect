@@ -1,11 +1,14 @@
 import express from 'express';
-// import DumBusinessController from '../../controller/businessController';
-import isLoggedIn from '../../middleware/isLoggedIn';
-// import DumUserController from '../../controller/userController';
-import UserController from '../../controller/user';
-import BusinessController from '../../controller/business';
-import ReviewController from '../../controller/review';
-// import DumReviewController from '../../controller/reviewController';
+
+// Controller
+import { UserController, BusinessController, ReviewController } from '../../controller';
+// import UserController from '../../controller/UserController';
+// import BusinessController from '../../controller/BusinessController';
+// import ReviewController from '../../controller/ReviewController';
+
+// Middleware
+import Middleware from '../../middlewares';
+
 
 const router = express.Router();
 
@@ -18,13 +21,13 @@ router.get('/api/v1', (req, res) => {
   res.redirect('/api-docs');
 });
 // POST register business
-router.post('/api/v1/businesses', isLoggedIn, BusinessController.register);
+router.post('/api/v1/businesses', Middleware.isLoggedIn, BusinessController.register);
 // PUT update business
-router.put('/api/v1/businesses/:id', isLoggedIn, BusinessController.update);
+router.put('/api/v1/businesses/:id', Middleware.isLoggedIn, BusinessController.update);
 // DELETE delete business
-router.delete('/api/v1/businesses/:id', isLoggedIn, BusinessController.deleteById);
+router.delete('/api/v1/businesses/:id', Middleware.isLoggedIn, BusinessController.deleteById);
 // GET get all businesses
-router.get('/api/v1/businesses/', BusinessController.list);
+router.get('/api/v1/businesses/', Middleware.sorter, BusinessController.list);
 // Get a Business
 router.get('/api/v1/businesses/:id', BusinessController.getById);
 // Get all Users
@@ -32,7 +35,7 @@ router.get('/api/v1/users', UserController.list);
 // Get one User
 router.get('/api/v1/users/:id', UserController.getUser);
 // Get one User
-router.put('/api/v1/users/:id', isLoggedIn, UserController.updateUser);
+router.put('/api/v1/users/:id', Middleware.isLoggedIn, UserController.updateUser);
 // POST register User
 router.post('/api/v1/auth/signup', UserController.signUp);
 // POST Login User
@@ -42,6 +45,6 @@ router.get('/api/v1/auth/logout', UserController.logout);
 // GET get all reviews
 router.get('/api/v1/businesses/:id/reviews', ReviewController.listReview);
 // POST add reviews
-router.post('/api/v1/businesses/:id/reviews', isLoggedIn, ReviewController.addReview);
+router.post('/api/v1/businesses/:id/reviews', Middleware.isLoggedIn, ReviewController.addReview);
 
 export default router;

@@ -1,4 +1,9 @@
-import db from '../models-dum/dummyUsers';
+import jwt from 'jsonwebtoken';
+import isEmail from 'validator/lib/isEmail';
+import bcrypt from 'bcrypt';
+import Model from '../models';
+
+const { User } = Model;
 
 /**
  * Business Controller.
@@ -8,69 +13,205 @@ export default class UserController {
   /**
    * List all users
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
-    return res.status(200).json({
-      businesses: db.users,
-      error: false,
-    });
+  static list(request, response) {
+    User.findAll({})
+      .then((users) => {
+        if (users.length === 0) {
+          return response.status(400).send({
+            error: true,
+            message: 'No user found'
+          });
+        }
+        response.status(200).send({
+          error: false,
+          users,
+        });
+      }).catch(() => {
+        response.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
+      });
   }
   /**
    * Signup
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static signUp(req, res) {
-    const { email, password } = req.body;
+  static signUp(request, response) {
+    const {
+      email, password, firstName, lastName
+    } = request.body;
 
-    if (!email || !password) {
-      return res.status(400).json({
-        message: 'Input Both Username and Password',
+    if (!isEmail(email) || !password || !firstName || !lastName) {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
         error: true,
       });
     }
 
-    db.users.forEach((user) => {
-      if (user.email === email) {
-        return res.status(400).json({
-          message: 'A user with that email already exists',
-          error: true,
-        });
-      }
-    });
+    User.findOne({ where: { email: email.trim().toLowerCase() } })
+      .then((userExists) => {
+        if (userExists) {
+          return response.status(400).json({
+            error: true,
+            message: 'Account exists for that email'
+          });
+        }
+      });
 
-    db.users.push(req.body);
-    return res.status(201).json({
-      message: 'User Created Successfully',
-      error: false,
+    const hash = bcrypt.hashSync(password, 10);
+    User.create({
+      firstName,
+      lastName,
+      email: email.trim().toLowerCase(),
+      password: hash,
+    }).then((user) => {
+      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
+      return response.status(201).json({
+        error: false,
+        message: 'User created and logged in',
+        token,
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+      });
     });
   }
 
   /**
    * Login
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static logIn(req, res) {
-    const { email, password } = req.body;
-    db.users.forEach((user) => {
-      if (email === user.email && password === user.password) {
-        return res.status(200).json({
-          message: 'Logged in successfully',
+  static logIn(request, response) {
+    const { email, password } = request.body;
+    User.findOne({ where: { email: email.trim().toLowerCase() } })
+      .then((user) => {
+        if (!user) {
+          return response.status(400).json({
+            error: true,
+            message: 'Email or Password Incorrect'
+          });
+        }
+        const correctPassword = bcrypt.compareSync(password, user.password);
+        if (!correctPassword) {
+          return response.status(400).json({
+            error: true,
+            message: 'Email or Password Incorrect'
+          });
+        }
+        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
+
+        return response.status(200).json({
           error: false,
+          message: 'Logged in Successfully',
+          token,
+          user: {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          }
+        });
+      });
+  }
+
+  /**
+   * Log out
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
+   */
+  static logout(request, response) {
+    response.setHeader('x-access-token', null);
+    return response.status(200).send({
+      error: false,
+      message: 'User has been logged out',
+      token: null
+    });
+  }
+
+  /**
+   * Get User
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
+   */
+  static getUser(request, response) {
+    User.findOne({
+      where: { id: request.params.id },
+    }).then((user) => {
+      if (!user) {
+        return response.status(404).json({
+          error: true,
+          message: 'User not found',
         });
       }
+      return response.status(200).json({
+        error: false,
+        message: 'User found',
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        }
+      });
     });
-    return res.status(400).json({
-      message: 'Unable to Log in',
-      error: true,
-    });
+  }
+  /**
+   * Update user details
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
+   */
+  static updateUser(request, response) {
+    User.findById(request.params.id)
+      .then((user) => {
+        if (!user) {
+          return response.status(404).json({
+            error: true,
+            message: 'User not found'
+          });
+        }
+
+        if (request.userId !== user.id) {
+          return response.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this user'
+          });
+        }
+
+        User.update({
+          firstName: request.body.firstName || user.firstName,
+          lastName: request.body.lastName || user.lastName,
+        }, {
+          where: { id: request.params.id, },
+        }).then((updatedUser) => {
+          if (!updatedUser) {
+            return response.status(500).json({
+              error: true,
+              message: 'Server error'
+            });
+          }
+          return response.status(200).json({
+            error: false,
+            message: 'User updated',
+            data: updatedUser
+          });
+        });
+      });
   }
 }

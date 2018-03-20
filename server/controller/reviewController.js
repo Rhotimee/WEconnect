@@ -1,5 +1,7 @@
-import db from '../models-dum/dummyBusinesses';
+import Model from '../models';
 
+const { Business } = Model;
+const { Review } = Model;
 /**
  * Business Controller.
  * @class ReviewController
@@ -8,57 +10,65 @@ export default class ReviewController {
   /**
    * Get all Reviews
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static listReview(req, res) {
-    const { id } = req.params;
-
-    db.business.forEach((business) => {
-      if (parseInt(id, 10) === business.id) {
-        res.json({
-          reviews: business.reviews,
-          error: false,
+  static listReview(request, response) {
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'Business not found'
         });
       }
-    });
-    return res.status(404).json({
-      message: 'Business reviews not found',
-      error: true,
+      Review.findAll().then((reviews) => {
+        if (reviews.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: 'No review found'
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          reviews,
+        });
+      }).catch(() => response.status(500).json({
+        error: true,
+        message: 'Server Error'
+      }));
     });
   }
 
   /**
    * Add a new Review
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static addReview(req, res) {
-    const { id } = req.params;
-    const { reviewer, content, stars } = req.body;
-
-
-    db.business.forEach((business) => {
-      if (parseInt(id, 10) === business.id) {
-        const reviewId = business.reviews.length + 1;
-        const newReview = {
-          reviewId, reviewer, content, stars
-        };
-
-        business.reviews.push(newReview);
-        return res.status(201).json({
-          newReview,
-          error: false,
+  static addReview(request, response) {
+    const { content, star } = request.body;
+    const { userId } = request;
+    const businessId = request.params.id;
+    Business.findById(businessId).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'Business not found'
         });
       }
-    });
-
-    return res.status(404).json({
-      message: 'Business Not Found',
-      error: true
+      Review.create({
+        content, star, userId, businessId
+      }).then(review => response.status(201).json({
+        error: false,
+        review,
+      })).catch(() => {
+        response.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
+      });
     });
   }
 }
