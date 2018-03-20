@@ -22,20 +22,31 @@ export default class BusinessController {
     const { userId } = request;
 
     if (!name || !details || !location || !category) {
-      return response.status(400).json({
+      return response.status(403).json({
         error: true,
-        message: 'some fields missing,'
+        message: 'Some fields missing'
       });
     }
 
+    // Check if business name already exists
+    Business.find({ where: { name } }).then((business) => {
+      if (business.name === name) {
+        return response.status(403).json({
+          error: true,
+          message: 'Business name already exists',
+        });
+      }
+    });
+
+    // Create the business
     Business.create({
       name, details, location, category, userId,
     }).then(business => response.status(201).json({
       error: false,
       business,
-    })).catch(e => response.status(500).json({
+    })).catch(() => response.status(500).json({
       error: true,
-      message: e,
+      message: 'Server Error'
     }));
   }
 
@@ -58,12 +69,25 @@ export default class BusinessController {
             message: 'Business not found'
           });
         }
+
         if (request.userId !== business.userId) {
-          return response.status(400).json({
+          return response.status(401).json({
             error: true,
             message: 'You do not have the permission to update this business'
           });
         }
+
+        // Check if business name already exists
+        Business.find({ where: { name } }).then((findBusiness) => {
+          if (findBusiness.name === name) {
+            return response.status(403).json({
+              error: true,
+              message: 'Business name already exists',
+            });
+          }
+        });
+
+        // Update the business
         Business.update({
           name: name || business.name,
           details: details || business.details,
@@ -71,8 +95,8 @@ export default class BusinessController {
           category: category || business.category
         }, {
           where: { id: request.params.id, },
-        }).then((updatedBusiness) => {
-          if (!updatedBusiness) {
+        }).then((updateBusiness) => {
+          if (!updateBusiness) {
             return response.status(500).json({
               error: true,
               message: 'Server error'
@@ -81,7 +105,6 @@ export default class BusinessController {
           return response.status(200).json({
             error: false,
             message: 'Business updated',
-            data: updatedBusiness
           });
         });
       }).catch(() => {
@@ -108,7 +131,7 @@ export default class BusinessController {
         });
       }
       if (request.userId !== business.userId) {
-        return response.status(400).json({
+        return response.status(401).json({
           error: true,
           message: 'You do not have the permission to delete this business'
         });
@@ -138,38 +161,6 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static list(request, response) {
-    const { location, category } = request.query;
-
-    if (location) {
-      Business.findAll({ where: { location } }).then((businesses) => {
-        if (businesses.length === 0) {
-          return response.status(404).json({
-            error: true,
-            message: `No business found in ${location}`
-          });
-        }
-        return response.status(200).json({
-          error: false,
-          businesses,
-        });
-      });
-    }
-
-    if (category) {
-      Business.findAll({ where: { category } }).then((businesses) => {
-        if (businesses.length === 0) {
-          return response.status(404).json({
-            error: true,
-            message: `No business found in ${category}`
-          });
-        }
-        return response.status(200).json({
-          error: false,
-          businesses,
-        });
-      });
-    }
-
     Business.findAll({}).then((businesses) => {
       if (businesses.length === 0) {
         return response.status(404).json({

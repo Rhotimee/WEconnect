@@ -1,4 +1,7 @@
-import Business from '../models-dum/dummyBusinesses';
+import jwt from 'jsonwebtoken';
+import Model from '../models';
+
+const { Business } = Model;
 
 /**
  * Middleware
@@ -15,35 +18,59 @@ export default class Middleware {
    */
   static sorter(request, response, next) {
     const { location, category } = request.query;
-    const hold = [];
+
     if (location) {
-      Business.forEach((business) => {
-        if (business.location.toLowerCase() === location.toLowerCase()) {
-          hold.push(business);
+      Business.findAll({ where: { location } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: `No business found in ${location}`
+          });
         }
-      });
-      if (hold.length === 0) {
-        return response.status(404).json({
-          message: 'There is no business in that location yet',
-          error: true
+        return response.status(200).json({
+          error: false,
+          businesses,
         });
-      }
-      return response.status(200).json(hold);
+      });
     }
+
     if (category) {
-      Business.forEach((business) => {
-        if (business.category.toLowerCase() === category.toLowerCase()) {
-          hold.push(business);
+      Business.findAll({ where: { category } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: `No business found in ${category}`
+          });
         }
+        return response.status(200).json({
+          error: false,
+          businesses,
+        });
       });
-      if (hold.length === 0) {
-        return response.status(404).json({
-          message: 'There is no business that category yet',
-          error: true
+    }
+
+
+    next();
+  }
+
+  /**
+   * Checks if a user is logged in
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @param {object} next Passes control to next middleware
+   * @returns {object} next
+   */
+  static isLoggedIn(request, response, next) {
+    const token = request.body.token || request.query.token || request.headers['x-access-token'];
+    jwt.verify(token, process.env.SALT, (err, decoded) => {
+      if (err) {
+        return response.status(401).json({
+          error: true,
+          message: 'User not logged in'
         });
       }
-      return response.status(200).json(hold);
-    }
-    next();
+      request.userId = decoded.id;
+      return next();
+    });
   }
 }

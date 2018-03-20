@@ -59,9 +59,10 @@ describe('POST businesses/', () => {
       });
   });
 
-  it('should return 400 if no business name', (done) => {
+  it('should return 403 if no business name', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
+      .set('x-access-token', token)
       .send({
         details: 'Best Ict Resources',
         location: 'lagos',
@@ -69,15 +70,16 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(403);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
-  it('should return 400 if name is undefined', (done) => {
+  it('should return 403 if name is undefined', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
+      .set('x-access-token', token)
       .send({
         name: undefined,
         details: 'Best Ict Resources',
@@ -86,15 +88,16 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(403);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
-  it('should return 400 if name is empty', (done) => {
+  it('should return 403 if name is empty', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
+      .set('x-access-token', token)
       .send({
         name: '',
         details: 'Best Ict Resources',
@@ -103,7 +106,7 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(403);
         expect(res.body)
           .to.be.a('object');
         done();
