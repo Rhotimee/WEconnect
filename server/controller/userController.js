@@ -8,12 +8,12 @@ export default class UserController {
   /**
    * List all users
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
-    return res.status(200).json({
+  static list(request, response) {
+    return response.status(200).json({
       businesses: db.users,
       error: false,
     });
@@ -21,15 +21,15 @@ export default class UserController {
   /**
    * Signup
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static signUp(req, res) {
-    const { email, password } = req.body;
+  static signUp(request, response) {
+    const { email, password } = request.body;
 
     if (!email || !password) {
-      return res.status(400).json({
+      return response.status(400).json({
         message: 'Input Both Username and Password',
         error: true,
       });
@@ -37,15 +37,15 @@ export default class UserController {
 
     db.users.forEach((user) => {
       if (user.email === email) {
-        return res.status(400).json({
+        return response.status(400).json({
           message: 'A user with that email already exists',
           error: true,
         });
       }
     });
 
-    db.users.push(req.body);
-    return res.status(201).json({
+    db.users.push(request.body);
+    return response.status(201).json({
       message: 'User Created Successfully',
       error: false,
     });
@@ -54,21 +54,21 @@ export default class UserController {
   /**
    * Login
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static logIn(req, res) {
-    const { email, password } = req.body;
+  static logIn(request, response) {
+    const { email, password } = request.body;
     db.users.forEach((user) => {
       if (email === user.email && password === user.password) {
-        return res.status(200).json({
+        return response.status(200).json({
           message: 'Logged in successfully',
           error: false,
         });
       }
     });
-    return res.status(400).json({
+    return response.status(400).json({
       message: 'Unable to Log in',
       error: true,
     });

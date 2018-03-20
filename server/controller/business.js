@@ -10,19 +10,19 @@ export default class BusinessController {
   /**
    * Register a new business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static register(req, res) {
+  static register(request, response) {
     const {
       name, details, location, category
-    } = req.body;
+    } = request.body;
 
-    const { userId } = req;
+    const { userId } = request;
 
     if (!name || !details || !location || !category) {
-      return res.status(400).json({
+      return response.status(400).json({
         error: true,
         message: 'some fields missing,'
       });
@@ -30,10 +30,10 @@ export default class BusinessController {
 
     Business.create({
       name, details, location, category, userId,
-    }).then(business => res.status(201).json({
+    }).then(business => response.status(201).json({
       error: false,
       business,
-    })).catch(e => res.status(500).json({
+    })).catch(e => response.status(500).json({
       error: true,
       message: e,
     }));
@@ -42,24 +42,24 @@ export default class BusinessController {
   /**
    * Update a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static update(req, res) {
+  static update(request, response) {
     const {
       name, details, location, category
-    } = req.body;
-    Business.findById(req.params.id)
+    } = request.body;
+    Business.findById(request.params.id)
       .then((business) => {
         if (!business) {
-          return res.status(404).json({
+          return response.status(404).json({
             error: true,
             message: 'Business not found'
           });
         }
-        if (req.userId !== business.userId) {
-          return res.status(400).json({
+        if (request.userId !== business.userId) {
+          return response.status(400).json({
             error: true,
             message: 'You do not have the permission to update this business'
           });
@@ -70,22 +70,22 @@ export default class BusinessController {
           location: location || business.location,
           category: category || business.category
         }, {
-          where: { id: req.params.id, },
+          where: { id: request.params.id, },
         }).then((updatedBusiness) => {
           if (!updatedBusiness) {
-            return res.status(500).json({
+            return response.status(500).json({
               error: true,
               message: 'Server error'
             });
           }
-          return res.status(200).json({
+          return response.status(200).json({
             error: false,
             message: 'Business updated',
             data: updatedBusiness
           });
         });
       }).catch(() => {
-        res.status(500).json({
+        response.status(500).json({
           error: true,
           message: 'Server Error'
         });
@@ -95,34 +95,34 @@ export default class BusinessController {
   /**
    * Delete a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static deleteById(req, res) {
-    Business.findById(req.params.id).then((business) => {
+  static deleteById(request, response) {
+    Business.findById(request.params.id).then((business) => {
       if (!business) {
-        return res.status(404).json({
+        return response.status(404).json({
           error: true,
           message: 'No business found',
         });
       }
-      if (req.userId !== business.userId) {
-        return res.status(400).json({
+      if (request.userId !== business.userId) {
+        return response.status(400).json({
           error: true,
           message: 'You do not have the permission to delete this business'
         });
       }
       Business.destroy({
-        where: { id: req.params.id }
+        where: { id: request.params.id }
       }).then((deleteStatus) => {
         if (!deleteStatus) {
-          res.status(500).json({
+          response.status(500).json({
             error: true,
             message: 'Unable to delete Business'
           });
         }
-        return res.status(200).json({
+        return response.status(200).json({
           error: false,
           message: 'Business Deleted',
         });
@@ -133,22 +133,22 @@ export default class BusinessController {
   /**
    * List all businesses
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
-    const { location, category } = req.query;
+  static list(request, response) {
+    const { location, category } = request.query;
 
     if (location) {
       Business.findAll({ where: { location } }).then((businesses) => {
         if (businesses.length === 0) {
-          return res.status(404).json({
+          return response.status(404).json({
             error: true,
             message: `No business found in ${location}`
           });
         }
-        return res.status(200).json({
+        return response.status(200).json({
           error: false,
           businesses,
         });
@@ -158,12 +158,12 @@ export default class BusinessController {
     if (category) {
       Business.findAll({ where: { category } }).then((businesses) => {
         if (businesses.length === 0) {
-          return res.status(404).json({
+          return response.status(404).json({
             error: true,
             message: `No business found in ${category}`
           });
         }
-        return res.status(200).json({
+        return response.status(200).json({
           error: false,
           businesses,
         });
@@ -172,16 +172,16 @@ export default class BusinessController {
 
     Business.findAll({}).then((businesses) => {
       if (businesses.length === 0) {
-        return res.status(404).json({
+        return response.status(404).json({
           error: true,
           message: 'No business found'
         });
       }
-      return res.status(200).json({
+      return response.status(200).json({
         error: false,
         businesses,
       });
-    }).catch(e => res.status(500).json({
+    }).catch(e => response.status(500).json({
       error: true,
       message: e
     }));
@@ -189,23 +189,23 @@ export default class BusinessController {
   /**
    * Get a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static getById(req, res) {
-    Business.findById(req.params.id).then((business) => {
+  static getById(request, response) {
+    Business.findById(request.params.id).then((business) => {
       if (!business) {
-        return res.status(404).json({
+        return response.status(404).json({
           error: true,
           message: 'No business found',
         });
       }
-      return res.status(200).json({
+      return response.status(200).json({
         error: false,
         business,
       });
-    }).catch(() => res.status(500).json({
+    }).catch(() => response.status(500).json({
       error: true,
       message: 'Server error'
     }));

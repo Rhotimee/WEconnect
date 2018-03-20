@@ -13,25 +13,25 @@ export default class UserController {
   /**
    * List all users
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
+  static list(request, response) {
     User.findAll({})
       .then((users) => {
         if (users.length === 0) {
-          return res.status(400).send({
+          return response.status(400).send({
             error: true,
             message: 'No user found'
           });
         }
-        res.status(200).send({
+        response.status(200).send({
           error: false,
           users,
         });
       }).catch(() => {
-        res.status(500).json({
+        response.status(500).json({
           error: true,
           message: 'Server Error'
         });
@@ -40,17 +40,17 @@ export default class UserController {
   /**
    * Signup
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static signUp(req, res) {
+  static signUp(request, response) {
     const {
       email, password, firstName, lastName
-    } = req.body;
+    } = request.body;
 
     if (!isEmail(email) || !password || !firstName || !lastName) {
-      return res.status(400).json({
+      return response.status(400).json({
         message: 'Enter Valid Input',
         error: true,
       });
@@ -59,7 +59,7 @@ export default class UserController {
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
         if (userExists) {
-          return res.status(400).json({
+          return response.status(400).json({
             error: true,
             message: 'Account exists for that email'
           });
@@ -73,8 +73,8 @@ export default class UserController {
       email: email.trim().toLowerCase(),
       password: hash,
     }).then((user) => {
-      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
-      return res.status(201).json({
+      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
+      return response.status(201).json({
         error: false,
         message: 'User created and logged in',
         token,
@@ -91,30 +91,30 @@ export default class UserController {
   /**
    * Login
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static logIn(req, res) {
-    const { email, password } = req.body;
+  static logIn(request, response) {
+    const { email, password } = request.body;
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((user) => {
         if (!user) {
-          return res.status(400).json({
+          return response.status(400).json({
             error: true,
             message: 'Email or Password Incorrect'
           });
         }
         const correctPassword = bcrypt.compareSync(password, user.password);
         if (!correctPassword) {
-          return res.status(400).json({
+          return response.status(400).json({
             error: true,
             message: 'Email or Password Incorrect'
           });
         }
-        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 14 });
+        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
 
-        return res.status(200).json({
+        return response.status(200).json({
           error: false,
           message: 'Logged in Successfully',
           token,
@@ -130,13 +130,13 @@ export default class UserController {
 
   /**
    * Log out
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static logout(req, res) {
-    res.setHeader('x-access-token', null);
-    return res.status(200).send({
+  static logout(request, response) {
+    response.setHeader('x-access-token', null);
+    return response.status(200).send({
       error: false,
       message: 'User has been logged out',
       token: null
@@ -145,21 +145,21 @@ export default class UserController {
 
   /**
    * Get User
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static getUser(req, res) {
+  static getUser(request, response) {
     User.findOne({
-      where: { id: req.params.id },
+      where: { id: request.params.id },
     }).then((user) => {
       if (!user) {
-        return res.status(404).json({
+        return response.status(404).json({
           error: true,
           message: 'User not found',
         });
       }
-      return res.status(200).json({
+      return response.status(200).json({
         error: false,
         message: 'User found',
         user: {
@@ -173,40 +173,40 @@ export default class UserController {
   }
   /**
    * Update user details
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static updateUser(req, res) {
-    User.findById(req.params.id)
+  static updateUser(request, response) {
+    User.findById(request.params.id)
       .then((user) => {
         if (!user) {
-          return res.status(404).json({
+          return response.status(404).json({
             error: true,
             message: 'User not found'
           });
         }
 
-        if (req.userId !== user.id) {
-          return res.status(400).json({
+        if (request.userId !== user.id) {
+          return response.status(400).json({
             error: true,
             message: 'You do not have the permission to update this user'
           });
         }
 
         User.update({
-          firstName: req.body.firstName || user.firstName,
-          lastName: req.body.lastName || user.lastName,
+          firstName: request.body.firstName || user.firstName,
+          lastName: request.body.lastName || user.lastName,
         }, {
-          where: { id: req.params.id, },
+          where: { id: request.params.id, },
         }).then((updatedUser) => {
           if (!updatedUser) {
-            return res.status(500).json({
+            return response.status(500).json({
               error: true,
               message: 'Server error'
             });
           }
-          return res.status(200).json({
+          return response.status(200).json({
             error: false,
             message: 'User updated',
             data: updatedUser

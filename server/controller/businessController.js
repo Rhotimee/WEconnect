@@ -8,17 +8,17 @@ export default class BusinessController {
   /**
    * Register a new business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static register(req, res) {
+  static register(request, response) {
     const {
       name, details, location, category
-    } = req.body;
+    } = request.body;
 
-    if (!req.body.name) {
-      return res.status(400).json({
+    if (!request.body.name) {
+      return response.status(400).json({
         message: 'Business Name Missing',
         error: true
       });
@@ -29,7 +29,7 @@ export default class BusinessController {
       id, name, details, category, location
     };
     db.business.push(newBusiness);
-    return res.status(201).json({
+    return response.status(201).json({
       message: 'New Business Added',
       error: false,
       business: newBusiness,
@@ -39,31 +39,31 @@ export default class BusinessController {
   /**
    * Update a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static update(req, res) {
-    const { id } = req.params;
+  static update(request, response) {
+    const { id } = request.params;
     let editBusiness;
     db.business.forEach((bus) => {
       if (bus.id === parseInt(id, 10)) {
-        bus.name = req.body.name || bus.name;
-        bus.details = req.body.details || bus.details;
-        bus.location = req.body.location || bus.location;
-        bus.category = req.body.category || bus.category;
+        bus.name = request.body.name || bus.name;
+        bus.details = request.body.details || bus.details;
+        bus.location = request.body.location || bus.location;
+        bus.category = request.body.category || bus.category;
 
         editBusiness = bus;
       }
     });
     if (editBusiness) {
-      return res.status(200).json({
+      return response.status(200).json({
         message: 'Business Updated',
         error: false,
         business: editBusiness,
       });
     }
-    return res.status(404).json({
+    return response.status(404).json({
       message: 'Business Not Found',
       error: true
     });
@@ -71,23 +71,23 @@ export default class BusinessController {
   /**
    * Delete a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static deleteById(req, res) {
-    const { id } = req.params;
+  static deleteById(request, response) {
+    const { id } = request.params;
 
     db.business.forEach((bus, i) => {
       if (bus.id === parseInt(id, 10)) {
         db.business.splice(i, 1);
-        return res.status(200).json({
+        return response.status(200).json({
           message: 'Business Deleted',
           error: false,
         });
       }
     });
-    return res.status(404).json({
+    return response.status(404).json({
       message: 'Business Not Found',
       error: true
     });
@@ -96,12 +96,12 @@ export default class BusinessController {
   /**
    * List all businesses
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static list(req, res) {
-    return res.status(200).json({
+  static list(request, response) {
+    return response.status(200).json({
       businesses: db.business,
       error: false,
     });
@@ -109,23 +109,23 @@ export default class BusinessController {
   /**
    * Get a business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The requestuest body of the requestuest.
+   * @param {object} response The responseponse body.
+   * @returns {object} response.
    */
-  static getById(req, res) {
-    const { id } = req.params;
+  static getById(request, response) {
+    const { id } = request.params;
 
     db.business.forEach((bus) => {
       if (parseInt(id, 10) === bus.id) {
-        return res.status(200).json({
+        return response.status(200).json({
           message: 'Success',
           error: false,
           business: bus,
         });
       }
     });
-    return res.status(404).json({
+    return response.status(404).json({
       message: 'Business Not Found',
       error: true
     });
