@@ -1,4 +1,6 @@
-import db from '../models-dum/dummyBusinesses';
+import Model from '../models';
+
+const { Business } = Model;
 
 /**
  * Business Controller.
@@ -17,23 +19,24 @@ export default class BusinessController {
       name, details, location, category
     } = request.body;
 
-    if (!request.body.name) {
+    const { userId } = request;
+
+    if (!name || !details || !location || !category) {
       return response.status(400).json({
-        message: 'Business Name Missing',
-        error: true
+        error: true,
+        message: 'some fields missing,'
       });
     }
 
-    const id = db.business.length + 1;
-    const newBusiness = {
-      id, name, details, category, location
-    };
-    db.business.push(newBusiness);
-    return response.status(201).json({
-      message: 'New Business Added',
+    Business.create({
+      name, details, location, category, userId,
+    }).then(business => response.status(201).json({
       error: false,
-      business: newBusiness,
-    });
+      business,
+    })).catch(e => response.status(500).json({
+      error: true,
+      message: e,
+    }));
   }
 
   /**
@@ -44,30 +47,51 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static update(request, response) {
-    const { id } = request.params;
-    let editBusiness;
-    db.business.forEach((bus) => {
-      if (bus.id === parseInt(id, 10)) {
-        bus.name = request.body.name || bus.name;
-        bus.details = request.body.details || bus.details;
-        bus.location = request.body.location || bus.location;
-        bus.category = request.body.category || bus.category;
-
-        editBusiness = bus;
-      }
-    });
-    if (editBusiness) {
-      return response.status(200).json({
-        message: 'Business Updated',
-        error: false,
-        business: editBusiness,
+    const {
+      name, details, location, category
+    } = request.body;
+    Business.findById(request.params.id)
+      .then((business) => {
+        if (!business) {
+          return response.status(404).json({
+            error: true,
+            message: 'Business not found'
+          });
+        }
+        if (request.userId !== business.userId) {
+          return response.status(400).json({
+            error: true,
+            message: 'You do not have the permission to update this business'
+          });
+        }
+        Business.update({
+          name: name || business.name,
+          details: details || business.details,
+          location: location || business.location,
+          category: category || business.category
+        }, {
+          where: { id: request.params.id, },
+        }).then((updatedBusiness) => {
+          if (!updatedBusiness) {
+            return response.status(500).json({
+              error: true,
+              message: 'Server error'
+            });
+          }
+          return response.status(200).json({
+            error: false,
+            message: 'Business updated',
+            data: updatedBusiness
+          });
+        });
+      }).catch(() => {
+        response.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
       });
-    }
-    return response.status(404).json({
-      message: 'Business Not Found',
-      error: true
-    });
   }
+
   /**
    * Delete a business
    *
@@ -76,20 +100,33 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static deleteById(request, response) {
-    const { id } = request.params;
-
-    db.business.forEach((bus, i) => {
-      if (bus.id === parseInt(id, 10)) {
-        db.business.splice(i, 1);
-        return response.status(200).json({
-          message: 'Business Deleted',
-          error: false,
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found',
         });
       }
-    });
-    return response.status(404).json({
-      message: 'Business Not Found',
-      error: true
+      if (request.userId !== business.userId) {
+        return response.status(400).json({
+          error: true,
+          message: 'You do not have the permission to delete this business'
+        });
+      }
+      Business.destroy({
+        where: { id: request.params.id }
+      }).then((deleteStatus) => {
+        if (!deleteStatus) {
+          response.status(500).json({
+            error: true,
+            message: 'Unable to delete Business'
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          message: 'Business Deleted',
+        });
+      });
     });
   }
 
@@ -101,10 +138,53 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static list(request, response) {
-    return response.status(200).json({
-      businesses: db.business,
-      error: false,
-    });
+    const { location, category } = request.query;
+
+    if (location) {
+      Business.findAll({ where: { location } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: `No business found in ${location}`
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
+    if (category) {
+      Business.findAll({ where: { category } }).then((businesses) => {
+        if (businesses.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: `No business found in ${category}`
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          businesses,
+        });
+      });
+    }
+
+    Business.findAll({}).then((businesses) => {
+      if (businesses.length === 0) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found'
+        });
+      }
+      return response.status(200).json({
+        error: false,
+        businesses,
+      });
+    }).catch(e => response.status(500).json({
+      error: true,
+      message: e
+    }));
   }
   /**
    * Get a business
@@ -114,20 +194,20 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static getById(request, response) {
-    const { id } = request.params;
-
-    db.business.forEach((bus) => {
-      if (parseInt(id, 10) === bus.id) {
-        return response.status(200).json({
-          message: 'Success',
-          error: false,
-          business: bus,
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'No business found',
         });
       }
-    });
-    return response.status(404).json({
-      message: 'Business Not Found',
-      error: true
-    });
+      return response.status(200).json({
+        error: false,
+        business,
+      });
+    }).catch(() => response.status(500).json({
+      error: true,
+      message: 'Server error'
+    }));
   }
 }

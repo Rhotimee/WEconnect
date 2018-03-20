@@ -1,11 +1,18 @@
 import express from 'express';
-// import DumBusinessController from '../../controller/businessController';
+
+// Dummy Controller
+// import BusinessController from '../../controller/DummyBusinessController';
+// import ReviewController from '../../controller/DummyReviewController';
+// import UserController from '../../controller/DummyUserController';
+
+// Main Controller
+import UserController from '../../controller/UserController';
+import BusinessController from '../../controller/BusinessController';
+import ReviewController from '../../controller/ReviewController';
+
+// Middlewares
 import isLoggedIn from '../../middleware/isLoggedIn';
-// import DumUserController from '../../controller/userController';
-import UserController from '../../controller/user';
-import BusinessController from '../../controller/business';
-import ReviewController from '../../controller/review';
-// import DumReviewController from '../../controller/reviewController';
+
 
 const router = express.Router();
 

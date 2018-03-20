@@ -1,5 +1,7 @@
-import db from '../models-dum/dummyBusinesses';
+import Model from '../models';
 
+const { Business } = Model;
+const { Review } = Model;
 /**
  * Business Controller.
  * @class ReviewController
@@ -13,19 +15,28 @@ export default class ReviewController {
    * @returns {object} response.
    */
   static listReview(request, response) {
-    const { id } = request.params;
-
-    db.business.forEach((business) => {
-      if (parseInt(id, 10) === business.id) {
-        response.json({
-          reviews: business.reviews,
-          error: false,
+    Business.findById(request.params.id).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'Business not found'
         });
       }
-    });
-    return response.status(404).json({
-      message: 'Business reviews not found',
-      error: true,
+      Review.findAll().then((reviews) => {
+        if (reviews.length === 0) {
+          return response.status(404).json({
+            error: true,
+            message: 'No review found'
+          });
+        }
+        return response.status(200).json({
+          error: false,
+          reviews,
+        });
+      }).catch(() => response.status(500).json({
+        error: true,
+        message: 'Server Error'
+      }));
     });
   }
 
@@ -37,28 +48,27 @@ export default class ReviewController {
    * @returns {object} response.
    */
   static addReview(request, response) {
-    const { id } = request.params;
-    const { reviewer, content, stars } = request.body;
-
-
-    db.business.forEach((business) => {
-      if (parseInt(id, 10) === business.id) {
-        const reviewId = business.reviews.length + 1;
-        const newReview = {
-          reviewId, reviewer, content, stars
-        };
-
-        business.reviews.push(newReview);
-        return response.status(201).json({
-          newReview,
-          error: false,
+    const { content, star } = request.body;
+    const { userId } = request;
+    const businessId = request.params.id;
+    Business.findById(businessId).then((business) => {
+      if (!business) {
+        return response.status(404).json({
+          error: true,
+          message: 'Business not found'
         });
       }
-    });
-
-    return response.status(404).json({
-      message: 'Business Not Found',
-      error: true
+      Review.create({
+        content, star, userId, businessId
+      }).then(review => response.status(201).json({
+        error: false,
+        review,
+      })).catch(() => {
+        response.status(500).json({
+          error: true,
+          message: 'Server Error'
+        });
+      });
     });
   }
 }
