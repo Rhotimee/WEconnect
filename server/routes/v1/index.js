@@ -1,12 +1,13 @@
 import express from 'express';
 
 // Controller
-import UserController from '../../controller/UserController';
-import BusinessController from '../../controller/BusinessController';
-import ReviewController from '../../controller/ReviewController';
+import { UserController, BusinessController, ReviewController } from '../../controller';
+// import UserController from '../../controller/UserController';
+// import BusinessController from '../../controller/BusinessController';
+// import ReviewController from '../../controller/ReviewController';
 
 // Middleware
-import Middleware from '../../middleware';
+import Middleware from '../../middlewares';
 
 
 const router = express.Router();
