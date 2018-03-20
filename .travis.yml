@@ -18,5 +18,6 @@ before_script:
   - createdb database_test --username=rhotimee
   - sequelize db:migrate
   - sequelize db:seed:all
+  - npm build
 after_success :
     - npm run coverage
