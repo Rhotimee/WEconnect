@@ -20,12 +20,12 @@
     <title>WEconnect</title>
   </head>
   <body>
-    <div class="cover">
-      <div class="cover-overlay">
+    <div class="add-business-cover">
+      <!-- <div class="cover-overlay"> -->
 
         <!-- Navbar Section -->
         <nav class="navbar navbar-expand-sm navbar-dark nav-bg py-3">
-          <a class="navbar-brand ml-3" href="#">WECONNECT</a>
+          <a class="navbar-brand ml-3" href="index.html">WECONNECT</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -48,15 +48,15 @@
         </nav>
 
         <!-- Form Section -->
-        <div class="container py-5 mt-3 text-light">
+        <div class="add-business container py-5 mt-3 text-dark">
           <form>
             <div class="form-row">
               <div class="form-group col-6">
-                <label for="text">Buisness Name</label>
-                <input type="text" class="form-control" id="text1" placeholder="Email">
+                <label for="text">Buisness Name <small>*</small> </label>
+                <input type="text" class="form-control" id="text1" placeholder="Andela" required>
               </div>
               <div class="form-group col-6">
-                <label for="inputcategory">Business Category</label>
+                <label for="inputcategory">Business Category <small>*</small> </label>
                 <select id="inputcategory" class="form-control">
                   <option selected>Choose...</option>
                   <option>Repair & Services</option>
@@ -70,16 +70,16 @@
             <div class="form-row">
               <div class="formgroup col-6">
                 <label for="">Business Phone Number</label>
-                <input type="number" class="form-control" placeholder="+2348000000000">
+                <input type="number" class="form-control" placeholder="+2348000000000" required>
               </div>
               <div class="formgroup col-6">
-                <label for="">Business Email</label>
-                <input type="email" class="form-control" placeholder="name@example.com">
+                <label for="">Business Email <small>*</small></label>
+                <input type="email" class="form-control" placeholder="name@example.com" required>
               </div>
             </div>
             <div class="form-group">
-              <label for="inputAddress">Address</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              <label for="inputAddress">Address <small>*</small></label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
             </div>
             <div class="form-row">
               <div class="form-group col-6">
@@ -98,11 +98,11 @@
               <label for="filefield">Business Image</label>
               <input type="file" class="form-control-file" id="filefield">
             </div>
-            <button type="submit" class="btn btn-outline-light">Submit</button>
+            <button type="submit" class="btn btn-dark">Submit</button>
           </form>
         </div>
 
-      </div>
+      <!-- </div> -->
     </div>
 
     <!-- Footer -->

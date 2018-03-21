@@ -177,3 +177,18 @@ footer{
   padding: 3px;
   color: #fff;
 }
+
+.add-business-cover{
+  background: #EFEFF4;
+  background-size: cover;
+  /* min-height: 47rem; */
+  height: auto;
+  border-radius: 0;
+  width: 100%;
+  position: relative;
+
+}
+
+.add-business small {
+  color: red;
+}
