@@ -23,23 +23,24 @@
   <body>
     <div class="bg-cover">
 
+      <!-- Navbar Section -->
       <nav class="navbar navbar-expand-sm navbar-dark nav-bg py-3">
-        <a class="navbar-brand" href="index.html">WECONNECT</a>
+        <a class="navbar-brand ml-3" href="index.html">WECONNECT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="business-list.html"><i class="fa fa-th" aria-hidden="true"></i> Explore</a>
+              <a class="nav-link" href="business-list.html"><i class="fa fa-th" aria-hidden="true"></i> Explore</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="signin.html">Log In</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mr-2">
               <a class="nav-link" href="signup.html">Sign Up</a>
             </li>
-            <li class="nav-item ml-2">
+            <li class="nav-item mr-3">
               <a class="btn btn-outline-light" href="add-business.html">Add Business</a>
             </li>
           </ul>
@@ -47,12 +48,12 @@
       </nav>
 
       <!-- Search Section -->
-      <form action="" class="justify-content-center p-5 mx-4">
+      <form action="" class="justify-content-center py-5 px-5 mx-4 sticky-top">
         <div class="row">
-          <div class="col-md-6 px-1 my-1">
+          <div class="col-md-6 px-0">
             <input type="text" class="b-name form-control form-control-lg" placeholder="I'm looking for...">
           </div>
-          <div class="col-md-4 px-1 my-1">
+          <div class="col-md-4 px-1">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text bg-light" id="basic-addon1"> <i class="fa fa-map-marker"></i> </span>
@@ -60,14 +61,14 @@
               <input type="text" class="form-control form-control-lg" placeholder="Lagos" aria-label="Username" aria-describedby="basic-addon1">
             </div>
           </div>
-          <div class="col-md-2 px-1 my-1">
-            <button class="form-control form-control-lg btn-outline-dark " type="submit"> <i class="fa fa-search"></i>  Search</button>
+          <div class="col-md-2 px-0">
+            <button class="form-control form-control-lg btn-dark " type="submit"> <i class="fa fa-search"></i>  Search</button>
           </div>
         </div>
       </form>
 
       <!-- Business List Section -->
-      <div class="container px-5 pb-4" id="business-list">
+      <div class="justify-content-center px-5 mx-4" id="business-list">
         <div class="row justify-content-center">
           <div class="card col-md-3 px-0">
             <img class="card-img-top img-overlay" src="img/bg3.jpg" alt="Card image cap">
@@ -116,6 +117,7 @@
               <p class="card-text">Top Notch Designs</p>
             </div>
           </div>
+
           <div class="card col-md-3 px-0">
             <img class="card-img-top img-overlay" src="img/bg6.jpg" alt="Card image cap">
             <div class="card-img-overlay">
@@ -126,6 +128,25 @@
             </div>
           </div>
 
+          <div class="card col-md-3 px-0">
+            <img class="card-img-top img-overlay" src="img/bg5.jpg" alt="Card image cap">
+            <div class="card-img-overlay">
+              <a class="h2 text-white card-title px-2" href="business-detail.html">Otics Design</a>
+            </div>
+            <div class="card-body text-dark bg-light">
+              <p class="card-text">Top Notch Designs</p>
+            </div>
+          </div>
+
+          <div class="card col-md-3 px-0">
+            <img class="card-img-top img-overlay" src="img/bg6.jpg" alt="Card image cap">
+            <div class="card-img-overlay">
+              <a class="h2 text-white card-title px-2" href="business-detail.html">Dris Events</a>
+            </div>
+            <div class="card-body text-dark bg-light">
+              <p class="card-text">We Organize</p>
+            </div>
+          </div>
         </div>
       </div>
 
