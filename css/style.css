@@ -101,19 +101,19 @@ footer{
   left: 0;
 }
 
-.card{
+.all-reviews .card{
   margin: 2%;
 }
 
 .card-img-overlay{
-  background: rgba(0, 0, 0, 0.4);
-  overflow: hidden;
+  background: rgba(0, 0, 0, 0.15);
 }
+
 
 #business-list .card-img-overlay a {
   word-wrap: break-word;
   position: absolute;
-  background-color: rgba(8, 28, 41, 0.7);;
+  background-color: rgba(8, 28, 41, 0.7);
   bottom: 40%;
   font-size: 40;
   line-height: 1.3;
