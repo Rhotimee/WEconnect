@@ -74,22 +74,18 @@ body {
   0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.category .cat-item{
-  color: #fff;
-  padding: 10px;
-  font-size: 19px;
-  background: rgba(17, 29, 34, 0.8);
-  border-radius: 10px;
-}
-.category .cat-item :hover{
-  color: #fff;
-  padding: 10px;
-  font-size: 19px;
+
+.category-item {
+  width: 100px;
+  background-color: rgba(5, 22, 32, 0.747)
 }
 
-.category a{
-  text-decoration: none;
+.category-item:hover {
+  width: 120px;
+  background-color: rgba(11, 53, 77, 0.747);
+  cursor: pointer;
 }
+
 
 .foot-icons i{
   margin-right: 10px;
@@ -98,6 +94,7 @@ body {
 
 
 footer{
+  position: relative;
   bottom: 0;
   right: 0;
   left: 0;
