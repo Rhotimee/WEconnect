@@ -58,9 +58,10 @@ body {
 
 }
 
-.auth .card{
-  width: 25rem;
-  overflow: hidden;
+@media (min-width: 500px){
+  .auth .card{
+    width: 450px;
+  }
 }
 
 .auth .card-form {
