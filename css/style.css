@@ -10,7 +10,7 @@ body {
 .cover{
   background: #7ec8e3 url(../img/nigeria.jpg) center no-repeat;
   background-size: cover;
-  min-height: 47rem;
+  min-height: 51rem;
   height: auto;
   border-radius: 0;
   width: 100%;
@@ -47,7 +47,10 @@ body {
   line-height: 150%;
 
 }
-
+.search{
+  height: 48px;
+  padding: 0;
+}
 .content .heading h4{
   color: #fff;
   font-size: 18px;
