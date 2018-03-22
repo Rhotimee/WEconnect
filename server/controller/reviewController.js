@@ -2,6 +2,7 @@ import Model from '../models';
 
 const { Business } = Model;
 const { Review } = Model;
+
 /**
  * Business Controller.
  * @class ReviewController

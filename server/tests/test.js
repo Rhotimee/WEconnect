@@ -59,7 +59,7 @@ describe('POST businesses/', () => {
       });
   });
 
-  it('should return 403 if no business name', (done) => {
+  it('should return 400 if no business name', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
       .set('x-access-token', token)
@@ -70,13 +70,13 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(403);
+          .to.have.status(400);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
-  it('should return 403 if name is undefined', (done) => {
+  it('should return 400 if name is undefined', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
       .set('x-access-token', token)
@@ -88,13 +88,13 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(403);
+          .to.have.status(400);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
-  it('should return 403 if name is empty', (done) => {
+  it('should return 400 if name is empty', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
       .set('x-access-token', token)
@@ -106,7 +106,7 @@ describe('POST businesses/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(403);
+          .to.have.status(400);
         expect(res.body)
           .to.be.a('object');
         done();
@@ -319,7 +319,7 @@ describe('POST auth/signup/', () => {
       });
   });
   // POST Sign up - should return 400
-  it('should return 400 if user already exists', (done) => {
+  it('should return 409 if user already exists', (done) => {
     chai.request(server)
       .post('/api/v1/auth/signup')
       .send({
@@ -329,7 +329,7 @@ describe('POST auth/signup/', () => {
         firstName: 'Riri'
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(409);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.equal(true);
         done();
@@ -339,7 +339,7 @@ describe('POST auth/signup/', () => {
 
 //  Post Log In- Should return 400
 describe('(Bad Requests) POST auth/login/', () => {
-  it('should return 400 if no password', (done) => {
+  it('should return 401 if no password', (done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
@@ -348,14 +348,14 @@ describe('(Bad Requests) POST auth/login/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(401);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
 
-  it('should return 400 if no email', (done) => {
+  it('should return 401 if no email', (done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
@@ -364,14 +364,14 @@ describe('(Bad Requests) POST auth/login/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(401);
         expect(res.body)
           .to.be.a('object');
         done();
       });
   });
 
-  it('should return 400 if username or password is wrong', (done) => {
+  it('should return 401 if username or password is wrong', (done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
@@ -380,7 +380,7 @@ describe('(Bad Requests) POST auth/login/', () => {
       })
       .end((err, res) => {
         expect(res)
-          .to.have.status(400);
+          .to.have.status(401);
         expect(res.body)
           .to.be.a('object');
         done();

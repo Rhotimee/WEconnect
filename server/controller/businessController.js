@@ -22,7 +22,7 @@ export default class BusinessController {
     const { userId } = request;
 
     if (!name || !details || !location || !category) {
-      return response.status(403).json({
+      return response.status(400).json({
         error: true,
         message: 'Some fields missing'
       });
@@ -31,7 +31,7 @@ export default class BusinessController {
     // Check if business name already exists
     Business.find({ where: { name } }).then((business) => {
       if (business.name === name) {
-        return response.status(403).json({
+        return response.status(400).json({
           error: true,
           message: 'Business name already exists',
         });
@@ -80,7 +80,7 @@ export default class BusinessController {
         // Check if business name already exists
         Business.find({ where: { name } }).then((findBusiness) => {
           if (findBusiness.name === name) {
-            return response.status(403).json({
+            return response.status(409).json({
               error: true,
               message: 'Business name already exists',
             });
@@ -96,16 +96,12 @@ export default class BusinessController {
         }, {
           where: { id: request.params.id, },
         }).then((updateBusiness) => {
-          if (!updateBusiness) {
-            return response.status(500).json({
-              error: true,
-              message: 'Server error'
+          if (updateBusiness) {
+            return response.status(200).json({
+              error: false,
+              message: 'Business updated',
             });
           }
-          return response.status(200).json({
-            error: false,
-            message: 'Business updated',
-          });
         });
       }).catch(() => {
         response.status(500).json({
@@ -172,9 +168,9 @@ export default class BusinessController {
         error: false,
         businesses,
       });
-    }).catch(e => response.status(500).json({
+    }).catch(() => response.status(500).json({
       error: true,
-      message: e
+      message: 'Server Error'
     }));
   }
   /**
