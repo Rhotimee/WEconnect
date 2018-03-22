@@ -44,9 +44,10 @@ export default class BusinessController {
     }).then(business => response.status(201).json({
       error: false,
       business,
-    })).catch(() => response.status(500).json({
+    })).catch(theError => response.status(500).json({
       error: true,
-      message: 'Server Error'
+      message: 'Server Error',
+      theError
     }));
   }
 

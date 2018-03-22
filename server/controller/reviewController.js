@@ -23,7 +23,7 @@ export default class ReviewController {
           message: 'Business not found'
         });
       }
-      Review.findAll().then((reviews) => {
+      Review.findAll({ where: { businessId: business.id } }).then((reviews) => {
         if (reviews.length === 0) {
           return response.status(404).json({
             error: true,
@@ -52,6 +52,13 @@ export default class ReviewController {
     const { content, star } = request.body;
     const { userId } = request;
     const businessId = request.params.id;
+
+    if (!content || !star) {
+      return response.status(400).json({
+        error: true,
+        message: 'Input required field'
+      });
+    }
     Business.findById(businessId).then((business) => {
       if (!business) {
         return response.status(404).json({
@@ -59,6 +66,22 @@ export default class ReviewController {
           message: 'Business not found'
         });
       }
+      // Will not allow you to review your business
+      if (business.userId === userId) {
+        return response.status(403).json({
+          error: true,
+          message: 'You cannot review your own business'
+        });
+      }
+      // Will not allow to review a business twice
+      Review.find({ where: { userId } }).then((review) => {
+        if (review) {
+          return response.status(403).json({
+            error: true,
+            message: 'You cannot review this business again'
+          });
+        }
+      });
       Review.create({
         content, star, userId, businessId
       }).then(review => response.status(201).json({
@@ -67,7 +90,7 @@ export default class ReviewController {
       })).catch(() => {
         response.status(500).json({
           error: true,
-          message: 'Server Error'
+          message: 'Server Error',
         });
       });
     });

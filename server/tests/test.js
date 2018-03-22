@@ -43,6 +43,31 @@ describe('GET /api/v1', () => {
   });
 });
 
+//  API DOCS
+describe('GET docs/', () => {
+  it('should return 200', (done) => {
+    chai.request(server)
+      .get('/api-docs')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+//  Get 404
+describe('GET page not foung', () => {
+  it('should return 200', (done) => {
+    chai.request(server)
+      .get('/api/v1/kjdfkj/wkbw')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+
 //  Add a business
 describe('POST businesses/', () => {
   it('should be able to register a business', (done) => {
@@ -190,62 +215,6 @@ describe('Get businesses/1/reviews', () => {
   it('should return 404', (done) => {
     chai.request(server)
       .get('/api/v1/businesses/3627827/reviews')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(404);
-        done();
-      });
-  });
-});
-
-// Add A Review
-describe('POST reviews/1', () => {
-  it('should be able to add reviews to a business', (done) => {
-    chai.request(server)
-      .post('/api/v1/businesses/1/reviews')
-      .set('x-access-token', token)
-      .send({
-        businessId: 1,
-        userId: 1,
-        content: 'Lorem ipsum dolor sit amet.',
-        star: 4,
-      })
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(201);
-        expect(res.body).to.be.a('object');
-        done();
-      });
-  });
-
-  it('should return 404', (done) => {
-    chai.request(server)
-      .get('/api/v1/businesses/3627827/reviews')
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(404);
-        done();
-      });
-  });
-});
-
-
-// Delete Business
-describe('DELETE businesses/2', () => {
-  it('should be able to delete a business', (done) => {
-    chai.request(server)
-      .delete('/api/v1/businesses/1')
-      .set('x-access-token', token)
-      .end((err, res) => {
-        expect(res)
-          .to.have.status(200);
-        done();
-      });
-  });
-  it('should return 404 if page cannot be found', (done) => {
-    chai.request(server)
-      .delete('/api/v1/businesses/6382392')
-      .set('x-access-token', token)
       .end((err, res) => {
         expect(res)
           .to.have.status(404);
@@ -448,6 +417,140 @@ describe('Update users/1/', () => {
       .set('x-access-token', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+// Add A Review
+describe('POST reviews/1', () => {
+  it('should be able to add reviews to a business', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses/2/reviews')
+      .set('x-access-token', token)
+      .send({
+        businessId: 1,
+        userId: 1,
+        content: 'Lorem ipsum dolor sit amet.',
+        star: 4,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.jfCM1CvEelmDJLTrifwGydwvbQw-rS-iWnLcYNopRHY'
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(201);
+        expect(res.body).to.be.a('object');
+        done();
+      });
+  });
+
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/3627827/reviews')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
+// Delete Business
+describe('DELETE businesses/2', () => {
+  it('should be able to delete a business', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/1')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404 if page cannot be found', (done) => {
+    chai.request(server)
+      .delete('/api/v1/businesses/6382392')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
+// LoggedIn Middleware
+describe('POST businesses/', () => {
+  it('should return 401, User not logged in', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses/')
+      .send(Business)
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(401);
+        done();
+      });
+  });
+  it('should return 401, User not logged in', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses/2/reviews')
+      .send({ content: 'test', star: 3 })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(401);
+        done();
+      });
+  });
+});
+
+// Sorter Middleware
+describe('GET businesses/', () => {
+  it('should return 200', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses?location=lagos')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses?location=zaria')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+  it('should return 200', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses?category=ICT')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(200);
+        done();
+      });
+  });
+  it('should return 404', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses?category=dddka')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(404);
+        done();
+      });
+  });
+});
+
+
+// validParam Middleware
+describe('GET businesses/', () => {
+  it('should return 400', (done) => {
+    chai.request(server)
+      .get('/api/v1/businesses/2n3')
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
         done();
       });
   });
