@@ -77,13 +77,15 @@ export default class UserController {
       return response.status(201).json({
         error: false,
         message: 'User created and logged in',
-        token,
-        user: {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        },
+        data: {
+          token,
+          user: {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          },
+        }
       });
     });
   }
@@ -117,12 +119,14 @@ export default class UserController {
         return response.status(200).json({
           error: false,
           message: 'Logged in Successfully',
-          token,
-          user: {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
+          data: {
+            token,
+            user: {
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+            }
           }
         });
       });
