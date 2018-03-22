@@ -48,56 +48,56 @@
 
         <!-- Form Section -->
         <div class="add-business container py-5 mt-3 text-dark">
-          <form>
-            <div class="form-row">
-              <div class="form-group col-6">
-                <label for="text">Buisness Name <small>*</small> </label>
-                <input type="text" class="form-control" id="text1" placeholder="Andela" required>
-              </div>
-              <div class="form-group col-6">
-                <label for="inputcategory">Business Category <small>*</small> </label>
-                <select id="inputcategory" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>Repair & Services</option>
-                  <option>Events & Weddings</option>
-                  <option>Health & Wellness</option>
-                  <option>Professional Services</option>
-                  <option>Others</option>
-                </select>
-              </div>
+
+          <form class="row">
+            <p class="col-12">Fields with <small>*</small> are required </p>
+            <div class="form-group col-sm-6">
+              <label for="text">Buisness Name <small>*</small> </label>
+              <input type="text" class="form-control" id="text1" placeholder="Andela" required>
             </div>
-            <div class="form-row">
-              <div class="formgroup col-6">
-                <label for="">Business Phone Number</label>
-                <input type="number" class="form-control" placeholder="+2348000000000" required>
-              </div>
-              <div class="formgroup col-6">
-                <label for="">Business Email <small>*</small></label>
-                <input type="email" class="form-control" placeholder="name@example.com" required>
-              </div>
+            <div class="form-group col-sm-6">
+              <label for="inputcategory">Business Category <small>*</small> </label>
+              <select id="inputcategory" class="form-control">
+                <option selected>Choose...</option>
+                <option>Repair & Services</option>
+                <option>Events & Weddings</option>
+                <option>Health & Wellness</option>
+                <option>Professional Services</option>
+                <option>Others</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label for="inputAddress">Address <small>*</small></label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+
+            <div class="form-group col-md-6">
+              <label for="">Business Phone Number</label>
+              <input type="number" class="form-control" placeholder="+2348000000000" required>
             </div>
-            <div class="form-row">
-              <div class="form-group col-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="City">
-              </div>
-              <div class="form-group col-6">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Lagos</option>
-                  <option>Ogun</option>
-                </select>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="">Business Email <small>*</small></label>
+              <input type="email" class="form-control" placeholder="name@example.com" required>
             </div>
-            <div class="form-group">
+
+          <div class="form-group col-md-6">
+            <label for="inputAddress">Address <small>*</small></label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+          </div>
+
+            <div class="form-group col-md-6">
+              <label for="inputCity">City <small>*</small> </label>
+              <input type="text" class="form-control" id="inputCity" placeholder="City">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputState">State <small>*</small> </label>
+              <select id="inputState" class="form-control">
+                <option selected>Lagos</option>
+                <option>Ogun</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6">
               <label for="filefield">Business Image</label>
               <input type="file" class="form-control-file" id="filefield">
             </div>
-            <button type="submit" class="btn btn-dark">Submit</button>
+            <button type="submit" class="m-3 col-md-2 btn btn-dark">Submit</button>
           </form>
         </div>
 
