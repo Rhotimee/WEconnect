@@ -319,7 +319,7 @@ paths:
         description: Content of the review
         type: string
         required: true
-      - name: stars
+      - name: star
         in: formData
         description: Amount of stars given
         type: integer
