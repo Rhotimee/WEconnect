@@ -2,9 +2,6 @@ import express from 'express';
 
 // Controller
 import { UserController, BusinessController, ReviewController } from '../../controller';
-// import UserController from '../../controller/UserController';
-// import BusinessController from '../../controller/BusinessController';
-// import ReviewController from '../../controller/ReviewController';
 
 // Middleware
 import Middleware from '../../middlewares';
@@ -13,12 +10,12 @@ import Middleware from '../../middlewares';
 const router = express.Router();
 
 // REDIRECT '/' to '/api/v1'
-router.get('/', (req, res) => {
-  res.redirect('/api/v1');
+router.get('/', (request, response) => {
+  response.redirect('/api/v1');
 });
 // Redirect '/' to '/api-docs'
-router.get('/api/v1', (req, res) => {
-  res.redirect('/api-docs');
+router.get('/api/v1', (request, response) => {
+  response.redirect('/api-docs');
 });
 // POST register business
 router.post('/api/v1/businesses', Middleware.isLoggedIn, BusinessController.register);

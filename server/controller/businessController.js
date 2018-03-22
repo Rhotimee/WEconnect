@@ -172,9 +172,9 @@ export default class BusinessController {
         error: false,
         businesses,
       });
-    }).catch(e => response.status(500).json({
+    }).catch(() => response.status(500).json({
       error: true,
-      message: e
+      message: 'Server Error'
     }));
   }
   /**

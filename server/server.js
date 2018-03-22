@@ -29,23 +29,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use((request, response, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((error, request, response, next) => {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  response.locals.message = error.message;
+  response.locals.error = request.app.get('env') === 'development' ? error : {};
 
-  // render the error
-  res.status(err.status || 500);
-  res.json({
-    error: res.locals.error || err.message,
-    message: res.locals.message || err.status,
+  // render the <error></error>
+  response.status(error.status || 500);
+  response.json({
+    error: response.locals.error || error.message,
+    message: response.locals.message || error.status,
   });
   next();
 });
