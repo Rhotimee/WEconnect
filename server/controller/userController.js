@@ -21,7 +21,7 @@ export default class UserController {
     User.findAll({})
       .then((users) => {
         if (users.length === 0) {
-          return response.status(400).send({
+          return response.status(404).send({
             error: true,
             message: 'No user found'
           });
@@ -59,7 +59,7 @@ export default class UserController {
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
         if (userExists) {
-          return response.status(400).json({
+          return response.status(409).json({
             error: true,
             message: 'Account exists for that email'
           });
@@ -102,14 +102,14 @@ export default class UserController {
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((user) => {
         if (!user) {
-          return response.status(400).json({
+          return response.status(401).json({
             error: true,
             message: 'Email or Password Incorrect'
           });
         }
         const correctPassword = bcrypt.compareSync(password, user.password);
         if (!correctPassword) {
-          return response.status(400).json({
+          return response.status(401).json({
             error: true,
             message: 'Email or Password Incorrect'
           });

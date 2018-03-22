@@ -86,7 +86,7 @@ export default class Middleware {
     const reqId = request.params.id;
     const id = isInt(reqId);
     if (!id) {
-      return response.json({
+      return response.status(400).json({
         error: true,
         message: 'Invalid params'
       });
