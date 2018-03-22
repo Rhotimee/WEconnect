@@ -185,7 +185,6 @@ footer{
 .add-business-cover{
   background: #EFEFF4;
   background-size: cover;
-  /* min-height: 47rem; */
   height: auto;
   border-radius: 0;
   width: 100%;
@@ -195,4 +194,18 @@ footer{
 
 .add-business small {
   color: red;
+}
+
+.list-cover {
+  background: #EFEFF4;
+  background-size: cover;
+  border-radius: 0;
+  width: 100%;
+  position: relative;
+  margin-bottom: 75px;
+}
+
+#business-list .card {
+  margin: 2px;
+  border-radius: 0;
 }
