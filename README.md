@@ -21,12 +21,18 @@ Live API: https://weconnect-business.herokuapp.com/
 
 #### Dependencies
 - Express JS: Web application framework for Node.js.
-- Babel: The compiler for writing next generation JavaScript.
-- Mocha & Chai: Testing the Web Application
 - Bcrypt: Hashing the Password
 - Jsonwebtoken: Authentication
--
+- Swagger-ui-express: For wroting documentation
+- Validator: library of string validators and sanitizers
+- Sequelize: ORM for Postgres
 
+#### Dev Dependencies
+- Coveralls: Helps to show which part code is not covered by test suite
+- Eslint: Linting utility for JavaScript and JSX
+- Babel: The compiler for writing next generation JavaScript.
+- Mocha & Chai: Testing the Web Application
+- Chai: TDD assertion library for node
 - Nodemon: Utility that will monitor for any changes in your source and automatically restart your server.
 
 ### Setup Setup and Installation
