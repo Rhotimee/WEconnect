@@ -209,3 +209,7 @@ footer{
   margin: 2px;
   border-radius: 0;
 }
+
+.bg-search {
+  background: #EFEFF4;
+}

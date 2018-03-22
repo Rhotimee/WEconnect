@@ -19,7 +19,17 @@ Live API: https://weconnect-business.herokuapp.com/
 - Filter businesses by location
 - Filter businesses by category
 
-### How To Contribute
+#### Dependencies
+- Express JS: Web application framework for Node.js.
+- Babel: The compiler for writing next generation JavaScript.
+- Mocha & Chai: Testing the Web Application
+- Bcrypt: Hashing the Password
+- Jsonwebtoken: Authentication
+-
+
+- Nodemon: Utility that will monitor for any changes in your source and automatically restart your server.
+
+### Setup Setup and Installation
 - Create a parent folder on your system
 - Clone repo. `$ git clone https://github.com/Rhotimee/weconnect`
 - Instll all dependencies
@@ -31,19 +41,14 @@ Live API: https://weconnect-business.herokuapp.com/
 - Run Tests
 `$ npm test`
 
-#### Major Dependencies
+### How To Contribute
+- Fork the project & clone locally.
+- Branch for each separate piece of work `$ git checkout -b <branch-name>`
+- Do the work, write good commit messages.
+- Push to your origin repository.
+- Create a new PR in GitHub.
+- Wait for approval.
 
-Template
-- Bootstrap : Open-source front-end library for designing websites and web applications
-
-Server Side
-- Express JS: Web application framework for Node.js.
-- Babel: The compiler for writing next generation JavaScript.
-- Mocha & Chai: Testing the Web Application
-- Bcrypt: Hashing the Password
-- Jsonwebtoken: Authentication
-
-- Nodemon: Utility that will monitor for any changes in your source and automatically restart your server.
 
 #### Author
 [Yemitan Isaiah Olurotimi](https://twitter.com/rhotimee)
