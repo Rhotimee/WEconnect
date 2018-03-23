@@ -7,13 +7,13 @@ export default class Middleware {
   /**
    * Register a new business
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
+   * @param {object} request The request body of the request.
+   * @param {object} response The response body.
    * @param {object} next The response body.
-   * @returns {object} res.
+   * @returns {object} response.
    */
-  static sorter(req, res, next) {
-    const { location, category } = req.query;
+  static sorter(request, response, next) {
+    const { location, category } = request.query;
     const hold = [];
     if (location) {
       db.business.forEach((business) => {
@@ -22,12 +22,12 @@ export default class Middleware {
         }
       });
       if (hold.length === 0) {
-        return res.status(404).json({
+        return response.status(404).json({
           message: 'There is no business in that location yet',
           error: true
         });
       }
-      return res.status(200).json(hold);
+      return response.status(200).json(hold);
     }
     if (category) {
       db.business.forEach((business) => {
@@ -36,12 +36,12 @@ export default class Middleware {
         }
       });
       if (hold.length === 0) {
-        return res.status(404).json({
+        return response.status(404).json({
           message: 'There is no business that category yet',
           error: true
         });
       }
-      return res.status(200).json(hold);
+      return response.status(200).json(hold);
     }
     next();
   }

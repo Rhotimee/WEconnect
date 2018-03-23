@@ -8,22 +8,22 @@ export default class ReviewController {
   /**
    * Get all Reviews
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The request body.
+   * @param {object} response The response body.
+   * @returns {object} response.
    */
-  static listReview(req, res) {
-    const { id } = req.params;
+  static listReview(request, response) {
+    const { id } = request.params;
 
     db.business.forEach((business) => {
       if (parseInt(id, 10) === business.id) {
-        res.json({
+        response.json({
           reviews: business.reviews,
           error: false,
         });
       }
     });
-    return res.status(404).json({
+    return response.status(404).json({
       message: 'Business reviews not found',
       error: true,
     });
@@ -32,13 +32,13 @@ export default class ReviewController {
   /**
    * Add a new Review
    *
-   * @param {object} req The request body of the request.
-   * @param {object} res The response body.
-   * @returns {object} res.
+   * @param {object} request The request body.
+   * @param {object} response The response body.
+   * @returns {object} response.
    */
-  static addReview(req, res) {
-    const { id } = req.params;
-    const { reviewer, content, stars } = req.body;
+  static addReview(request, response) {
+    const { id } = request.params;
+    const { reviewer, content, stars } = request.body;
 
 
     db.business.forEach((business) => {
@@ -49,14 +49,14 @@ export default class ReviewController {
         };
 
         business.reviews.push(newReview);
-        return res.status(201).json({
+        return response.status(201).json({
           newReview,
           error: false,
         });
       }
     });
 
-    return res.status(404).json({
+    return response.status(404).json({
       message: 'Business Not Found',
       error: true
     });
