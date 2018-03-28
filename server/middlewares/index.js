@@ -20,9 +20,8 @@ export default class Middleware {
    */
   static sorter(request, response, next) {
     const { location, category } = request.query;
-
     if (location) {
-      Business.findAll({ where: { location } }).then((businesses) => {
+      Business.findAll({ where: { location: { $ilike: `%${location}%` } } }).then((businesses) => {
         if (businesses.length === 0) {
           return response.status(404).json({
             error: true,
@@ -37,7 +36,7 @@ export default class Middleware {
     }
 
     if (category) {
-      Business.findAll({ where: { category } }).then((businesses) => {
+      Business.findAll({ where: { category: { $ilike: `%${category}%` } } }).then((businesses) => {
         if (businesses.length === 0) {
           return response.status(404).json({
             error: true,
