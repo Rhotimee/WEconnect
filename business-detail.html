@@ -104,9 +104,9 @@
                       152 Visits
                     </div>
                     <div class="col text-right">
-                      <button class="btn btn-outline-dark">
+                      <a href="#" class="btn btn-outline-dark" data-toggle="modal" data-target=#addReview>
                         Write a review
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -159,8 +159,12 @@
               </div>
             </div>
 
+
         </div>
       </div>
+
+
+
 
       <!-- Footer -->
       <footer class="nav-bg">
@@ -181,6 +185,42 @@
       </footer>
 
     </div>
+
+    <!-- Modal for Adding Reviews -->
+    <div class="modal fade" id="addReview">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header bg-dark text-white">
+                  <h5 class="modal-title">Add Review</h5>
+                  <buttpn class="close" data-dismiss="modal"><span>&times;</span></buttpn>
+              </div>
+              <div class="modal-body">
+                  <form>
+                      <p>Fields with <small>*</small> are required</p>
+                      <div class="form-group">
+                        <label for="title">Review <small>*</small> </label>
+                        <textarea type="text" class="form-control" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputState">Star <small>*</small> </label>
+                        <select id="inputState" class="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-outline-dark" type="submit" data-dismiss="modal">Submit</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
