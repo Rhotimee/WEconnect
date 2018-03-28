@@ -59,4 +59,5 @@ typings/
 
 #directories
 dist/
+build/
 playground/
