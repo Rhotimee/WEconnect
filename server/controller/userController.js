@@ -75,17 +75,15 @@ export default class UserController {
     }).then((user) => {
       const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
       return response.status(201).json({
+        token,
         error: false,
         message: 'User created and logged in',
-        data: {
-          token,
-          user: {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-          },
-        }
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
       });
     });
   }
@@ -117,16 +115,14 @@ export default class UserController {
         const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
 
         return response.status(200).json({
+          token,
           error: false,
           message: 'Logged in Successfully',
-          data: {
-            token,
-            user: {
-              id: user.id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-            }
+          user: {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
           }
         });
       });

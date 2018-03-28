@@ -1,7 +1,5 @@
 import express from 'express';
-import path from 'path';
 import logger from 'morgan';
-import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
@@ -22,9 +20,7 @@ app.set('port', port);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+// app.use(cookieParser());
 
 app.use('/', index);
 
@@ -39,9 +35,9 @@ app.use((request, response, next) => {
 app.use((error, request, response, next) => {
   // set locals, only providing error in development
   response.locals.message = error.message;
-  response.locals.error = request.app.get('env') === 'development' ? error : {};
+  response.locals.error = request.app.get('env') === 'development' ? error : 'Error';
 
-  // render the <error></error>
+  // render the error
   response.status(error.status || 500);
   response.json({
     error: response.locals.error || error.message,
