@@ -20,6 +20,7 @@ export default class Middleware {
    */
   static sorter(request, response, next) {
     const { location, category } = request.query;
+
     if (location) {
       Business.findAll({
         where: {

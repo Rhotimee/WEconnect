@@ -194,7 +194,7 @@ export default class BusinessController {
       if (!business) {
         return response.status(404).json({
           error: true,
-          message: 'No business found',
+          message: 'Business not found',
         });
       }
       return response.status(200).json({
