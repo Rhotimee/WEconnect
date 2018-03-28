@@ -5,6 +5,7 @@ import BusinessList from '../components/BusinessList';
 import AddBusiness from '../components/AddBusiness';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
+import BusinessDetails from '../components/BusinessDetails';
 
 const Routes = () => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ const Routes = () => (
       <Route exact path="/add-business" component={AddBusiness} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={Signup} />
+      <Route exact path="/detail" component={BusinessDetails} />
     </div>
   </BrowserRouter>
 );
