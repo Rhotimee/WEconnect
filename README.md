@@ -4,20 +4,21 @@
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
 Live Template: https://rhotimee.github.io/weconnect/index.html
+
 Live API: https://weconnect-business.herokuapp.com/
 
 ### Features
-- Sign up
-- Log in
-- Register a buisness
-- Update business profile
-- Remove a business
-- List all businesses
-- Get details of a business
-- Add reviews for business
-- Get all reviews for a business
-- Filter businesses by location
-- Filter businesses by category
+- Sign up: `POST api/v1/auth/signup`
+- Log in: `POST api/v1/auth/login`
+- Register a buisness `POST api/v1/businesses`
+- Update business profile `PUT api/v1/businesses/<id>`
+- Delete a business `DELETE api/v1/businesses/<id>`
+- List all businesses `GET api/v1/businesses`
+- Get details of a business `GET api/v1/businesses/<id>`
+- Add reviews for business `POST api/v1/businesses/<id>/reviews`
+- Get all reviews for a business `GET api/v1/businesses/<id>/reviews`
+- Filter businesses by location `GET api/v1/businesses?location=<location>`
+- Filter businesses by category `GET api/v1/businesses?category=<category>`
 
 #### Dependencies
 - Express JS: Web application framework for Node.js.
