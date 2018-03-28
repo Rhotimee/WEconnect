@@ -28,6 +28,13 @@ export default class BusinessController {
       });
     }
 
+    if (name.trim() === '' || details.trim() === '' || location.trim() === '' || category.trim() === '') {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
+        error: true,
+      });
+    }
+
     // Check if business name already exists
     Business.find({ where: { name } }).then((business) => {
       if (business.name === name) {
@@ -62,6 +69,7 @@ export default class BusinessController {
     const {
       name, details, location, category
     } = request.body;
+
     Business.findById(request.params.id)
       .then((business) => {
         if (!business) {
