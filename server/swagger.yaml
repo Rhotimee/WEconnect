@@ -120,6 +120,15 @@ paths:
           description: A paged array of businesses
           examples:
             application/json:
+              error: false
+              message: New Business Added
+              business:
+                id: 1
+                name: Andela
+                details: Hire the best software engineers
+                category: Ict
+                location: Lagos
+
 
   /businesses?category={category}:
     get:
@@ -141,6 +150,14 @@ paths:
           description: A paged array of businesses
           examples:
             application/json:
+              error: false
+              message: New Business Added
+              business:
+                id: 1
+                name: Andela
+                details: Hire the best software engineers
+                category: Ict
+                location: Lagos
 
   /businesses/{id}:
     get:
