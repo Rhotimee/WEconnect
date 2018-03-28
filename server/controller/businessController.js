@@ -87,8 +87,8 @@ export default class BusinessController {
         }
 
         // Check if business name already exists
-        Business.find({ where: { name } }).then((findBusiness) => {
-          if (findBusiness.name === name) {
+        Business.find({ where: { name } }).then((foundBusiness) => {
+          if (foundBusiness) {
             return response.status(409).json({
               error: true,
               message: 'Business name already exists',
