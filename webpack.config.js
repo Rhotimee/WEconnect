@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './client/app.js',
+  entry: './client/container/index.js',
   output: {
     path: path.resolve(__dirname, 'client/build'),
     filename: 'bundle.js'
@@ -20,6 +20,15 @@ module.exports = {
         loader: ['style-loader', 'css-loader', 'sass-loader'],
 
       },
+      {
+        test: /\.svg|.png|.jpg$/,
+        loader: 'url-loader',
+        exclude: /node_modules/
+      },
     ],
   },
+  devServer: {
+    contentBase: `${__dirname}/client`,
+    historyApiFallback: true
+  }
 };

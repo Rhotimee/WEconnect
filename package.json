@@ -18,7 +18,8 @@
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "webpack-dev": "webpack --mode development",
     "webpack-prod": "webpack --mode production",
-    "webpack-watch": "webpack --watch"
+    "webpack-watch": "webpack --mode development --watch",
+    "webpack-start": "webpack-dev-server --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "pg-hstore": "^2.3.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "sequelize": "^4.36.1",
     "sequelize-cli": "^4.0.0",
     "swagger-ui-express": "^2.0.15",
