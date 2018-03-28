@@ -63,14 +63,6 @@ export default class UserController {
       });
     }
 
-    if (password.trim() === '' || firstName.trim() === '' || lastName.trim() === '') {
-      return response.status(400).json({
-        message: 'Enter Valid Input',
-        error: true,
-      });
-    }
-
-
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
         if (userExists) {
