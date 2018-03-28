@@ -24,11 +24,11 @@ const AddBusiness = () => (
           </div>
 
           <div className="form-group col-md-6">
-            <label htmlFor="">Business Phone Number</label>
+            <label htmlFor="number">Business Phone Number</label>
             <input type="number" className="form-control" placeholder="+2348000000000" required />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="">Business Email <small>*</small></label>
+            <label htmlFor="email">Business Email <small>*</small></label>
             <input type="email" className="form-control" placeholder="name@example.com" required />
           </div>
 
