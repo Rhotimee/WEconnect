@@ -18,7 +18,8 @@
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "webpack-dev": "webpack --mode development",
     "webpack-prod": "webpack --mode production",
-    "webpack-watch": "webpack --mode development --watch"
+    "webpack-watch": "webpack --mode development --watch",
+    "webpack-start": "webpack-dev-server --config webpack.config.js"
   },
   "repository": {
     "type": "git",

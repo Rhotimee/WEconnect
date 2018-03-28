@@ -27,4 +27,8 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    contentBase: `${__dirname}/client`,
+    historyApiFallback: true
+  }
 };
