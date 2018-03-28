@@ -17,7 +17,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "webpack-dev": "webpack --mode development",
-    "webpack-build": "webpack --mode production",
+    "webpack-prod": "webpack --mode production",
     "webpack-watch": "webpack --watch"
   },
   "repository": {
