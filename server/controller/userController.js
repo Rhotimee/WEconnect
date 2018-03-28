@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import isEmail from 'validator/lib/isEmail';
+import { isEmail, isInt } from 'validator';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
@@ -55,6 +55,21 @@ export default class UserController {
         error: true,
       });
     }
+
+    if (password.trim() === '' || firstName.trim() === '' || lastName.trim() === '') {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
+        error: true,
+      });
+    }
+
+    if (password.trim() === '' || firstName.trim() === '' || lastName.trim() === '') {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
+        error: true,
+      });
+    }
+
 
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
