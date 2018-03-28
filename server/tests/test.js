@@ -56,7 +56,7 @@ describe('GET docs/', () => {
 });
 
 //  Get 404
-describe('GET page not foung', () => {
+describe('GET page not found', () => {
   it('should return 200', (done) => {
     chai.request(server)
       .get('/api/v1/kjdfkj/wkbw')
@@ -137,6 +137,24 @@ describe('POST businesses/', () => {
         done();
       });
   });
+  it('should return 400 if name is empty', (done) => {
+    chai.request(server)
+      .post('/api/v1/businesses')
+      .set('x-access-token', token)
+      .send({
+        name: '',
+        details: '',
+        location: '',
+        category: '',
+      })
+      .end((err, res) => {
+        expect(res)
+          .to.have.status(400);
+        expect(res.body)
+          .to.be.a('object');
+        done();
+      });
+  });
 });
 
 //  Update a business
@@ -201,7 +219,7 @@ describe('GET businesses/', () => {
 });
 
 // Get Business Reviews
-describe('Get businesses/1/reviews', () => {
+describe('Get Reviews/1/reviews', () => {
   it('should be able to get reviews of a business', (done) => {
     chai.request(server)
       .get('/api/v1/businesses/1/reviews')
@@ -515,7 +533,7 @@ describe('GET businesses/', () => {
   });
   it('should return 404', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses?location=zaria')
+      .get('/api/v1/businesses?location=79ojknlzaria')
       .end((err, res) => {
         expect(res)
           .to.have.status(404);

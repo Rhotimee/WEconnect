@@ -28,6 +28,13 @@ export default class BusinessController {
       });
     }
 
+    if (name.trim() === '' || details.trim() === '' || location.trim() === '' || category.trim() === '') {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
+        error: true,
+      });
+    }
+
     // Check if business name already exists
     Business.find({ where: { name } }).then((business) => {
       if (business.name === name) {
@@ -62,6 +69,7 @@ export default class BusinessController {
     const {
       name, details, location, category
     } = request.body;
+
     Business.findById(request.params.id)
       .then((business) => {
         if (!business) {
@@ -79,8 +87,8 @@ export default class BusinessController {
         }
 
         // Check if business name already exists
-        Business.find({ where: { name } }).then((findBusiness) => {
-          if (findBusiness.name === name) {
+        Business.find({ where: { name } }).then((foundBusiness) => {
+          if (foundBusiness) {
             return response.status(409).json({
               error: true,
               message: 'Business name already exists',
@@ -186,7 +194,7 @@ export default class BusinessController {
       if (!business) {
         return response.status(404).json({
           error: true,
-          message: 'No business found',
+          message: 'Business not found',
         });
       }
       return response.status(200).json({

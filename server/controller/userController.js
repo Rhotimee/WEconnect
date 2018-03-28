@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { isEmail, isInt } from 'validator';
+import { isEmail } from 'validator';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
@@ -13,8 +13,8 @@ export default class UserController {
   /**
    * List all users
    *
-   * @param {object} request The requestuest body of the requestuest.
-   * @param {object} response The responseponse body.
+   * @param {object} request The request body of the requestuest.
+   * @param {object} response The response body.
    * @returns {object} response.
    */
   static list(request, response) {
@@ -50,13 +50,6 @@ export default class UserController {
     } = request.body;
 
     if (!isEmail(email) || !password || !firstName || !lastName) {
-      return response.status(400).json({
-        message: 'Enter Valid Input',
-        error: true,
-      });
-    }
-
-    if (password.trim() === '' || firstName.trim() === '' || lastName.trim() === '') {
       return response.status(400).json({
         message: 'Enter Valid Input',
         error: true,
