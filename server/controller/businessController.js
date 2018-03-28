@@ -96,6 +96,13 @@ export default class BusinessController {
           }
         });
 
+        if (details.trim() === '' || location.trim() === '' || category.trim() === '') {
+          return response.status(400).json({
+            message: 'Enter Valid Input',
+            error: true,
+          });
+        }
+
         // Update the business
         Business.update({
           name: name || business.name,
