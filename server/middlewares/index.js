@@ -13,9 +13,9 @@ export default class Middleware {
   /**
    * Register a new business
    *
-   * @param {object} request The requestuest body of the requestuest.
-   * @param {object} response The responseponse body.
-   * @param {object} next The responseponse body.
+   * @param {object} request The request body.
+   * @param {object} response The response body.
+   * @param {object} next Run the controller.
    * @returns {object} response.
    */
   static sorter(request, response, next) {
@@ -66,8 +66,8 @@ export default class Middleware {
 
   /**
    * Checks if a user is logged in
-   * @param {object} request The requestuest body of the requestuest.
-   * @param {object} response The responseponse body.
+   * @param {object} request The request body of the requestuest.
+   * @param {object} response The response body.
    * @param {object} next Passes control to next middleware
    * @returns {object} next
    */
