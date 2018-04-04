@@ -147,9 +147,7 @@ export default class BusinessController {
           message: 'You do not have the permission to delete this business'
         });
       }
-      Business.destroy({
-        where: { id: request.params.id }
-      }).then((deleteStatus) => {
+      business.destroy().then((deleteStatus) => {
         if (!deleteStatus) {
           response.status(500).json({
             error: true,
