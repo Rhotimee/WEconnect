@@ -104,18 +104,17 @@ export default class BusinessController {
         }
 
         // Update the business
-        Business.update({
+        business.update({
           name: name || business.name,
           details: details || business.details,
           location: location || business.location,
           category: category || business.category
-        }, {
-          where: { id: request.params.id, },
         }).then((updateBusiness) => {
           if (updateBusiness) {
             return response.status(200).json({
               error: false,
               message: 'Business updated',
+              business: updateBusiness
             });
           }
         });
