@@ -194,11 +194,9 @@ export default class UserController {
           });
         }
 
-        User.update({
+        user.update({
           firstName: request.body.firstName || user.firstName,
           lastName: request.body.lastName || user.lastName,
-        }, {
-          where: { id: request.params.id, },
         }).then((updatedUser) => {
           if (!updatedUser) {
             return response.status(500).json({

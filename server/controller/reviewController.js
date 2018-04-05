@@ -32,6 +32,7 @@ export default class ReviewController {
         }
         return response.status(200).json({
           error: false,
+          message: 'Reviews found',
           reviews,
         });
       }).catch(() => response.status(500).json({
@@ -86,6 +87,7 @@ export default class ReviewController {
         content, star, userId, businessId
       }).then(review => response.status(201).json({
         error: false,
+        message: 'Review Created',
         review,
       })).catch(() => {
         response.status(500).json({
