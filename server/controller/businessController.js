@@ -104,18 +104,17 @@ export default class BusinessController {
         }
 
         // Update the business
-        Business.update({
+        business.update({
           name: name || business.name,
           details: details || business.details,
           location: location || business.location,
           category: category || business.category
-        }, {
-          where: { id: request.params.id, },
         }).then((updateBusiness) => {
           if (updateBusiness) {
             return response.status(200).json({
               error: false,
               message: 'Business updated',
+              business: updateBusiness
             });
           }
         });
@@ -148,9 +147,7 @@ export default class BusinessController {
           message: 'You do not have the permission to delete this business'
         });
       }
-      Business.destroy({
-        where: { id: request.params.id }
-      }).then((deleteStatus) => {
+      business.destroy().then((deleteStatus) => {
         if (!deleteStatus) {
           response.status(500).json({
             error: true,

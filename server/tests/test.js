@@ -5,7 +5,7 @@ import server from '../server';
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.OeN-Tut9xAg8wYUvC-RPLbTqIcGXH5zZamP_o5wTZrc';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjUwMjI0MDM3MTR9.2I9wWT5aEr6KOCtZJeUZcsg1bnc0xoGTARFCqCBXHFA';
 
 const Business = {
   name: `Moremi Gloals ${Math.random() * 100}`,
@@ -451,7 +451,7 @@ describe('POST reviews/1', () => {
         userId: 1,
         content: 'Lorem ipsum dolor sit amet.',
         star: 4,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjE1MjI0MDM3MTR9.jfCM1CvEelmDJLTrifwGydwvbQw-rS-iWnLcYNopRHY'
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjUwMjI0MDM3MTR9.elbF85d04ZHG3iSjL6GElBRJAn05H6ZUxL5J_V8TxCE'
       })
       .end((err, res) => {
         expect(res)
