@@ -21,6 +21,10 @@ export default class Middleware {
   static sorter(request, response, next) {
     const { location, category } = request.query;
 
+    if (!location && !category) {
+      next();
+    }
+
     if (location) {
       Business.findAll({
         where: {
@@ -59,9 +63,6 @@ export default class Middleware {
         });
       });
     }
-
-
-    next();
   }
 
   /**
