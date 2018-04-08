@@ -14,20 +14,6 @@ const User = {
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjUwMjI0MDM3MTR9.2I9wWT5aEr6KOCtZJeUZcsg1bnc0xoGTARFCqCBXHFA';
 
-//  Get all Users
-describe('GET users/', () => {
-  it('should get all users', (done) => {
-    chai.request(server)
-      .get('/api/v1/users')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.users.length).to.eqls(2);
-        done();
-      });
-  });
-});
-
 //  POST - Sign up
 describe('POST auth/signup/', () => {
   //  POST - Should create a new User
@@ -170,6 +156,20 @@ describe('Get logout/', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.eqls('User has been logged out');
+        done();
+      });
+  });
+});
+
+//  Get all Users
+describe('GET users/', () => {
+  it('should get all users', (done) => {
+    chai.request(server)
+      .get('/api/v1/users')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.users.length).to.eqls(3);
         done();
       });
   });
