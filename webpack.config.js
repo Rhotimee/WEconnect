@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       {
-        test: /\.s?css$/,
+        test: /\.scss$/,
         loader: ['style-loader', 'css-loader', 'sass-loader'],
 
       },
