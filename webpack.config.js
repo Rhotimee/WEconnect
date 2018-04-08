@@ -4,7 +4,8 @@ module.exports = {
   entry: './client/container/index.js',
   output: {
     path: path.resolve(__dirname, 'client/build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -27,8 +28,4 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    contentBase: `${__dirname}/client`,
-    historyApiFallback: true
-  }
 };

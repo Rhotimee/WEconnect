@@ -13,6 +13,7 @@ describe('GET /', () => {
       .get('/')
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.type).to.eqls('text/html');
       });
   });
 });
@@ -49,7 +50,7 @@ describe('GET page not found', () => {
       .get('/api/v1/kjdfkj/wkbw')
       .end((err, res) => {
         expect(res).to.have.status(404);
-        expect(res.body.message).to.eqls('Not Found');
+        expect(res.body.message).to.eqls('Not found');
         done();
       });
   });
