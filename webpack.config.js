@@ -3,15 +3,14 @@ const path = require('path');
 module.exports = {
   entry: './client/container/index.js',
   output: {
-    path: path.resolve(__dirname, 'client/build'),
+    path: path.join(__dirname, '/client/build'),
     filename: 'bundle.js',
-    publicPath: '/'
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /build/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },

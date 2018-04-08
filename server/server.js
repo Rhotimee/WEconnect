@@ -15,7 +15,9 @@ const app = express();
 // React
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler));
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath
+  }));
 }
 app.use(express.static(path.join(__dirname, '../client')));
 

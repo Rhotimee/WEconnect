@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./dist/server.js",
     "dev-start": "nodemon --exec babel-node server/server.js",
-    "build": "babel server -d ./dist --ignore server/dist",
+    "build": "babel server -d ./dist --ignore server/dist && webpack --mode production",
     "unmigrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate:undo:all",
     "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all",
     "migrate": "npm run unmigrate && node ./node_modules/sequelize-cli/lib/sequelize db:migrate && npm run seed",
@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-preset-stage-2": "^6.24.1",
     "bcrypt": "^1.0.3",
     "body-parser": "~1.18.2",
     "chai": "^4.1.2",
