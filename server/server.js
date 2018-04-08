@@ -4,21 +4,12 @@ import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config';
 import index from './routes/v1/index';
 
 const app = express();
 
-// React
-if (process.env.NODE_ENV !== 'production') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath
-  }));
-}
+
 app.use(express.static(path.join(__dirname, '../client')));
 
 // API Docs
