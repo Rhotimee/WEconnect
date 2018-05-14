@@ -6,7 +6,7 @@ const AddBusiness = () => (
     <NavFoot>
       <div className="add-business container py-5 mt-3 text-dark">
 
-        <form className="row">
+        <form className="row">     
           <p className="col-12">Fields with <small>*</small> are required </p>
           <div className="form-group col-sm-6">
             <label htmlFor="text">Buisness Name <small>*</small> </label>

@@ -6,8 +6,20 @@ import cors from 'cors';
 import YAML from 'yamljs';
 import path from 'path';
 import index from './routes/v1/index';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackConfig from '../webpack.config';
+
 
 const app = express();
+const compiler = webpack(webpackConfig)
+
+app.use(webpackMiddleware(compiler));
+app.use(require('webpack-hot-middleware')(compiler, {
+  hot: true,
+  publicPath: webpackConfig.output.publicPath,
+  noInfo: true
+}));
 
 
 app.use(express.static(path.join(__dirname, '../client')));
@@ -28,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1', index);
 
-app.use('*', (request, response) => {
+app.use('/*', (request, response) => {
   response.sendFile(path.join(__dirname, '../client/index.html'));
 });
 

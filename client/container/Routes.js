@@ -7,7 +7,8 @@ import Signup from '../components/Signup';
 import Login from '../components/Login';
 import BusinessDetails from '../components/BusinessDetails';
 
-const Routes = () => (
+function Routes () {
+  return (
   <BrowserRouter>
     <div>
       <Route exact path="/" component={LandingPage} />
@@ -18,7 +19,7 @@ const Routes = () => (
       <Route exact path="/detail" component={BusinessDetails} />
     </div>
   </BrowserRouter>
-);
+)};
 
 export default Routes;
 

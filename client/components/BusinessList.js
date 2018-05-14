@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import NavFoot from './NavFoot';
 
 const eachBusiness = (
@@ -22,7 +22,9 @@ const eachBusiness = (
   </div>
 );
 
-const BusinessList = () => (
+class BusinessList extends Component{ 
+  render () {
+  return (
   <div className="bg-cover">
     <NavFoot>
       <div className="list-cover">
@@ -57,6 +59,6 @@ const BusinessList = () => (
       </div>
     </NavFoot>
   </div>
-);
+)}};
 
 export default BusinessList;
