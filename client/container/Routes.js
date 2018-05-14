@@ -7,19 +7,20 @@ import Signup from '../components/Signup';
 import Login from '../components/Login';
 import BusinessDetails from '../components/BusinessDetails';
 
-function Routes () {
+function Routes() {
   return (
-  <BrowserRouter>
-    <div>
-      <Route exact path="/" component={LandingPage} />
-      <Route exact path="/businesses" component={BusinessList} />
-      <Route exact path="/add-business" component={AddBusiness} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={Signup} />
-      <Route exact path="/detail" component={BusinessDetails} />
-    </div>
-  </BrowserRouter>
-)};
+    <BrowserRouter>
+      <div>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/businesses" component={BusinessList} />
+        <Route exact path="/add-business" component={AddBusiness} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/detail" component={BusinessDetails} />
+      </div>
+    </BrowserRouter>
+  );
+}
 
 export default Routes;
 
