@@ -1,7 +1,12 @@
 import React from 'react';
 import NavFoot from './NavFoot';
 
-const BusinessDetails = () => (
+const BusinessDetails = ({business}) => {
+
+  if (!business){
+    return <h2>Loading...</h2>
+  }
+return (
   <div className="bg-cover">
     <NavFoot>
       <div className="container mt-4 mb-4" id="business-detail">
@@ -10,7 +15,7 @@ const BusinessDetails = () => (
           <div className="card col px-0">
             <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" height="300px;" />
             <div className="card-img-overlay ">
-              <a className="h1 text-white card-title" href="business-detail.html">Yum Cuisine</a>
+              <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
             </div>
 
             <div className="card-body text-dark bg-light">
@@ -39,10 +44,7 @@ const BusinessDetails = () => (
 
               <div className="row mt-2">
                 <p className="col-md-6">
-                  Our foods cut across local dishes, each of which is prepared with
-                  love and served in a manner that is both pleasing to the eyes & excites
-                  your taste buds. We provide ‘culinary satisfaction’ for all events formal or informal such as
-                  daily staff lunch, trainings, weddings, birthdays and other events & anniversaries.
+                  {business.details}
                 </p>
                 <img className="col-md-6" width="500" src="https://maps.googleapis.com/maps/api/staticmap?center=ikeja+lagos&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos" alt="Google Map of ikeja lagos" />
               </div>
@@ -124,6 +126,6 @@ const BusinessDetails = () => (
       </div>
     </NavFoot>
   </div>
-);
+)};
 
 export default BusinessDetails;

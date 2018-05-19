@@ -10,7 +10,9 @@ class SignupForm extends Component {
       lastName: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      errors: {},
+      isLoading: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -19,10 +21,14 @@ class SignupForm extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
+  
   onSubmit(event) {
     event.preventDefault();
-    this.props.userSignupRequest(this.state);
+    this.setState({ errors: {}, isLoading: true });
+    this.props.userSignupRequest(this.state).then(
+      () => {},
+      ({ data }) => this.setState({errors: data, isLoading: false })
+    );
   }
 
   render() {
@@ -85,6 +91,7 @@ class SignupForm extends Component {
           />
         </div>
         <input
+          disabled = { this.state.isLoading }
           type="submit"
           className="btn btn-outline-dark btn-block"
         />

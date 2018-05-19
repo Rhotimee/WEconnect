@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { isEmail } from 'validator';
+import Validator, { isEmail } from 'validator';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
