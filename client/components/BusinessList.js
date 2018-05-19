@@ -12,10 +12,15 @@ class BusinessList extends Component{
 
     this.state = {
       businesses : [],
-      selectedBusiness: null
+      selectedBusiness: null,
+      location: '',
     }
 
-    axios.get('/api/v1/businesses').then(response => {
+    this.businessLoactionSearch('');
+  }
+
+  businessLoactionSearch(loaction) {
+    axios.get(`/api/v1/businesses?location=${loaction}`).then(response => {
       this.setState({ businesses: response.data.businesses })
     })
   }
@@ -27,6 +32,7 @@ class BusinessList extends Component{
           key={business.id}  
           business={business} 
           onBusinessSelect = { selectedBusiness => {this.setState({ selectedBusiness })}}
+          // onLocationSearch={ location => this.businessLoactionSearch(location) }
         />
       )
     });
@@ -48,7 +54,19 @@ class BusinessList extends Component{
                   <div className="input-group-prepend">
                     <span className="input-group-text bg-light" id="basic-addon1"> <i className="fa fa-map-marker" /> </span>
                   </div>
-                  <input type="text" className="form-control form-control-lg" placeholder="Lagos" aria-label="Username" aria-describedby="basic-addon1" />
+                  <input 
+                    type="text" 
+                    className="form-control form-control-lg" 
+                    placeholder="Lagos" 
+                    aria-label="Username" 
+                    aria-describedby="basic-addon1" 
+                    value = {this.state.loaction}
+                    onChange={event => {
+                      this.setState({ location: event.target.value });
+                      this.businessLoactionSearch(this.state.location);                    
+                    }}
+                    
+                  />
                 </div>
               </div>
               <div className="col-md-2 px-1 my-1">
