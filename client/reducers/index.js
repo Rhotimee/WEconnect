@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import BusinessesReducer from './reducer_businesses';
-import user_reducer from './user_reducer'
+import Businesses from './reducer_businesses';
+import user_reducer from './user_reducer';
+import oneBusiness from './reducer_one_business';
 
 const rootReducer = combineReducers({
-  BusinessesReducer,
-  user_reducer
+  Businesses,
+  user_reducer,
+  oneBusiness
 });
 
 export default rootReducer;

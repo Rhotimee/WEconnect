@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { Component} from 'react';
 import NavFoot from './NavFoot';
+import { connect } from 'react-redux';
+import  { fetchOneBusiness } from '../actions/businessAction';
 
-const BusinessDetails = ({business}) => {
 
-  if (!business){
-    return <h2>Loading...</h2>
+class BusinessDetails extends Component {
+
+  
+
+  componentWillMount () {
+    this.props.fetchOneBusiness(this.props.match.params.id)
   }
+  
+  render (){
+    const {business} = this.props
+    const {id} = this.props.match.params;
+
+    if (!business){
+      return <h2>Loading...</h2>
+  }
+
+  
+
 return (
   <div className="bg-cover">
     <NavFoot>
@@ -126,6 +142,11 @@ return (
       </div>
     </NavFoot>
   </div>
-)};
+)}};
 
-export default BusinessDetails;
+function mapStateToProps(state) {
+  return { business: state.oneBusiness.oneBusiness }
+}
+
+
+export default connect(mapStateToProps, {fetchOneBusiness})(BusinessDetails);

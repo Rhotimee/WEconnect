@@ -7,8 +7,8 @@ import Routes from './Routes';
 import '../styles/style.scss';
 import reducers from '../reducers';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension'
-
+import { composeWithDevTools } from 'redux-devtools-extension';
+import setAuthToken from '../helpers/setAuthToken'
 
 const store = createStore(
   reducers,  
@@ -16,6 +16,18 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 );
+
+const token = localStorage.getItem('token');
+
+if (token) {
+  setAuthToken(token);
+  store.dispatch({
+    type: CURRENT_USER,
+    user: jwtDecode(token),
+    isAuthenticated: true
+  });
+}
+
 // const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 render(

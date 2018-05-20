@@ -4,7 +4,8 @@ import axios from 'axios';
 import List_Business from './BusinessListItem';
 import BusinessDetails from './BusinessDetails';
 import { connect } from 'react-redux';
-import  {allBusinesses} from '../actions/index';
+import  { fetchBusinesses } from '../actions/businessAction';
+
 
 class BusinessList extends Component{ 
 
@@ -12,26 +13,25 @@ class BusinessList extends Component{
     super(props);
 
     this.state = {
-      businesses : [],
-      selectedBusiness: null,
+      // businesses : [],
+      // selectedBusiness: null,
       location: '',
     }
 
-    this.businessLoactionSearch('');
+    // this.businessLoactionSearch('');
   }
 
-  componentDidMount() {
-    this.props.allBusinesses()
+  componentWillMount() {
+    this.props.fetchBusinesses();
   }
 
-  businessLoactionSearch(loaction) {
-    axios.get(`/api/v1/businesses?location=${loaction}`).then(response => {
-      this.setState({ businesses: response.data.businesses })
-    })
-  }
+  // businessLoactionSearch(loaction) {
+  //   axios.get(`/api/v1/businesses?location=${loaction}`).then(response => {
+  //     this.setState({ businesses: response.data.businesses })
+  //   })
+  // }
 
   render () {
-    console.log(this.props.businesses)
     const eachBusiness = this.props.businesses.map(business => {
       return (
         <List_Business 
@@ -40,7 +40,8 @@ class BusinessList extends Component{
           onBusinessSelect = { selectedBusiness => {this.setState({ selectedBusiness })}}
         />
       )
-    });
+    }
+  );
 
 
   return (
@@ -48,7 +49,6 @@ class BusinessList extends Component{
       <NavFoot>
         <div className="list-cover">
 
-          {/* Search */}
           <form action="" className="container bg-search py-5 sticky-top">
             <div className="row mx-4 ">
               <div className="col-md-6 px-1 my-1">
@@ -80,7 +80,6 @@ class BusinessList extends Component{
             </div>
           </form>
 
-          {/* Lists */}
           <div className="mx-4"id="business-list">
             <div className="row justify-content-center">
               {eachBusiness}
@@ -89,14 +88,14 @@ class BusinessList extends Component{
 
         </div>
       </NavFoot>
-      <BusinessDetails 
+      {/* <BusinessDetails 
         business={this.state.selectedBusiness} 
-      />
+      /> */}
     </div>
 )}};
 
 function mapStateToProps(state) {
-  return { businesses: state.allBusinesses }
+  return { businesses: state.Businesses.allBusinesses }
 }
 
-export default connect(mapStateToProps, { allBusinesses })(BusinessList);
+export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);

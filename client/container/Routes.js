@@ -16,7 +16,7 @@ function Routes() {
         <Route exact path="/add-business" component={AddBusiness} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/detail" component={BusinessDetails} />
+        <Route exact path={"/businesses/:id"} component={BusinessDetails} />
       </div>
     </BrowserRouter>
   );
