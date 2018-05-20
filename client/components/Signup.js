@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import NavFoot from './NavFoot';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { userSignupRequest } from '../actions/signupActions';
+import { userSignupRequest } from '../actions/userActions';
 import SignupForm from './SignupForm';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Signup extends Component {
   render() {
@@ -32,8 +32,8 @@ class Signup extends Component {
   )}
 };
 
-Signup.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired
-}
+// Signup.propTypes = {
+//   userSignupRequest: PropTypes.func.isRequired
+// }
 
 export default connect(null, { userSignupRequest })(Signup);

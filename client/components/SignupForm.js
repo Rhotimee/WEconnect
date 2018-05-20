@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { userSignupRequest } from '../actions/signupActions';
-import { PropTypes } from 'prop-types';
+import { userSignupRequest } from '../actions/userActions';
+import PropTypes from 'prop-types';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -100,9 +100,9 @@ class SignupForm extends Component {
   }
 }
 
-SignupForm.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired
-}
+// SignupForm.propTypes = {
+//   userSignupRequest: React.PropTypes.func.isRequired
+// }
 
 
 export default SignupForm

@@ -1,5 +1,6 @@
 import React from 'react';
 import NavFoot from './NavFoot';
+import LoginForm from './loginForm';
 
 const Login = () => (
   <NavFoot>
@@ -11,16 +12,7 @@ const Login = () => (
             <div className="card-body my-3">
               <h3>Sign In </h3>
               <p>Fill this form to Login</p>
-              <form>
-                <p className="col-12 my-3">Fields with <small>*</small> are required </p>
-                <div className="form-group">
-                  <input type="email" className="form-control form-control-lg" placeholder="Email *" required />
-                </div>
-                <div className="form-group">
-                  <input type="password" className="form-control form-control-lg" placeholder="Password *" required />
-                </div>
-                <input type="submit" className="btn btn-outline-dark btn-block" />
-              </form>
+              <LoginForm />
             </div>
             <div className="card-footer">No account yet?  <a href="signup.html">Sign up</a></div>
           </div>

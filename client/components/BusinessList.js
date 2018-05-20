@@ -3,7 +3,8 @@ import NavFoot from './NavFoot';
 import axios from 'axios';
 import List_Business from './BusinessListItem';
 import BusinessDetails from './BusinessDetails';
-
+import { connect } from 'react-redux';
+import  {allBusinesses} from '../actions/index';
 
 class BusinessList extends Component{ 
 
@@ -19,6 +20,10 @@ class BusinessList extends Component{
     this.businessLoactionSearch('');
   }
 
+  componentDidMount() {
+    this.props.allBusinesses()
+  }
+
   businessLoactionSearch(loaction) {
     axios.get(`/api/v1/businesses?location=${loaction}`).then(response => {
       this.setState({ businesses: response.data.businesses })
@@ -26,13 +31,13 @@ class BusinessList extends Component{
   }
 
   render () {
-    const eachBusiness = this.state.businesses.map(business => {
+    console.log(this.props.businesses)
+    const eachBusiness = this.props.businesses.map(business => {
       return (
         <List_Business 
           key={business.id}  
           business={business} 
           onBusinessSelect = { selectedBusiness => {this.setState({ selectedBusiness })}}
-          // onLocationSearch={ location => this.businessLoactionSearch(location) }
         />
       )
     });
@@ -90,4 +95,8 @@ class BusinessList extends Component{
     </div>
 )}};
 
-export default BusinessList;
+function mapStateToProps(state) {
+  return { businesses: state.allBusinesses }
+}
+
+export default connect(mapStateToProps, { allBusinesses })(BusinessList);
