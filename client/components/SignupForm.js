@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { userSignupRequest } from '../actions/userActions';
 import PropTypes from 'prop-types';
 
+
 class SignupForm extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,9 @@ class SignupForm extends Component {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
     this.props.userSignupRequest(this.state).then(
-      () => {},
+      () => {
+        this.context.router.history.push('/');
+      },
       ({ data }) => this.setState({errors: data, isLoading: false })
     );
   }
@@ -100,9 +103,8 @@ class SignupForm extends Component {
   }
 }
 
-// SignupForm.propTypes = {
-//   userSignupRequest: React.PropTypes.func.isRequired
-// }
-
+SignupForm.contextTypes = {
+  router: PropTypes.object.isRequired
+}
 
 export default SignupForm

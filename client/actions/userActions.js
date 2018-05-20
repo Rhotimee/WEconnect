@@ -22,3 +22,15 @@ export function userSignupRequest(userData) {
   )
 }
 
+export function userSigninRequest(userData) {
+  return dispatch => axios.post('/api/v1/auth/login', userData).then(
+    response => {
+      const {token} = response.data;
+      localStorage.setItem('userToken', token);
+      setAuthToken(token);
+      dispatch(setCurrentUser(jwt.decode(token)));
+     
+    }
+  )
+}
+
