@@ -38,3 +38,7 @@ export const fetchOneBusiness = id => (dispatch) => {
 export function addOneBusiness(userData) {
   return axios.post('/api/v1/businesses', userData).then(response => response.data.business);
 }
+
+export const deleteOneBusiness = id => {
+  return axios.delete(`/api/v1/businesses/${id}`).then(response => response.data.business);
+}

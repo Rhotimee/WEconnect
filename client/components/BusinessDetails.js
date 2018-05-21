@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import NavFoot from './NavFoot';
 import { connect } from 'react-redux';
-import { fetchOneBusiness } from '../actions/businessAction';
+import { fetchOneBusiness, deleteOneBusiness } from '../actions/businessAction';
+import { Link } from 'react-router-dom';
+import EditBusiness from './EditBusinessForm';
 
 
 class BusinessDetails extends Component {
@@ -19,10 +21,10 @@ class BusinessDetails extends Component {
       return <h2>Loading...</h2>;
     }
     if (business) {
-      if (business.id === this.props.user) {
+      if (business.userId === this.props.user) {
         console.log('owner');
       } else {
-        console.log('not owner');
+        console.log('not owner', business.userId, user);
       }
     }
 
@@ -52,10 +54,10 @@ class BusinessDetails extends Component {
                 </div>
 
                 {
-                  business.id === user ? <div>
-                    <a href="">edit</a>
-
-                    <a href="">delete</a>
+                  business.userId === user ? <div>
+                    <Link to={`/businesses/${id}/edit`}>edit</Link>
+                    -
+                    <Link to="/businesses" onClick={() => {this.props.deleteOneBusiness(id)}} >delete</Link>
                   </div>
                 : null
               }
@@ -168,4 +170,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { fetchOneBusiness })(BusinessDetails);
+export default connect(mapStateToProps, { fetchOneBusiness, deleteOneBusiness })(BusinessDetails);

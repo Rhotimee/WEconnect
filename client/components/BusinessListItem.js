@@ -8,7 +8,7 @@ const List_Businesses = ({ business, onBusinessSelect }) => (
     >
       <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" />
       <div className="card-img-overlay">
-        <Link to={`/businesses/${business.id}`} className="h2 text-white card-title px-2" href="/detail">{business.name}</Link>
+        <Link to={`/businesses/${business.id}`} className="h2 text-white card-title px-2">{business.name}</Link>
       </div>
       <div className="card-body text-dark bg-light">
         <p className="card-text">{business.details}</p>
