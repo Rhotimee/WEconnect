@@ -1,53 +1,46 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import NavFoot from './NavFoot';
 import { connect } from 'react-redux';
-import  { fetchOneBusiness } from '../actions/businessAction';
+import { fetchOneBusiness } from '../actions/businessAction';
 
 
 class BusinessDetails extends Component {
-
-  
-
-  componentWillMount () {
-    this.props.fetchOneBusiness(this.props.match.params.id)
+  componentWillMount() {
+    this.props.fetchOneBusiness(this.props.match.params.id);
   }
 
 
-  render (){
+  render() {
+    const { business, user } = this.props;
+    const { id } = this.props.match.params;
 
-    const {business, user} = this.props
-    const {id} = this.props.match.params;
 
-
-    if (!business){
-      return <h2>Loading...</h2>
+    if (!business) {
+      return <h2>Loading...</h2>;
     }
-    if(business){
-      if ( business.id === this.props.user) {
-        console.log('owner')
+    if (business) {
+      if (business.id === this.props.user) {
+        console.log('owner');
+      } else {
+        console.log('not owner');
       }
-      else{
-        console.log('not owner')
-      }      
     }
 
 
-  
+    return (
+      <div className="bg-cover">
+        <NavFoot>
+          <div className="container mt-4 mb-4" id="business-detail">
+            <div className="row">
 
-return (
-  <div className="bg-cover">
-    <NavFoot>
-      <div className="container mt-4 mb-4" id="business-detail">
-        <div className="row">
+              <div className="card col px-0">
+                <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" height="300px;" />
+                <div className="card-img-overlay ">
+                  <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
+                </div>
 
-          <div className="card col px-0">
-            <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" height="300px;" />
-            <div className="card-img-overlay ">
-              <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
-            </div>
-
-            <div className="card-body text-dark bg-light">
-              <div className="data">
+                <div className="card-body text-dark bg-light">
+                  <div className="data">
                 <div className="row data1 ml-1">
                   <div className="p-1">
                     <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
@@ -59,12 +52,12 @@ return (
                 </div>
 
                 {
-                  business.id === user ?  <div>
-                  <a href="">edit</a>
+                  business.id === user ? <div>
+                    <a href="">edit</a>
 
-                  <a href="">delete</a>
-                </div>
-                : null 
+                    <a href="">delete</a>
+                  </div>
+                : null
               }
 
                 <div className="row data2 mt-3 ml-4">
@@ -79,14 +72,14 @@ return (
 
               </div> {/** end data * */}
 
-              <div className="row mt-2">
+                  <div className="row mt-2">
                 <p className="col-md-6">
                   {business.details}
                 </p>
                 <img className="col-md-6" width="500" src="https://maps.googleapis.com/maps/api/staticmap?center=ikeja+lagos&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos" alt="Google Map of ikeja lagos" />
               </div>
 
-              <div className="review">
+                  <div className="review">
                 <hr className="straight" />
                 <div className="row">
                   <div className="col star">
@@ -113,9 +106,9 @@ return (
                 </div>
               </div>
 
-              {/* Reviews */}
-              <hr className="straight" />
-              <div className="all-reviews">
+                  {/* Reviews */}
+                  <hr className="straight" />
+                  <div className="all-reviews">
                 <div className="card">
                   <div className="row card-body">
                     <div className="review-user p-2 text-center col-md-2">
@@ -156,20 +149,22 @@ return (
                   </div>
                 </div>
               </div>
-            </div> {/** end card-body * */}
+                </div> {/** end card-body * */}
 
+              </div>
+            </div>`
           </div>
-        </div>`
+        </NavFoot>
       </div>
-    </NavFoot>
-  </div>
-)}};
+    );
+  }
+}
 
 function mapStateToProps(state) {
-  return { 
+  return {
     business: state.oneBusiness.oneBusiness,
     user: state.user_reducer.signedInUser.id
-  }
+  };
 }
 
 

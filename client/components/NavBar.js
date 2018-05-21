@@ -1,12 +1,11 @@
-import React, {  Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Aux } from '../hoc/aux'
-import  {userSignoutRequest} from '../actions/userActions'
+import { Aux } from '../hoc/aux';
+import { userSignoutRequest } from '../actions/userActions';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
-
-  render(){
+  render() {
     const Auth = (
       <Aux>
         <li className="nav-item mr-2">
@@ -16,7 +15,7 @@ class Navbar extends Component {
           <a className="btn btn-outline-light" href="/add-business">Add Business</a>
         </li>
       </Aux>
-    )
+    );
 
     const Guest = (
       <Aux>
@@ -27,7 +26,7 @@ class Navbar extends Component {
           <a className="nav-link" href="/signup">Sign Up</a>
         </li>
       </Aux>
-    )
+    );
 
     return (
       <nav className="navbar navbar-expand-sm navbar-dark nav-bg py-3">
@@ -44,16 +43,15 @@ class Navbar extends Component {
           </ul>
         </div>
       </nav>
-    )
+    );
   }
-};
+}
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     signedInUser: state.user_reducer,
-  }
-
+  };
 }
 
 
-export default connect(mapStateToProps, {userSignoutRequest})(Navbar);
+export default connect(mapStateToProps, { userSignoutRequest })(Navbar);

@@ -19,7 +19,7 @@ class Signup extends Component {
                 <div className="card-body">
                   <h3>Sign up </h3>
                   <p>Fill this form to register</p>
-                  <SignupForm userSignupRequest={userSignupRequest}/>
+                  <SignupForm userSignupRequest={userSignupRequest} />
                 </div>
                 <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
               </div>
@@ -29,8 +29,9 @@ class Signup extends Component {
         </div>
 
       </NavFoot>
-  )}
-};
+    );
+  }
+}
 
 // Signup.propTypes = {
 //   userSignupRequest: PropTypes.func.isRequired

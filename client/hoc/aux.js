@@ -1,2 +1,2 @@
-export const Aux = (props) => props.children
+export const Aux = props => props.children;
 

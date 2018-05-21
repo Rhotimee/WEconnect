@@ -22,7 +22,7 @@ class SignupForm extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  
+
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
@@ -30,7 +30,7 @@ class SignupForm extends Component {
       () => {
         this.context.router.history.push('/');
       },
-      ({ data }) => this.setState({errors: data, isLoading: false })
+      ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 
@@ -94,7 +94,7 @@ class SignupForm extends Component {
           />
         </div>
         <input
-          disabled = { this.state.isLoading }
+          disabled={this.state.isLoading}
           type="submit"
           className="btn btn-outline-dark btn-block"
         />
@@ -105,6 +105,6 @@ class SignupForm extends Component {
 
 SignupForm.contextTypes = {
   router: PropTypes.object.isRequired
-}
+};
 
-export default SignupForm
+export default SignupForm;

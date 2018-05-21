@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const List_Businesses = ({business, onBusinessSelect}) => {
-  return (
-    <div 
-    className="card col-md-3 px-0" 
+const List_Businesses = ({ business, onBusinessSelect }) => (
+  <div
+      className="card col-md-3 px-0"
     // onClick={() => onBusinessSelect(business)}
     >
       <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" />
@@ -25,7 +24,6 @@ const List_Businesses = ({business, onBusinessSelect}) => {
       </div>
     </div>
     // <h3>HI</h3>
-  )
-}
+);
 
 export default List_Businesses;
