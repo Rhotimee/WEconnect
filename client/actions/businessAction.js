@@ -9,6 +9,13 @@ export function allBusinesses(businesses) {
   }
 }
 
+export function addBusiness(business) {
+  return {
+    type: 'ADD_BUSINESS',
+    payload: business
+  }
+}
+
 export function oneBusiness(business) {
   return {
     type: 'FETCH_ONE_BUSINESS',
@@ -32,3 +39,8 @@ export const fetchOneBusiness = (id) => dispatch => {
   )
 }
 
+export function addOneBusiness (userData) {
+  return axios.post('/api/v1/businesses', userData).then(
+    response => response.data.business 
+  )
+}

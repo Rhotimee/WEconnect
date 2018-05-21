@@ -8,7 +8,9 @@ import '../styles/style.scss';
 import reducers from '../reducers';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import setAuthToken from '../helpers/setAuthToken'
+import setAuthToken from '../helpers/setAuthToken';
+import { setCurrentUser } from '../actions/userActions';
+import jwt from 'jsonwebtoken';
 
 const store = createStore(
   reducers,  
@@ -17,18 +19,10 @@ const store = createStore(
   )
 );
 
-const token = localStorage.getItem('token');
-
-if (token) {
-  setAuthToken(token);
-  store.dispatch({
-    type: CURRENT_USER,
-    user: jwtDecode(token),
-    isAuthenticated: true
-  });
+if (localStorage.userToken) {
+  setAuthToken(localStorage.userToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.userToken)));
 }
-
-// const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 render(
   <Provider store={store}>

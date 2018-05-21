@@ -73,7 +73,7 @@ export default class Middleware {
    * @returns {object} next
    */
   static isLoggedIn(request, response, next) {
-    const token = request.body.token || request.query.token || request.headers['x-access-token'];
+    const token = request.body.token || request.query.token || request.headers['x-access-token'] || request.headers.authorization['x-access-token'];
     jwt.verify(token, process.env.SALT, (err, decoded) => {
       if (err) {
         return response.status(401).json({

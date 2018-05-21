@@ -28,9 +28,9 @@ export function userSigninRequest(userData) {
       const {token} = response.data;
       localStorage.setItem('userToken', token);
       setAuthToken(token);
-      dispatch(setCurrentUser(jwt.decode(token)));
-     
+      dispatch(setCurrentUser(jwt.decode(token)));   
     }
   )
 }
+
 

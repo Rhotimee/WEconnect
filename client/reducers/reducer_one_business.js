@@ -1,4 +1,4 @@
-import { Fe } from '../actions/businessAction';
+import { FETCH_ONE_BUSINESS } from '../actions/businessAction';
 
 const initialState = { allBusinesses: []};
 
