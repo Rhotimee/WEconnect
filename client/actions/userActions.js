@@ -33,4 +33,10 @@ export function userSigninRequest(userData) {
   )
 }
 
+export const userSignoutRequest = () => (dispatch) => {
+      localStorage.removeItem('userToken');
+      setAuthToken(false);
+      dispatch(setCurrentUser({}));   
+}
+
 

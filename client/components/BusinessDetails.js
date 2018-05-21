@@ -13,6 +13,7 @@ class BusinessDetails extends Component {
   }
   
   render (){
+    console.log(this.props)
     const {business} = this.props
     const {id} = this.props.match.params;
 
@@ -149,4 +150,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {fetchOneBusiness})(BusinessDetails);
+export default connect(mapStateToProps, { fetchOneBusiness })(BusinessDetails);
