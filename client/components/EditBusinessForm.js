@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { addOneBusiness } from '../actions/businessAction';
 import PropTypes from 'prop-types';
 
-class AddBusinessForm extends Component {
+class EditBusinessForm extends Component {
   constructor(props) {
     super(props);
 
+    const { business } = this.props;
+
     this.state = {
-      name: '',
-      location: '',
-      category: '',
-      details: '',
-      confirmPassword: '',
+      name: business.name,
+      location: business.location,
+      category: business.category,
+      details: business.details,
       errors: {},
       isLoading: false,
 
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    console.log(this.props.addOneBusiness);
+
+    // console.log(this.props);
   }
+  
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -28,15 +30,20 @@ class AddBusinessForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addOneBusiness(this.state).then(
+    const id = this.props.business.id
+    this.props.updateOneBusiness(id ,this.state).then(
       () => {
-        this.context.router.history.push('/');
+        this.context.router.history.push(`/businesses/${id}`);
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 
   render() {
+    if (!this.props.business) {
+      return <h2>Loading...</h2>;
+    }
+    
     return (
 
 
@@ -132,8 +139,8 @@ class AddBusinessForm extends Component {
   }
 }
 
-AddBusinessForm.contextTypes = {
+EditBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default AddBusinessForm;
+export default EditBusinessForm;

@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NavFoot from './NavFoot';
-import AddBusinessForm from './AddBusinessForm';
-import { addOneBusiness } from '../actions/businessAction';
+import EditBusinessForm from './EditBusinessForm';
+import { fetchOneBusiness, updateOneBusiness } from '../actions/businessAction';
 
-class AddBusiness extends Component {
+
+class EditBusiness extends Component {
+  componentWillMount(){
+    this.props.fetchOneBusiness(this.props.match.params.id)
+  }
+
   render() {
+      
     return (
       <div className="add-business-cover">
         <NavFoot>
           <div className="add-business container py-5 mt-3 text-dark">
-            <AddBusinessForm addOneBusiness={addOneBusiness} />
+            <EditBusinessForm business={this.props.business} updateOneBusiness={updateOneBusiness}/>
           </div>
         </NavFoot>
       </div>
@@ -19,4 +25,10 @@ class AddBusiness extends Component {
   }
 }
 
-export default connect(null, { addOneBusiness })(AddBusiness);
+function mapStateToProps(state) {
+  return {
+    business: state.oneBusiness.oneBusiness
+  }
+}
+
+export default connect(mapStateToProps, { fetchOneBusiness, updateOneBusiness })(EditBusiness);

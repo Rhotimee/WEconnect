@@ -16,6 +16,13 @@ export function addBusiness(business) {
   };
 }
 
+export function updateBusiness(business) {
+  return {
+    type: 'UPDATE_BUSINESS',
+    payload: business
+  };
+}
+
 export function oneBusiness(business) {
   return {
     type: 'FETCH_ONE_BUSINESS',
@@ -41,4 +48,8 @@ export function addOneBusiness(userData) {
 
 export const deleteOneBusiness = id => {
   return axios.delete(`/api/v1/businesses/${id}`).then(response => response.data.business);
+}
+
+export const updateOneBusiness = (id, userData) => {
+  return axios.put(`/api/v1/businesses/${id}`, userData).then(response => response.data.business)
 }
