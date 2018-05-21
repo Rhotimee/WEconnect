@@ -11,15 +11,26 @@ class BusinessDetails extends Component {
   componentWillMount () {
     this.props.fetchOneBusiness(this.props.match.params.id)
   }
-  
+
+
   render (){
-    console.log(this.props)
-    const {business} = this.props
+
+    const {business, user} = this.props
     const {id} = this.props.match.params;
+
 
     if (!business){
       return <h2>Loading...</h2>
-  }
+    }
+    if(business){
+      if ( business.id === this.props.user) {
+        console.log('owner')
+      }
+      else{
+        console.log('not owner')
+      }      
+    }
+
 
   
 
@@ -46,6 +57,15 @@ return (
                     <p><i className="fa fa-map-marker" /> Ikeja</p>
                   </div>
                 </div>
+
+                {
+                  business.id === user ?  <div>
+                  <a href="">edit</a>
+
+                  <a href="">delete</a>
+                </div>
+                : null 
+              }
 
                 <div className="row data2 mt-3 ml-4">
                   <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
@@ -146,7 +166,10 @@ return (
 )}};
 
 function mapStateToProps(state) {
-  return { business: state.oneBusiness.oneBusiness }
+  return { 
+    business: state.oneBusiness.oneBusiness,
+    user: state.user_reducer.signedInUser.id
+  }
 }
 
 
