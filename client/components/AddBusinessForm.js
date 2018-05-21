@@ -30,7 +30,7 @@ class AddBusinessForm extends Component {
     // this.setState({ errors: {}, isLoading: true });
     this.props.addOneBusiness(this.state).then(
       () => {
-        this.context.router.history.push('/');
+        this.context.router.history.push('/businesses');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );

@@ -9,19 +9,19 @@ export function allBusinesses(businesses) {
   };
 }
 
-export function addBusiness(business) {
-  return {
-    type: 'ADD_BUSINESS',
-    payload: business
-  };
-}
+// export function addBusiness(business) {
+//   return {
+//     type: 'ADD_BUSINESS',
+//     payload: business
+//   };
+// }
 
-export function updateBusiness(business) {
-  return {
-    type: 'UPDATE_BUSINESS',
-    payload: business
-  };
-}
+// export function updateBusiness(business) {
+//   return {
+//     type: 'UPDATE_BUSINESS',
+//     payload: business
+//   };
+// }
 
 export function oneBusiness(business) {
   return {
