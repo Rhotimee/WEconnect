@@ -2,6 +2,7 @@ import Model from '../models';
 
 const { Business } = Model;
 const { Review } = Model;
+const { User } = Model;
 
 /**
  * Business Controller.
@@ -23,7 +24,14 @@ export default class ReviewController {
           message: 'Business not found'
         });
       }
-      Review.findAll({ where: { businessId: business.id } }).then((reviews) => {
+      Review.findAll({
+        where: { businessId: business.id },
+        include: [{
+          model: User,
+          as: 'reviewer',
+          attributes: ['firstName']
+        }]
+      }).then((reviews) => {
         if (reviews.length === 0) {
           return response.status(404).json({
             error: true,
@@ -35,9 +43,9 @@ export default class ReviewController {
           message: 'Reviews found',
           reviews,
         });
-      }).catch(() => response.status(500).json({
-        error: true,
-        message: 'Server Error'
+      }).catch(error => response.status(500).json({
+        error: error.message,
+        message: 'Server Error',
       }));
     });
   }
@@ -74,15 +82,7 @@ export default class ReviewController {
           message: 'You cannot review your own business'
         });
       }
-      // Will not allow to review a business twice
-      Review.find({ where: { userId } }).then((review) => {
-        if (review) {
-          return response.status(403).json({
-            error: true,
-            message: 'You cannot review this business again'
-          });
-        }
-      });
+
       Review.create({
         content, star, userId, businessId
       }).then(review => response.status(201).json({

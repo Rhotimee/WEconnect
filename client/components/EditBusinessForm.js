@@ -7,6 +7,7 @@ class EditBusinessForm extends Component {
 
     const { business } = this.props;
 
+
     this.state = {
       name: business.name,
       location: business.location,
@@ -21,7 +22,7 @@ class EditBusinessForm extends Component {
 
     // console.log(this.props);
   }
-  
+
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -30,8 +31,8 @@ class EditBusinessForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    const id = this.props.business.id
-    this.props.updateOneBusiness(id ,this.state).then(
+    const id = this.props.business.id;
+    this.props.updateOneBusiness(id , this.state).then(
       () => {
         this.context.router.history.push(`/businesses/${id}`);
       },
@@ -40,12 +41,8 @@ class EditBusinessForm extends Component {
   }
 
   render() {
-    if (!this.props.business) {
-      return <h2>Loading...</h2>;
-    }
     
     return (
-
 
       <form className="row" onSubmit={this.onSubmit} >
         <p className="col-12">Fields with <small>*</small> are required </p>

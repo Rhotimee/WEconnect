@@ -2,31 +2,60 @@ import React, { Component } from 'react';
 import NavFoot from './NavFoot';
 import { connect } from 'react-redux';
 import { fetchOneBusiness, deleteOneBusiness } from '../actions/businessAction';
+import { fetchReviews, addReview } from '../actions/reviewsAction';
 import { Link } from 'react-router-dom';
 import EditBusiness from './EditBusinessForm';
+import ReviewCard from './ReviewCard';
 
 
 class BusinessDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      content: '',
+      star: '',
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchOneBusiness(this.props.match.params.id);
+    this.props.fetchReviews(this.props.match.params.id);
+  }
+
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    // this.setState({ errors: {}, isLoading: true });
+    this.props.addReview(this.props.match.params.id, this.state)
+    
+    
   }
 
 
   render() {
-    const { business, user } = this.props;
+    const { business, user, reviews } = this.props;
     const { id } = this.props.match.params;
 
 
     if (!business) {
       return <h2>Loading...</h2>;
     }
-    if (business) {
-      if (business.userId === this.props.user) {
-        console.log('owner');
-      } else {
-        console.log('not owner', business.userId, user);
-      }
-    }
+
+    const eachReview = reviews.map(review => (
+      <ReviewCard
+        id={review.id}
+        key={review.id}
+        content={review.content}
+        star={review.star}
+        reviewer={review.reviewer}
+      />
+    ));
 
 
     return (
@@ -43,114 +72,78 @@ class BusinessDetails extends Component {
 
                 <div className="card-body text-dark bg-light">
                   <div className="data">
-                <div className="row data1 ml-1">
-                  <div className="p-1">
-                    <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
-                  </div>
-                  <div className="p-1">
-                    <h3 className="">Restaurant</h3>
-                    <p><i className="fa fa-map-marker" /> Ikeja</p>
-                  </div>
-                </div>
+                    <div className="row data1 ml-1">
+                      <div className="p-1">
+                        <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
+                      </div>
+                      <div className="p-1">
+                        <h3 className="">Restaurant</h3>
+                        <p><i className="fa fa-map-marker" /> Ikeja</p>
+                      </div>
+                    </div>
 
-                {
+                    {
                   business.userId === user ? <div>
                     <Link to={`/businesses/${id}/edit`}>edit</Link>
                     -
-                    <Link to="/businesses" onClick={() => {this.props.deleteOneBusiness(id)}} >delete</Link>
+                    <Link to="/businesses" onClick={() => { this.props.deleteOneBusiness(id); }} >delete</Link>
                   </div>
                 : null
               }
 
-                <div className="row data2 mt-3 ml-4">
-                  <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
-                  <button className="btn btn-outline-dark mr-1 share">
+                    <div className="row data2 mt-3 ml-4">
+                      <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
+                      <button className="btn btn-outline-dark mr-1 share">
                       Share
-                    <i className="fa fa-facebook" />
-                    <i className="fa fa-twitter" />
-                    <i className="fa fa-envelope" />
-                  </button>
-                </div>
+                        <i className="fa fa-facebook" />
+                        <i className="fa fa-twitter" />
+                        <i className="fa fa-envelope" />
+                      </button>
+                    </div>
 
-              </div> {/** end data * */}
+                  </div> {/** end data * */}
 
                   <div className="row mt-2">
-                <p className="col-md-6">
-                  {business.details}
-                </p>
-                <img className="col-md-6" width="500" src="https://maps.googleapis.com/maps/api/staticmap?center=ikeja+lagos&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos" alt="Google Map of ikeja lagos" />
-              </div>
+                    <p className="col-md-6">
+                      {business.details}
+                    </p>
+                    <img className="col-md-6" width="500" src="https://maps.googleapis.com/maps/api/staticmap?center=ikeja+lagos&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos" alt="Google Map of ikeja lagos" />
+                  </div>
 
                   <div className="review">
-                <hr className="straight" />
-                <div className="row">
-                  <div className="col star">
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <span className="rate">5.0</span>
+                    <hr className="straight" />
+                    <div className="row">
+                      <div className="col star">
+                        <i className="fa fa-star" />
+                        <i className="fa fa-star" />
+                        <i className="fa fa-star" />
+                        <i className="fa fa-star" />
+                        <i className="fa fa-star" />
+                        <span className="rate">5.0</span>
                       (2 Reviews)
-                  </div>
-                  <div className="col like">
+                      </div>
+                      <div className="col like">
                       5 likes <i className="fa fa-heart" />
-                  </div>
-                  <div className="col">
-                    <i className="fa fa-users" />
+                      </div>
+                      <div className="col">
+                        <i className="fa fa-users" />
                       152 Visits
-                  </div>
-                  <div className="col text-right">
-                    <button className="btn btn-outline-dark" data-toggle="modal" data-target="#addReview">
+                      </div>
+                      <div className="col text-right">
+                        <button className="btn btn-outline-dark" data-toggle="modal" data-target="#addReview">
                       Write a review
-                    </button>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
                   {/* Reviews */}
                   <hr className="straight" />
                   <div className="all-reviews">
-                <div className="card">
-                  <div className="row card-body">
-                    <div className="review-user p-2 text-center col-md-2">
-                      <img className="rounded-circle" src="img/user2.jpg"width="120" height="100" alt="" />
-                      <div className="caption mt-1">
-                        <small><a href="/detail">Rotimi</a></small>
-                      </div>
-                    </div>
-                    <div className="ml-3 review-text card-text align-self-center col-md">
-                      <div className=" star align-self-center">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                      </div>
-                      <p className="mt-2">We had the crispy shrimp and jollof rice 2 days ago and it was so good, we came back and ordered it again tonight. Soooo good</p>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="card">
-                  <div className="row card-body">
-                    <div className="review-user p-2 text-center col-md-2">
-                      <img className="rounded-circle" src="img/user1.jpg" width="120" height="100" alt="" />
-                      <div className="caption mt-1">
-                        <small><a href="/detail">Sarah Ochem</a></small>
-                      </div>
-                    </div>
-                    <div className="col-md ml-3 review-text card-text align-self-center">
-                      <div className=" star align-self-center">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                      </div>
-                      <p className="mt-2">The food is well prepared and tasty. We had Obe Dindin and Chef's Combo Platter. Both were excellent. Succulent prawns, fresh greens. Well cooked meat.</p>
-                    </div>
+                    { eachReview }
+
                   </div>
-                </div>
-              </div>
                 </div> {/** end card-body * */}
 
               </div>
@@ -158,39 +151,54 @@ class BusinessDetails extends Component {
           </div>
         </NavFoot>
 
-            {/* Modal for Adding Reviews */}
-    <div className="modal fade" id="addReview" >
-      <div className="modal-dialog">
-          <div className="modal-content">
+        {/* Modal for Adding Reviews */}
+        <div className="modal fade" id="addReview" >
+          <div className="modal-dialog">
+            <div className="modal-content">
               <div className="modal-header bg-dark text-white">
-                  <h5 className="modal-title">Add Review</h5>
-                  <button className="close" data-dismiss="modal"><span>&times;</span></button>
+                <h5 className="modal-title">Add Review</h5>
+                <button className="close" data-dismiss="modal"  id="dismiss-submit"><span>&times;</span></button>
               </div>
               <div className="modal-body">
-                  <form>
-                      <p>Fields with <small>*</small> are required</p>
-                      <div className="form-group">
-                        <label htmlFor="title">Review <small>*</small> </label>
-                        <textarea type="text" className="form-control" required></textarea>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="inputState">Star <small>*</small> </label>
-                        <select id="inputState" className="form-control">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                  </form>
+                <form onSubmit={this.onSubmit}>
+                  <p>Fields with <small>*</small> are required</p>
+                  <div className="form-group">
+                    <label htmlFor="title">Review <small>*</small> </label>
+                    <textarea
+                      type="text"
+                      className="form-control"
+                      required
+                      value={this.state.content}
+                      onChange={this.onChange}
+                      name="content"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="inputState">Star <small>*</small> </label>
+                    <select
+                      id="inputState"
+                      className="form-control"
+                      value={this.state.star}
+                      onChange={this.onChange}
+                      name="star"
+                    >
+                      <option value="" disabled>choose star</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <div className="modal-footer">
+                    <button className="btn btn-outline-dark" type="submit">Submit</button>
+                  </div>
+                </form>
               </div>
-              <div className="modal-footer">
-                  <button className="btn btn-outline-dark" type="submit" data-dismiss="modal">Submit</button>
-              </div>
+              
+            </div>
           </div>
-      </div>
-    </div>
+        </div>
 
 
       </div>
@@ -201,9 +209,12 @@ class BusinessDetails extends Component {
 function mapStateToProps(state) {
   return {
     business: state.oneBusiness.oneBusiness,
-    user: state.user_reducer.signedInUser.id
+    user: state.user_reducer.signedInUser.id,
+    reviews: state.allReviews.allReviews,
   };
 }
 
 
-export default connect(mapStateToProps, { fetchOneBusiness, deleteOneBusiness })(BusinessDetails);
+export default connect(mapStateToProps, {
+  fetchOneBusiness, deleteOneBusiness, fetchReviews, addReview
+})(BusinessDetails);

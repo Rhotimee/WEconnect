@@ -18,7 +18,7 @@ class AddBusinessForm extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    console.log(this.props.addOneBusiness);
+
   }
 
   onChange(event) {
