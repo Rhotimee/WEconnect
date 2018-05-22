@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { userSignupRequest } from '../actions/userActions';
 import PropTypes from 'prop-types';
 
 

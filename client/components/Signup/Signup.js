@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import NavFoot from './NavFoot';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { userSignupRequest } from '../actions/userActions';
+import { userSignupRequest } from '../../actions/userActions';
 import SignupForm from './SignupForm';
 import PropTypes from 'prop-types';
 
@@ -10,7 +9,6 @@ class Signup extends Component {
   render() {
     const { userSignupRequest } = this.props;
     return (
-      <NavFoot>
         <div className="cover">
           <div className="cover-overlay">
 
@@ -24,11 +22,8 @@ class Signup extends Component {
                 <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
               </div>
             </div>
-
           </div>
         </div>
-
-      </NavFoot>
     );
   }
 }

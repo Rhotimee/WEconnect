@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import NavFoot from './NavFoot';
 import { connect } from 'react-redux';
-import { fetchOneBusiness, deleteOneBusiness } from '../actions/businessAction';
-import { fetchReviews, addReview } from '../actions/reviewsAction';
+import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
+import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import { Link } from 'react-router-dom';
-import EditBusiness from './EditBusinessForm';
 import ReviewCard from './ReviewCard';
 
 
@@ -60,7 +58,6 @@ class BusinessDetails extends Component {
 
     return (
       <div className="bg-cover">
-        <NavFoot>
           <div className="container mt-4 mb-4" id="business-detail">
             <div className="row">
 
@@ -149,7 +146,6 @@ class BusinessDetails extends Component {
               </div>
             </div>
           </div>
-        </NavFoot>
 
         {/* Modal for Adding Reviews */}
         <div className="modal fade" id="addReview" >

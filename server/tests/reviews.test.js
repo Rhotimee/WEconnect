@@ -26,21 +26,6 @@ describe('POST businesses/<id>/reviews', () => {
       });
   });
 
-  it('should not be able to review business', (done) => {
-    chai.request(server)
-      .post('/api/v1/businesses/2/reviews')
-      .set('x-access-token', token)
-      .send({
-        content: 'Hey ipsum dolor sit amet.',
-        star: 5,
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.eqls('You cannot review this business again');
-        done();
-      });
-  });
 
   it('should be able to add reviews to a business', (done) => {
     chai.request(server)

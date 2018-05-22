@@ -12,11 +12,14 @@ const Business = {
   category: 'ICT',
 };
 
+const token = 'zyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjcwMjI0MDM3MTR9.jnrbW_TXHJ-0QBBsGvMa7Zq-3egs7yToSm-EL-OCv2w';
+
 // LoggedIn Middleware
 describe('POST businesses/', () => {
   it('should return 401, User not logged in', (done) => {
     chai.request(server)
       .post('/api/v1/businesses/')
+      .set('x-access-token', token)
       .send(Business)
       .end((err, res) => {
         expect(res)
@@ -27,6 +30,7 @@ describe('POST businesses/', () => {
   it('should return 401, User not logged in', (done) => {
     chai.request(server)
       .post('/api/v1/businesses/2/reviews')
+      .set('x-access-token', token)
       .send({ content: 'test', star: 3 })
       .end((err, res) => {
         expect(res)

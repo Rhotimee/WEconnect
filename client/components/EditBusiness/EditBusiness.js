@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import NavFoot from './NavFoot';
 import EditBusinessForm from './EditBusinessForm';
-import { fetchOneBusiness, updateOneBusiness } from '../actions/businessAction';
+import { fetchOneBusiness, updateOneBusiness } from '../../actions/businessAction';
 
 
 class EditBusiness extends Component {
@@ -17,11 +16,9 @@ class EditBusiness extends Component {
     console.log(this.props.business)
     return (
       <div className="add-business-cover">
-        <NavFoot>
           <div className="add-business container py-5 mt-3 text-dark">
             <EditBusinessForm business={this.props.business} updateOneBusiness={updateOneBusiness} />
           </div>
-        </NavFoot>
       </div>
 
     );

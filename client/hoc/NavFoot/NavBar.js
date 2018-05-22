@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Aux } from '../hoc/aux';
-import { userSignoutRequest } from '../actions/userActions';
+import { Aux } from '../aux';
+import { userSignoutRequest } from '../../actions/userActions';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {

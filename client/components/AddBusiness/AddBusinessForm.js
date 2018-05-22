@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addOneBusiness } from '../actions/businessAction';
+// import { addOneBusiness } from '../../actions/businessAction';
 import PropTypes from 'prop-types';
 
 class AddBusinessForm extends Component {
@@ -37,8 +37,8 @@ class AddBusinessForm extends Component {
   }
 
   render() {
+    console.log('here')
     return (
-
 
       <form className="row" onSubmit={this.onSubmit} >
         <p className="col-12">Fields with <small>*</small> are required </p>

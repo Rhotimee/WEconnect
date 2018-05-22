@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import NavFoot from './NavFoot';
 import LoginForm from './loginForm';
-import { userSigninRequest } from '../actions/userActions';
+import { userSigninRequest } from '../../actions/userActions';
 import { connect } from 'react-redux';
 
 class Login extends Component {
   render() {
     const { userSigninRequest } = this.props;
     return (
-      <NavFoot>
 
         <div className="cover">
           <div className="cover-overlay">
@@ -25,7 +23,6 @@ class Login extends Component {
           </div>
         </div>
 
-      </NavFoot>
     );
   }
 }

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import NavFoot from './NavFoot';
 import axios from 'axios';
 import List_Business from './BusinessListItem';
-import BusinessDetails from './BusinessDetails';
 import { connect } from 'react-redux';
-import { fetchBusinesses } from '../actions/businessAction';
+import { fetchBusinesses } from '../../actions/businessAction';
 
 
 class BusinessList extends Component {
@@ -42,7 +40,6 @@ class BusinessList extends Component {
 
     return (
       <div className="bg-cover" >
-        <NavFoot>
           <div className="list-cover">
 
             <form action="" className="container bg-search py-5 sticky-top">
@@ -83,10 +80,6 @@ class BusinessList extends Component {
             </div>
 
           </div>
-        </NavFoot>
-        {/* <BusinessDetails
-        business={this.state.selectedBusiness}
-      /> */}
       </div>
     );
   }

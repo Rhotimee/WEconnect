@@ -5,7 +5,7 @@ import server from '../server';
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjUwMjI0MDM3MTR9.2I9wWT5aEr6KOCtZJeUZcsg1bnc0xoGTARFCqCBXHFA';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjcwMjI0MDM3MTR9.jnrbW_TXHJ-0QBBsGvMa7Zq-3egs7yToSm-EL-OCv2w';
 
 const Business = {
   name: `Moremi Gloals ${Math.random() * 100}`,
