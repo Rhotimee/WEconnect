@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: './client/container/index.js',
   output: {
     path: path.join(__dirname, '/client/build'),
@@ -27,6 +29,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.css']
   },

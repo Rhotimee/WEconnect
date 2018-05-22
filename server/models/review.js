@@ -8,12 +8,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: { min: 1, max: 5 },
-    }
+    },
   });
   Review.associate = (models) => {
     Review.belongsTo(models.User, {
       foreignKey: 'userId',
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      as: 'reviewer'
     });
     Review.belongsTo(models.Business, {
       foreignKey: 'businessId',
