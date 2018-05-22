@@ -101,7 +101,7 @@ class BusinessDetails extends Component {
                       152 Visits
                   </div>
                   <div className="col text-right">
-                    <button className="btn btn-outline-dark">
+                    <button className="btn btn-outline-dark" data-toggle="modal" data-target="#addReview">
                       Write a review
                     </button>
                   </div>
@@ -154,9 +154,45 @@ class BusinessDetails extends Component {
                 </div> {/** end card-body * */}
 
               </div>
-            </div>`
+            </div>
           </div>
         </NavFoot>
+
+            {/* Modal for Adding Reviews */}
+    <div className="modal fade" id="addReview" >
+      <div className="modal-dialog">
+          <div className="modal-content">
+              <div className="modal-header bg-dark text-white">
+                  <h5 className="modal-title">Add Review</h5>
+                  <button className="close" data-dismiss="modal"><span>&times;</span></button>
+              </div>
+              <div className="modal-body">
+                  <form>
+                      <p>Fields with <small>*</small> are required</p>
+                      <div className="form-group">
+                        <label htmlFor="title">Review <small>*</small> </label>
+                        <textarea type="text" className="form-control" required></textarea>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="inputState">Star <small>*</small> </label>
+                        <select id="inputState" className="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                  </form>
+              </div>
+              <div className="modal-footer">
+                  <button className="btn btn-outline-dark" type="submit" data-dismiss="modal">Submit</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
       </div>
     );
   }
