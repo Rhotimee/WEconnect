@@ -4,12 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Routes from './Routes';
-import '../styles/style.scss';
-import reducers from '../reducers';
+import './styles/style.scss';
+import reducers from './reducers';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import setAuthToken from '../helpers/setAuthToken';
-import { setCurrentUser } from '../actions/userActions';
+import setAuthToken from './helpers/setAuthToken';
+import { setCurrentUser } from './actions/userActions';
 import jwt from 'jsonwebtoken';
 
 const store = createStore(

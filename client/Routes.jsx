@@ -1,13 +1,13 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
-import LandingPage from '../components/LandingPage';
-import BusinessList from '../components/BusinessList/BusinessList';
-import AddBusinessx from '../components/AddBusiness/AddBusiness';
-import Signup from '../components/Signup/Signup';
-import Login from '../components/Login/Login';
-import BusinessDetails from '../components/BusinessDetails/BusinessDetails';
-import EditBusiness from '../components/EditBusiness/EditBusiness'
-import NavFoot from '../hoc/NavFoot/NavFoot'
+import LandingPage from './components/LandingPage';
+import BusinessList from './components/BusinessList/BusinessList';
+import AddBusinessx from './components/AddBusiness/AddBusiness';
+import Signup from './components/Signup/Signup';
+import Login from './components/Login/Login';
+import BusinessDetails from './components/BusinessDetails/BusinessDetails';
+import EditBusiness from './components/EditBusiness/EditBusiness'
+import NavFoot from './hoc/NavFoot/NavFoot'
 
 function Routes() {
   return (
