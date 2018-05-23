@@ -75,7 +75,7 @@ class BusinessDetails extends Component {
                       </div>
                       <div className="p-1">
                         <h3 className="">Restaurant</h3>
-                        <p><i className="fa fa-map-marker" /> Ikeja</p>
+                        <p><i className="fa fa-map-marker" /> {business.location}</p>
                       </div>
                     </div>
 

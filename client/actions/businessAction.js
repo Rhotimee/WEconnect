@@ -9,20 +9,6 @@ export function allBusinesses(businesses) {
   };
 }
 
-// export function addBusiness(business) {
-//   return {
-//     type: 'ADD_BUSINESS',
-//     payload: business
-//   };
-// }
-
-// export function updateBusiness(business) {
-//   return {
-//     type: 'UPDATE_BUSINESS',
-//     payload: business
-//   };
-// }
-
 export function oneBusiness(business) {
   return {
     type: 'FETCH_ONE_BUSINESS',
@@ -30,8 +16,8 @@ export function oneBusiness(business) {
   };
 }
 
-export const fetchBusinesses = () => (dispatch) => {
-  axios.get('/api/v1/businesses').then((response) => {
+export const fetchBusinesses = (location) => (dispatch) => {
+  axios.get(`/api/v1/businesses?location=${location}`).then((response) => {
     dispatch(allBusinesses(response.data.businesses));
   });
 };

@@ -23,7 +23,6 @@ const List_Businesses = ({ business, onBusinessSelect }) => (
         </div>
       </div>
     </div>
-    // <h3>HI</h3>
 );
 
 export default List_Businesses;

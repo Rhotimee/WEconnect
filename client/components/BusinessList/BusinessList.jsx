@@ -10,23 +10,15 @@ class BusinessList extends Component {
     super(props);
 
     this.state = {
-      // businesses : [],
-      // selectedBusiness: null,
       location: '',
     };
 
-    // this.businessLoactionSearch('');
   }
 
   componentWillMount() {
-    this.props.fetchBusinesses();
+    this.props.fetchBusinesses(this.state.location);
   }
 
-  // businessLoactionSearch(loaction) {
-  //   axios.get(`/api/v1/businesses?location=${loaction}`).then(response => {
-  //     this.setState({ businesses: response.data.businesses })
-  //   })
-  // }
 
   render() {
     const eachBusiness = this.props.businesses.map(business => (
@@ -61,7 +53,7 @@ class BusinessList extends Component {
                     value={this.state.loaction}
                     onChange={(event) => {
                       this.setState({ location: event.target.value });
-                      this.businessLoactionSearch(this.state.location);
+                      this.props.fetchBusinesses(this.state.location);
                     }}
 
                   />
