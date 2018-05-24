@@ -16,8 +16,8 @@ export function oneBusiness(business) {
   };
 }
 
-export const fetchBusinesses = (type, location) => (dispatch) => {
-  axios.get(`/api/v1/businesses?${type}=${location}`).then((response) => {
+export const fetchBusinesses = (type, text) => (dispatch) => {
+  axios.get(`/api/v1/businesses?${type}=${text}`).then((response) => {
     dispatch(allBusinesses(response.data.businesses));
   });
 };

@@ -37,7 +37,6 @@ class AddBusinessForm extends Component {
   }
 
   render() {
-    console.log('here')
     return (
 
       <form className="row" onSubmit={this.onSubmit} >

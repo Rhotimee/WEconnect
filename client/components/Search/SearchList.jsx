@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import List_Business from './BusinessListItem';
+import SearchList from './SearchListItem';
 import { connect } from 'react-redux';
 import { fetchBusinesses } from '../../actions/businessAction';
-import PropTypes from 'prop-types';
 
 
-class BusinessList extends Component {
+class SearchBusinessList extends Component {
   constructor(props) {
     super(props);
 
@@ -14,61 +13,38 @@ class BusinessList extends Component {
       type: '',
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
   }
 
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  
-
-  onSubmit(event) {
-    event.preventDefault();
-    // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.type, this.state.text)
-    .then(
-      () => {
-
-       },
-      // ({ data }) => this.setState({ errors: data, isLoading: false })
-    );
-  }
-
-
-  componentDidMount() {
-    this.props.fetchBusinesses(this.state.type , this.state.text);
+  componentWillMount() {
+    this.props.fetchBusinesses(this.state.type , this.state.location);
   }
 
 
   render() {
     const eachBusiness = this.props.businesses.map(business => (
-      <List_Business
+      <SearchList
         key={business.id}
         business={business}
       />
     ));
 
+
     return (
       <div className="bg-cover" >
           <div className="list-cover">
 
-            <form 
-              action="" 
-              className="container bg-search py-5 sticky-top"
-              onSubmit={this.onSubmit}
-              >
+            <form action="" className="container bg-search py-5 sticky-top">
               <div className="row mx-4 ">
               <div className="col-md-6 px-1 my-1">
                 <input 
-                  name="text"
                   type="text" 
                   className="b-name form-control form-control-lg" 
                   placeholder="I'm looking for..." 
                   value={this.state.text}
-                  onChange={this.onChange}
+                  onChange={(event) => {
+                    this.setState({ text: event.target.value });
+                    this.props.fetchBusinesses(this.state.type ,this.state.text);
+                  }}
                   
                   />
               </div>
@@ -79,8 +55,10 @@ class BusinessList extends Component {
                   </div>
                   <select
                     className="form-control form-control-lg"
-                    onChange={this.onChange}
-                    name='type'
+                    onChange={(event) => {
+                      this.setState({ type: event.target.value });
+                      this.props.fetchBusinesses(this.state.type ,this.state.location);
+                    }}
                   >
                     <option defaultValue>Choose...</option>
                     <option value="location">Location</option>
@@ -108,14 +86,8 @@ class BusinessList extends Component {
   }
 }
 
-
-BusinessList.contextTypes = {
-  router: PropTypes.object.isRequired
-};
-
-
 function mapStateToProps(state) {
   return { businesses: state.Businesses.allBusinesses };
 }
 
-export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);
+export default connect(mapStateToProps, { fetchBusinesses })(SearchBusinessList);
