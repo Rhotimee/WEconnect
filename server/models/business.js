@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Business name exists'
+      }
     },
     details: {
       type: DataTypes.STRING,
@@ -17,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    businessImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: ''
+    }
 
   });
   Business.associate = (models) => {

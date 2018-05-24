@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       details: {
         type: Sequelize.STRING,
@@ -42,6 +42,11 @@ module.exports = {
           key: 'id',
         },
       },
+      businessImage: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: ''
+      }
     });
   },
   down: (queryInterface, Sequelize) => {

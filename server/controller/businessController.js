@@ -16,7 +16,7 @@ export default class BusinessController {
    */
   static register(request, response) {
     const {
-      name, details, location, category
+      name, details, location, category, businessImage
     } = request.body;
 
     const { userId } = request;
@@ -40,13 +40,12 @@ export default class BusinessController {
 
     // Create the business
     Business.create({
-      name, details, location, category, userId,
+      name, details, location, category, userId, businessImage
     }).then(business => response.status(201).json({
       error: false,
       message: 'Business Created',
       business,
     })).catch((error) => {
-      console.log(error);
       response.status(500).json({
         error,
         message: 'Server Error',

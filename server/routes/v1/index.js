@@ -12,7 +12,7 @@ router.get('/', (request, response) => {
   response.redirect('/api-docs');
 });
 // POST register business
-router.post('/businesses', Middleware.isLoggedIn, BusinessController.register);
+router.post('/businesses', Middleware.isLoggedIn, Middleware.businessImageUpload, BusinessController.register);
 // PUT update business
 router.put('/businesses/:id', Middleware.isLoggedIn, Middleware.validParam, BusinessController.update);
 // DELETE delete business
