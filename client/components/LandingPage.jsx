@@ -8,26 +8,30 @@ class LandingPage extends Component{
     super(props);
 
     this.state = {
-      location: '',
+      text: '',
+      type: '',
     };
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
   }
-  
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  
+
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.location).then(
+    this.props.fetchBusinesses(this.state.type, this.state.text)
+    .then(
       () => {
-        this.context.router.history.push('/businesses');
-      },
-      ({ data }) => this.setState({ errors: data, isLoading: false })
+        this.context.router.history.push('/businesses');        
+       },
+      // ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 
@@ -51,7 +55,15 @@ return (
         <form action="" className="justify-content-center p-3 mx-4" onSubmit={this.onSubmit}>
           <div className="row">
             <div className="col-md-6 px-1 my-1">
-              <input type="text" className="b-name form-control form-control-lg" placeholder="I'm looking for..." />
+            <input 
+                  name="text"
+                  type="text" 
+                  className="b-name form-control form-control-lg" 
+                  placeholder="I'm looking for..." 
+                  value={this.state.text}
+                  onChange={this.onChange}
+                  
+                  />
             </div>
             <div className="col-md-4 px-1 my-1">
               <div className="input-group">
@@ -59,20 +71,15 @@ return (
                   <span className="input-group-text bg-light" id="basic-addon1"> <i className="fa fa-map-marker" /> </span>
                 </div>
                 <select
-                    type="text"
                     className="form-control form-control-lg"
-                    placeholder="Lagos"
-                    value={this.state.location}
-                    onChange={(event) => {
-                      this.setState({ location: event.target.value });
-                      this.props.fetchBusinesses(this.state.location);
-                    }}
+                    onChange={this.onChange}
+                    name='type'
                   >
-                    <option selected>Choose...</option>
-                    <option value="1">Location</option>
-                    <option value="2">Category</option>
+                    <option defaultValue>Choose...</option>
+                    <option value="location">Location</option>
+                    <option value="category">Category</option>
 
-                </ select>
+                  </ select>
               </div>
             </div>
             <div className="col-md-2 px-1 my-1">

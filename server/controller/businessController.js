@@ -45,10 +45,13 @@ export default class BusinessController {
       error: false,
       message: 'Business Created',
       business,
-    })).catch(() => response.status(500).json({
-      error: true,
-      message: 'Server Error',
-    }));
+    })).catch((error) => {
+      console.log(error);
+      response.status(500).json({
+        error,
+        message: 'Server Error',
+      });
+    });
   }
 
   /**

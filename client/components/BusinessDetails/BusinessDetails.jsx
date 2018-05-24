@@ -4,6 +4,7 @@ import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessActio
 import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
+import alertify from 'alertifyjs';
 
 
 class BusinessDetails extends Component {
@@ -30,7 +31,12 @@ class BusinessDetails extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addReview(this.props.match.params.id, this.state)
+    this.props.addReview(this.props.match.params.id, this.state).then(
+      () => {
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Reviews Added');
+      }
+    )
     
     
   }
@@ -83,7 +89,14 @@ class BusinessDetails extends Component {
                   business.userId === user ? <div>
                     <Link to={`/businesses/${id}/edit`}>edit</Link>
                     -
-                    <Link to="/businesses" onClick={() => { this.props.deleteOneBusiness(id); }} >delete</Link>
+                    <Link 
+                      to="/businesses" 
+                      onClick={() => { 
+                        this.props.deleteOneBusiness(id); 
+                        alertify.set('notifier', 'position', 'top-right')
+                        alertify.success('Business deleted Successfully');
+                        }
+                      } >delete</Link>
                   </div>
                 : null
               }

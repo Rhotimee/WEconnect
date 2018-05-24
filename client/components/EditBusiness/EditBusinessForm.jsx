@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
 
 class EditBusinessForm extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class EditBusinessForm extends Component {
     this.props.updateOneBusiness(id , this.state).then(
       () => {
         this.context.router.history.push(`/businesses/${id}`);
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Business Updated Successfully');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );

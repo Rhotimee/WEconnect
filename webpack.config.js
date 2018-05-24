@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         loader: ['style-loader', 'css-loader', 'sass-loader'],
 
       },
@@ -27,6 +27,10 @@ module.exports = {
         loader: 'url-loader',
         exclude: /node_modules/
       },
+      // {
+      //   test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      //   loader: 'file-loader'
+      // },
     ],
   },
   plugins: [

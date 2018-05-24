@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { addOneBusiness } from '../../actions/businessAction';
 import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
 
 class AddBusinessForm extends Component {
   constructor(props) {
@@ -31,6 +31,8 @@ class AddBusinessForm extends Component {
     this.props.addOneBusiness(this.state).then(
       () => {
         this.context.router.history.push('/businesses');
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Business Added');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );
@@ -73,8 +75,6 @@ class AddBusinessForm extends Component {
           <label htmlFor="inputAddress">Business Details <small>*</small></label>
           <textarea
             id="bizdetails"
-                // cols="30"
-                // rows="10"
             placeholder="lorem ipsum"
             required
             value={this.state.details}

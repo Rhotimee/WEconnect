@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import alertify from 'alertifyjs';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -28,6 +28,8 @@ class SignupForm extends Component {
     this.props.userSignupRequest(this.state).then(
       () => {
         this.context.router.history.push('/');
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Signed up  Successfully');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );

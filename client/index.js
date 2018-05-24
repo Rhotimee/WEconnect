@@ -11,6 +11,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import setAuthToken from './helpers/setAuthToken';
 import { setCurrentUser } from './actions/userActions';
 import jwt from 'jsonwebtoken';
+import 'alertifyjs/build/css/alertify.min.css';
+import 'alertifyjs/build/css/themes/default.min.css';
 
 const store = createStore(
   reducers,  
