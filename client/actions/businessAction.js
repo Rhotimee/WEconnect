@@ -23,7 +23,7 @@ export const fetchBusinesses = (type, text) => (dispatch) => {
 };
 
 export const fetchOneBusiness = id => (dispatch) => {
-  axios.get(`/api/v1/businesses/${id}`).then((response) => {
+  return axios.get(`/api/v1/businesses/${id}`).then((response) => {
     dispatch(oneBusiness(response.data.business));
   });
 };

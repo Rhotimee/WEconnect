@@ -9,7 +9,7 @@ export function allReviews(reviews) {
 
 export const fetchReviews = id => (
  (dispatch) => {
-  axios.get(`/api/v1/businesses/${id}/reviews`)
+  return axios.get(`/api/v1/businesses/${id}/reviews`)
   .then((response) => {
     dispatch(allReviews(response.data.reviews));
   })
@@ -17,7 +17,7 @@ export const fetchReviews = id => (
 
 export const addReview = (id, userData) => (
   (dispatch) => {
-  axios.post(`/api/v1/businesses/${id}/reviews`, userData)
+    return axios.post(`/api/v1/businesses/${id}/reviews`, userData)
   .then(response => response.data.review
   )
   });

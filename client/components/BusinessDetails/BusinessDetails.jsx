@@ -149,6 +149,46 @@ class BusinessDetails extends Component {
 
                   {/* Reviews */}
                   <hr className="straight" />
+
+                  <form onSubmit={this.onSubmit}>
+                    <h5 className="my-3">Add Review</h5>
+                    <div className="row">
+                    <div className="form-group col">
+                      <label htmlFor="title">Review <small>*</small> </label>
+                      <textarea
+                      type="text"
+                      className="form-control"
+                      required
+                      value={this.state.content}
+                      onChange={this.onChange}
+                      name="content"
+                    />
+                    </div>
+                    <div className="form-group col">
+                      <label htmlFor="inputState">Star <small>*</small> </label>
+                      <select
+                      id="inputState"
+                      className="form-control"
+                      value={this.state.star}
+                      onChange={this.onChange}
+                      name="star"
+                    >
+                      <option value="" disabled>choose star</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                    </div>
+                    <div className="">
+                      <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
+                  </div>
+                </form>
+
+                <hr className="straight" />
+
                   <div className="all-reviews">
 
                     { eachReview }
