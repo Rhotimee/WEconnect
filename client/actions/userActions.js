@@ -9,6 +9,12 @@ export function setCurrentUser(user) {
   };
 }
 
+export function oneUser(business) {
+  return {
+    type: 'FETCH_ONE_USER',
+    payload: business
+  };
+}
 
 export function userSignupRequest(userData) {
   return dispatch => axios.post('/api/v1/auth/signup', userData).then((response) => {
@@ -33,4 +39,11 @@ const userSignoutRequest = () => (dispatch) => {
   setAuthToken(false);
   dispatch(setCurrentUser({}));
 };
+
+export const fetchOneUser = id => (dispatch) => {
+  return axios.get(`/api/v1/users/${id}`).then((response) => {
+    dispatch(oneUser(response.data.user));
+  });
+};
+
 

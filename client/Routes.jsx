@@ -8,7 +8,7 @@ import Login from './components/Login/Login';
 import BusinessDetails from './components/BusinessDetails/BusinessDetails';
 import EditBusiness from './components/EditBusiness/EditBusiness'
 import NavFoot from './hoc/NavFoot/NavFoot'
-import Search from './components/Search/SearchList'
+import Dashboard from './components/Dashboard/Dashboard' 
 
 
 function Routes() {
@@ -22,7 +22,7 @@ function Routes() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path={"/businesses/:id"} component={BusinessDetails} />
         <Route exact path={"/businesses/:id/edit"} component={EditBusiness} />
-        <Route exact path={"/search"} component={Search} />
+        <Route exact path={"/user/:id"} component={Dashboard} />
       </NavFoot>
     </BrowserRouter>
   );

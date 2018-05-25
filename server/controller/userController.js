@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Validator, { isEmail } from 'validator';
+import { isEmail } from 'validator';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
@@ -37,6 +37,7 @@ export default class UserController {
         });
       });
   }
+
   /**
    * Signup
    *
