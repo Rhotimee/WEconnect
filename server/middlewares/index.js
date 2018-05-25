@@ -5,9 +5,10 @@ import cloudinary from 'cloudinary';
 import Model from '../models';
 import upload from '../utils/upload';
 
+dotenv.config();
 const { Business } = Model;
 
-const businessImgUpload = upload.single('businessImg');
+const businessImgUpload = upload.single('businessImage');
 // const userImgUpload = upload.single('userImg');
 
 cloudinary.config({
@@ -85,7 +86,7 @@ export default class Middleware {
    * @returns {object} next
    */
   static isLoggedIn(request, response, next) {
-    const token = request.body.token || request.query.token || request.headers['x-access-token'] || request.headers.authorization['x-access-token'];
+    const token = request.body.token || request.query.token || request.headers['x-access-token'] || request.headers.authorization;
     jwt.verify(token, process.env.SALT, (err, decoded) => {
       if (err) {
         return response.status(401).json({
@@ -132,7 +133,9 @@ export default class Middleware {
         });
       } else if (request.file) {
         cloudinary.v2.uploader.upload(request.file.path, (err, result) => {
+          console.log(result);
           request.body.businessImage = result.secure_url;
+          console.log('moving on to the business controller');
           next();
         });
       } else {

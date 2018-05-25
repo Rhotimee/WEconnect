@@ -37,6 +37,7 @@ export default class BusinessController {
         });
       }
     });
+    console.log('about to create business');
 
     // Create the business
     Business.create({
