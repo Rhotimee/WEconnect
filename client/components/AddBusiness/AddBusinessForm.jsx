@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
 
-class EditBusinessForm extends Component {
+class AddBusinessForm extends Component {
   constructor(props) {
     super(props);
 
-    const { business } = this.props;
-
-
     this.state = {
-      name: business.name,
-      location: business.location,
-      category: business.category,
-      details: business.details,
+      name: '',
+      location: '',
+      category: '',
+      details: '',
+      confirmPassword: '',
       errors: {},
       isLoading: false,
 
@@ -20,9 +19,7 @@ class EditBusinessForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    // console.log(this.props);
   }
-
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -31,17 +28,17 @@ class EditBusinessForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    const id = this.props.business.id;
-    this.props.updateOneBusiness(id , this.state).then(
+    this.props.addOneBusiness(this.state).then(
       () => {
-        this.context.router.history.push(`/businesses/${id}`);
+        this.context.router.history.push('/businesses');
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Business Added');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 
   render() {
-    
     return (
 
       <form className="row" onSubmit={this.onSubmit} >
@@ -78,8 +75,6 @@ class EditBusinessForm extends Component {
           <label htmlFor="inputAddress">Business Details <small>*</small></label>
           <textarea
             id="bizdetails"
-                // cols="30"
-                // rows="10"
             placeholder="lorem ipsum"
             required
             value={this.state.details}
@@ -136,8 +131,8 @@ class EditBusinessForm extends Component {
   }
 }
 
-EditBusinessForm.contextTypes = {
+AddBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default EditBusinessForm;
+export default AddBusinessForm;

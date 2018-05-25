@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { fetchBusinesses } from '../actions/businessAction';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const LandingPage = () => (
+class LandingPage extends Component{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: '',
+      type: '',
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+  }
+
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  
+
+  onSubmit(event) {
+    event.preventDefault();
+    // this.setState({ errors: {}, isLoading: true });
+    this.props.fetchBusinesses(this.state.type, this.state.text)
+    .then(
+      () => {
+        this.context.router.history.push('/businesses');        
+       },
+      // ({ data }) => this.setState({ errors: data, isLoading: false })
+    );
+  }
+
+render(){
+
+
+return (
   <div className="cover">
     <div className="cover-overlay">
 
@@ -14,17 +52,34 @@ const LandingPage = () => (
           </h4>
         </div>
 
-        <form action="" className="justify-content-center p-3 mx-4">
+        <form action="" className="justify-content-center p-3 mx-4" onSubmit={this.onSubmit}>
           <div className="row">
             <div className="col-md-6 px-1 my-1">
-              <input type="text" className="b-name form-control form-control-lg" placeholder="I'm looking for..." />
+            <input 
+                  name="text"
+                  type="text" 
+                  className="b-name form-control form-control-lg" 
+                  placeholder="I'm looking for..." 
+                  value={this.state.text}
+                  onChange={this.onChange}
+                  
+                  />
             </div>
             <div className="col-md-4 px-1 my-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text bg-light" id="basic-addon1"> <i className="fa fa-map-marker" /> </span>
                 </div>
-                <input type="text" className="form-control form-control-lg" placeholder="Lagos" aria-label="Username" aria-describedby="basic-addon1" />
+                <select
+                    className="form-control form-control-lg"
+                    onChange={this.onChange}
+                    name='type'
+                  >
+                    <option defaultValue>Choose...</option>
+                    <option value="location">Location</option>
+                    <option value="category">Category</option>
+
+                  </ select>
               </div>
             </div>
             <div className="col-md-2 px-1 my-1">
@@ -56,6 +111,10 @@ const LandingPage = () => (
 
     </div>
   </div>
-);
+);}}
 
-export default LandingPage;
+LandingPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+export default connect(null, {fetchBusinesses}) (LandingPage);

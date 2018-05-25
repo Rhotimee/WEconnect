@@ -22,11 +22,12 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     // associations can be defined here
     User.hasMany(models.Business, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      as: 'businesses'
     });
     User.hasMany(models.Review, {
       foreignKey: 'userId',
-      as: 'reviewer'
+      as: 'reviews'
     });
   };
   return User;

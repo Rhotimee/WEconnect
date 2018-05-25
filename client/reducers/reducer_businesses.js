@@ -6,7 +6,6 @@ const initialState = { allBusinesses: []};
   switch (action.type) {
     case 'FETCH_BUSINESSES':
       return {allBusinesses: action.payload }
-
     default:
       return state;
   }

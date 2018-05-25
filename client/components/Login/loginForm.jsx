@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
 
 
 class LoginForm extends Component {
@@ -25,6 +26,8 @@ class LoginForm extends Component {
     this.props.userSigninRequest(this.state).then(
       () => {
         this.context.router.history.push('/');
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Logged In Successfully');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })
     );

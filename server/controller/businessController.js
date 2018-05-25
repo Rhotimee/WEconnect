@@ -1,6 +1,6 @@
 import Model from '../models';
 
-const { Business } = Model;
+const { Business, User } = Model;
 
 /**
  * Business Controller.
@@ -16,7 +16,7 @@ export default class BusinessController {
    */
   static register(request, response) {
     const {
-      name, details, location, category
+      name, details, location, category, businessImage
     } = request.body;
 
     const { userId } = request;
@@ -40,15 +40,17 @@ export default class BusinessController {
 
     // Create the business
     Business.create({
-      name, details, location, category, userId,
+      name, details, location, category, userId, businessImage
     }).then(business => response.status(201).json({
       error: false,
       message: 'Business Created',
       business,
-    })).catch(() => response.status(500).json({
-      error: true,
-      message: 'Server Error',
-    }));
+    })).catch((error) => {
+      response.status(500).json({
+        error,
+        message: 'Server Error',
+      });
+    });
   }
 
   /**
@@ -188,7 +190,14 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static getById(request, response) {
-    Business.findById(request.params.id).then((business) => {
+    Business.findOne({
+      where: { id: request.params.id },
+      include: [{
+        model: User,
+        as: 'business_owner',
+        attributes: ['firstName']
+      }]
+    }).then((business) => {
       if (!business) {
         return response.status(404).json({
           error: true,

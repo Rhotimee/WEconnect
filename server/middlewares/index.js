@@ -1,9 +1,21 @@
 import isInt from 'validator/lib/isInt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import cloudinary from 'cloudinary';
 import Model from '../models';
-
+import upload from '../utils/upload';
 
 const { Business } = Model;
+
+const businessImgUpload = upload.single('businessImg');
+// const userImgUpload = upload.single('userImg');
+
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
+});
+
 
 /**
  * Middleware
@@ -102,5 +114,30 @@ export default class Middleware {
       });
     }
     next();
+  }
+
+  /**
+   * Checks if a user is logged in
+   * @param {object} request The request body of the requestuest.
+   * @param {object} response The response body.
+   * @param {object} next Passes control to next middleware
+   * @returns {object} next
+   */
+  static businessImageUpload(request, response, next) {
+    businessImgUpload(request, response, (error) => {
+      if (error) {
+        return response.status(400).json({
+          error: true,
+          message: 'failed to upload'
+        });
+      } else if (request.file) {
+        cloudinary.v2.uploader.upload(request.file.path, (err, result) => {
+          request.body.businessImage = result.secure_url;
+          next();
+        });
+      } else {
+        next();
+      }
+    });
   }
 }

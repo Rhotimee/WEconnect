@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './client/container/index.js',
+  entry: './client/index.js',
   output: {
     path: path.join(__dirname, '/client/build'),
     filename: 'bundle.js',
@@ -11,14 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         loader: ['style-loader', 'css-loader', 'sass-loader'],
 
       },
@@ -27,6 +27,10 @@ module.exports = {
         loader: 'url-loader',
         exclude: /node_modules/
       },
+      // {
+      //   test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      //   loader: 'file-loader'
+      // },
     ],
   },
   plugins: [

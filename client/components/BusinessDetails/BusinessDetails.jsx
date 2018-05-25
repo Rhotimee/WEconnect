@@ -4,6 +4,7 @@ import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessActio
 import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
+import alertify from 'alertifyjs';
 
 
 class BusinessDetails extends Component {
@@ -30,14 +31,20 @@ class BusinessDetails extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addReview(this.props.match.params.id, this.state)
+    this.props.addReview(this.props.match.params.id, this.state).then(
+      () => {
+        this.props.fetchReviews(this.props.match.params.id);        
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.success('Reviews Added');
+      }
+    )
     
     
   }
 
 
   render() {
-    const { business, user, reviews } = this.props;
+    const { business, user, reviews} = this.props;
     const { id } = this.props.match.params;
 
 
@@ -52,6 +59,7 @@ class BusinessDetails extends Component {
         content={review.content}
         star={review.star}
         reviewer={review.reviewer}
+        userId={review.userId}
       />
     ));
 
@@ -75,7 +83,7 @@ class BusinessDetails extends Component {
                       </div>
                       <div className="p-1">
                         <h3 className="">Restaurant</h3>
-                        <p><i className="fa fa-map-marker" /> Ikeja</p>
+                        <p><i className="fa fa-map-marker" /> {business.location}</p>
                       </div>
                     </div>
 
@@ -83,7 +91,14 @@ class BusinessDetails extends Component {
                   business.userId === user ? <div>
                     <Link to={`/businesses/${id}/edit`}>edit</Link>
                     -
-                    <Link to="/businesses" onClick={() => { this.props.deleteOneBusiness(id); }} >delete</Link>
+                    <Link 
+                      to="/businesses" 
+                      onClick={() => { 
+                        this.props.deleteOneBusiness(id); 
+                        alertify.set('notifier', 'position', 'top-right')
+                        alertify.success('Business deleted Successfully');
+                        }
+                      } >delete</Link>
                   </div>
                 : null
               }
@@ -104,7 +119,7 @@ class BusinessDetails extends Component {
                     <p className="col-md-6">
                       {business.details}
                     </p>
-                    <img className="col-md-6" width="500" src="https://maps.googleapis.com/maps/api/staticmap?center=ikeja+lagos&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos" alt="Google Map of ikeja lagos" />
+                    <img className="col-md-6" width="500" src={`https://maps.googleapis.com/maps/api/staticmap?center=${business.location}&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos`} alt="Google Map of ikeja lagos" />
                   </div>
 
                   <div className="review">
@@ -123,44 +138,20 @@ class BusinessDetails extends Component {
                       5 likes <i className="fa fa-heart" />
                       </div>
                       <div className="col">
-                        <i className="fa fa-users" />
-                      152 Visits
-                      </div>
-                      <div className="col text-right">
-                        <button className="btn btn-outline-dark" data-toggle="modal" data-target="#addReview">
-                      Write a review
-                        </button>
+                        Business Owner: <Link to={`/user/${business.userId}`}>{business.business_owner.firstName}</Link>
                       </div>
                     </div>
                   </div>
 
                   {/* Reviews */}
                   <hr className="straight" />
-                  <div className="all-reviews">
 
-                    { eachReview }
-
-                  </div>
-                </div> {/** end card-body * */}
-
-              </div>
-            </div>
-          </div>
-
-        {/* Modal for Adding Reviews */}
-        <div className="modal fade" id="addReview" >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header bg-dark text-white">
-                <h5 className="modal-title">Add Review</h5>
-                <button className="close" data-dismiss="modal"  id="dismiss-submit"><span>&times;</span></button>
-              </div>
-              <div className="modal-body">
-                <form onSubmit={this.onSubmit}>
-                  <p>Fields with <small>*</small> are required</p>
-                  <div className="form-group">
-                    <label htmlFor="title">Review <small>*</small> </label>
-                    <textarea
+                  <form onSubmit={this.onSubmit}>
+                    <h5 className="my-3">Add Review</h5>
+                    <div className="row">
+                    <div className="form-group col">
+                      <label htmlFor="title">Review <small>*</small> </label>
+                      <textarea
                       type="text"
                       className="form-control"
                       required
@@ -168,10 +159,10 @@ class BusinessDetails extends Component {
                       onChange={this.onChange}
                       name="content"
                     />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="inputState">Star <small>*</small> </label>
-                    <select
+                    </div>
+                    <div className="form-group col">
+                      <label htmlFor="inputState">Star <small>*</small> </label>
+                      <select
                       id="inputState"
                       className="form-control"
                       value={this.state.star}
@@ -186,16 +177,24 @@ class BusinessDetails extends Component {
                       <option>5</option>
                     </select>
                   </div>
-                  <div className="modal-footer">
-                    <button className="btn btn-outline-dark" type="submit">Submit</button>
+                    </div>
+                    <div className="">
+                      <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
                   </div>
                 </form>
+
+                <hr className="straight" />
+
+                  <div className="all-reviews">
+
+                    { eachReview }
+
+                  </div>
+                </div> {/** end card-body * */}
+
               </div>
-              
             </div>
           </div>
-        </div>
-
 
       </div>
     );
