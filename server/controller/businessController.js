@@ -1,6 +1,6 @@
 import Model from '../models';
 
-const { Business } = Model;
+const { Business, User } = Model;
 
 /**
  * Business Controller.
@@ -190,7 +190,14 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static getById(request, response) {
-    Business.findById(request.params.id).then((business) => {
+    Business.findOne({
+      where: { id: request.params.id },
+      include: [{
+        model: User,
+        as: 'business_owner',
+        attributes: ['firstName']
+      }]
+    }).then((business) => {
       if (!business) {
         return response.status(404).json({
           error: true,
