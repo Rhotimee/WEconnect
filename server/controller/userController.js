@@ -3,7 +3,7 @@ import { isEmail } from 'validator';
 import bcrypt from 'bcrypt';
 import Model from '../models';
 
-const { User } = Model;
+const { User, Business, Review } = Model;
 
 /**
  * Business Controller.
@@ -153,6 +153,16 @@ export default class UserController {
   static getUser(request, response) {
     User.findOne({
       where: { id: request.params.id },
+      include: [{
+        model: Business,
+        as: 'businesses',
+        attributes: ['name', 'details', 'id']
+      },
+      {
+        model: Review,
+        as: 'reviews',
+        attributes: ['content', 'star', 'userId', 'businessId']
+      }]
     }).then((user) => {
       if (!user) {
         return response.status(404).json({
@@ -168,6 +178,8 @@ export default class UserController {
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
+          businesses: user.businesses,
+          reviews: user.reviews
         }
       });
     });
