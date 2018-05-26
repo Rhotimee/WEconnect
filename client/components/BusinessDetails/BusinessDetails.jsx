@@ -70,7 +70,10 @@ class BusinessDetails extends Component {
             <div className="row">
 
               <div className="card col px-0">
-                <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" height="300px;" />
+                <img 
+                  className="card-img-top img-overlay" 
+                  src={business.businessImage ? business.businessImage : "img/bg3.jpg"} 
+                  alt="" height="300px;" />
                 <div className="card-img-overlay ">
                   <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
                 </div>
@@ -105,12 +108,6 @@ class BusinessDetails extends Component {
 
                     <div className="row data2 mt-3 ml-4">
                       <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
-                      <button className="btn btn-outline-dark mr-1 share">
-                      Share
-                        <i className="fa fa-facebook" />
-                        <i className="fa fa-twitter" />
-                        <i className="fa fa-envelope" />
-                      </button>
                     </div>
 
                   </div> {/** end data * */}
