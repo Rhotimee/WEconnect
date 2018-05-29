@@ -5,7 +5,8 @@ import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
 import alertify from 'alertifyjs';
-
+import averageReviews from '../../helpers/averageStar';
+import stars from '../../helpers/stars'
 
 class BusinessDetails extends Component {
   constructor(props) {
@@ -123,13 +124,11 @@ class BusinessDetails extends Component {
                     <hr className="straight" />
                     <div className="row">
                       <div className="col star">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <span className="rate">5.0</span>
-                      (2 Reviews)
+                      { stars(averageReviews(reviews)) }
+                        <span className="rate">
+                          {averageReviews(reviews)}
+                        </span>
+                      ({reviews.length} Reviews)
                       </div>
                       <div className="col like">
                       5 likes <i className="fa fa-heart" />
