@@ -36,8 +36,8 @@ export function userSigninRequest(userData) {
 
 const userSignoutRequest = () => (dispatch) => {
   localStorage.removeItem('userToken');
-  setAuthToken(false);
-  dispatch(setCurrentUser({}));
+  setAuthToken();
+  dispatch(setCurrentUser());
 };
 
 export const fetchOneUser = id => (dispatch) => {
@@ -46,4 +46,6 @@ export const fetchOneUser = id => (dispatch) => {
   });
 };
 
-
+export const updateUserDetails = (id, userData) => (dispatch) => {
+  return axios.put(`/api/v1/users/${id}`, userData).then(response => response.data.business)
+}

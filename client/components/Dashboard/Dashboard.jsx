@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchOneUser } from '../../actions/userActions';
-import { Link } from 'react-dom';
+import { Link } from 'react-router-dom';
 import List_Business from '../BusinessList/BusinessListItem'
 import ReviewCard from '../BusinessDetails/ReviewCard'
 
@@ -11,11 +11,11 @@ class Dashboard extends Component {
     this.props.fetchOneUser(this.props.match.params.id)
   }
 
-  
-
   render() {
-    const {user} = this.props 
 
+    const {user, authUser} = this.props 
+    
+    
     if (!user){
       return <p>loading...</p>
     }
@@ -45,6 +45,14 @@ class Dashboard extends Component {
         <p>{user.lastName}</p>
         <p>{user.email}</p>
         <hr className="straight"/>
+
+        {
+          user.id === authUser ?  
+          <div>
+            <Link to={`/user/${user.id}/update`}>update details</Link>
+          </div>
+          : null
+        }
         
         <div className="mx-4"id="business-list">
           <div className="row justify-content-center">
@@ -69,7 +77,8 @@ class Dashboard extends Component {
 
 function mapStateToProps(state){
   return {
-    user: state.oneUser.oneUser
+    user: state.oneUser.oneUser,
+    authUser: state.user_reducer.signedInUser.id,
   }
 }
 

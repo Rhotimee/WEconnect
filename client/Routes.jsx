@@ -9,6 +9,7 @@ import BusinessDetails from './components/BusinessDetails/BusinessDetails';
 import EditBusiness from './components/EditBusiness/EditBusiness'
 import NavFoot from './hoc/NavFoot/NavFoot'
 import Dashboard from './components/Dashboard/Dashboard' 
+import UpdateUser from './components/UpdateUser/UpdateUser'
 
 
 function Routes() {
@@ -23,6 +24,7 @@ function Routes() {
         <Route exact path={"/businesses/:id"} component={BusinessDetails} />
         <Route exact path={"/businesses/:id/edit"} component={EditBusiness} />
         <Route exact path={"/user/:id"} component={Dashboard} />
+        <Route exact path={"/user/:id/update"} component={UpdateUser} />
       </NavFoot>
     </BrowserRouter>
   );

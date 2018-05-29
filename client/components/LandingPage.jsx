@@ -31,7 +31,6 @@ class LandingPage extends Component{
       () => {
         this.context.router.history.push('/businesses');        
        },
-      // ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 

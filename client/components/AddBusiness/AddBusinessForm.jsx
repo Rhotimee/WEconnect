@@ -57,10 +57,10 @@ class AddBusinessForm extends Component {
         alertify.set('notifier', 'position', 'top-right')
         alertify.success('Business Added');
       },
-      ({ response }) => { this.setState({ errors: response.data.message})
-      console.log('hi')      
-      alertify.set('notifier', 'position', 'top-right')
-      alertify.error(this.state.errors);
+      ({ response }) => { 
+        this.setState({ errors: response.data.message})    
+        alertify.set('notifier', 'position', 'top-right')
+        alertify.error(this.state.errors);
     }
     )
   }
