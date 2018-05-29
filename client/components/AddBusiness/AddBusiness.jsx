@@ -7,7 +7,7 @@ class AddBusiness extends Component {
   render() {
     return (
       <div className="add-business-cover">
-          <div className="add-business container py-5 mt-3 text-dark">
+          <div className="add-business container py-5 text-dark">
             <AddBusinessForm addOneBusiness={addOneBusiness} />
           </div>
       </div>

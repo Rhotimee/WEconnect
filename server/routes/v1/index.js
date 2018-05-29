@@ -14,7 +14,7 @@ router.get('/', (request, response) => {
 // POST register business
 router.post('/businesses', Middleware.isLoggedIn, Middleware.businessImageUpload, BusinessController.register);
 // PUT update business
-router.put('/businesses/:id', Middleware.isLoggedIn, Middleware.validParam, BusinessController.update);
+router.put('/businesses/:id', Middleware.isLoggedIn, Middleware.businessImageUpload, Middleware.validParam, BusinessController.update);
 // DELETE delete business
 router.delete('/businesses/:id', Middleware.isLoggedIn, Middleware.validParam, BusinessController.deleteById);
 // GET get all businesses

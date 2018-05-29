@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
-class SignupForm extends Component {
+class UpdateUserForm extends Component {
   constructor(props) {
     super(props);
+
+    const { user, updateUserDetails } = this.props;
+
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      errors: {},
-      isLoading: false,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      errors: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -24,14 +23,17 @@ class SignupForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.setState({ errors: {}, isLoading: true });
-    this.props.userSignupRequest(this.state).then(
+    this.props.updateUserDetails(this.props.user.id, this.state).then(
       () => {
         this.context.router.history.push('/');
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Signed up  Successfully');
+        alertify.success('Profile Updated Successfully');
       },
-      ({ data }) => this.setState({ errors: data, isLoading: false })
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(this.state.errors);
+      }
     );
   }
 
@@ -61,7 +63,7 @@ class SignupForm extends Component {
             required
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <input
             type="email"
             className="form-control form-control-lg"
@@ -93,9 +95,9 @@ class SignupForm extends Component {
             name="confirmPassword"
             required
           />
-        </div>
+        </div> */}
         <input
-          disabled={this.state.isLoading}
+          // disabled={this.state.isLoading}
           type="submit"
           className="btn btn-outline-dark btn-block"
         />
@@ -104,8 +106,8 @@ class SignupForm extends Component {
   }
 }
 
-SignupForm.contextTypes = {
+UpdateUserForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default SignupForm;
+export default UpdateUserForm;

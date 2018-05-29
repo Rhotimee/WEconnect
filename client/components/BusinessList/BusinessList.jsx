@@ -31,7 +31,6 @@ class BusinessList extends Component {
     this.props.fetchBusinesses(this.state.type, this.state.text)
     .then(
       () => {  },
-      // ({ data }) => this.setState({ errors: data, isLoading: false })
     );
   }
 

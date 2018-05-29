@@ -1,13 +1,12 @@
-import { FETCH_ONE_BUSINESS } from '../actions/businessAction';
-
- const oneBusinessReducer = (state = {}, action={}) => {
+const oneBusinessReducer = (state = {}, action = {}) => {
   switch (action.type) {
     case 'FETCH_ONE_BUSINESS':
-      return {oneBusiness: action.payload }
+      return { oneBusiness: action.payload };
 
     default:
       return state;
   }
-}
+};
 
-export default oneBusinessReducer
+export default oneBusinessReducer;
+

@@ -5,7 +5,8 @@ import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
 import alertify from 'alertifyjs';
-
+import averageReviews from '../../helpers/averageStar';
+import stars from '../../helpers/stars';
 
 class BusinessDetails extends Component {
   constructor(props) {
@@ -31,20 +32,16 @@ class BusinessDetails extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addReview(this.props.match.params.id, this.state).then(
-      () => {
-        this.props.fetchReviews(this.props.match.params.id);        
-        alertify.set('notifier', 'position', 'top-right')
-        alertify.success('Reviews Added');
-      }
-    )
-    
-    
+    this.props.addReview(this.props.match.params.id, this.state).then(() => {
+      this.props.fetchReviews(this.props.match.params.id);
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Reviews Added');
+    });
   }
 
 
   render() {
-    const { business, user, reviews} = this.props;
+    const { business, user, reviews } = this.props;
     const { id } = this.props.match.params;
 
 
@@ -66,11 +63,16 @@ class BusinessDetails extends Component {
 
     return (
       <div className="bg-cover">
-          <div className="container mt-4 mb-4" id="business-detail">
-            <div className="row">
+        <div className="container mt-4 mb-4" id="business-detail">
+          <div className="row">
 
-              <div className="card col px-0">
-                <img className="card-img-top img-overlay" src="img/bg3.jpg" alt="" height="300px;" />
+            <div className="card col px-0">
+                <img
+                  className="card-img-top img-overlay"
+                  src={business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg'}
+                  alt=""
+                  height="300px;"
+                />
                 <div className="card-img-overlay ">
                   <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
                 </div>
@@ -82,7 +84,7 @@ class BusinessDetails extends Component {
                         <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
                       </div>
                       <div className="p-1">
-                        <h3 className="">Restaurant</h3>
+                        <h3 className="">{business.category}</h3>
                         <p><i className="fa fa-map-marker" /> {business.location}</p>
                       </div>
                     </div>
@@ -91,26 +93,22 @@ class BusinessDetails extends Component {
                   business.userId === user ? <div>
                     <Link to={`/businesses/${id}/edit`}>edit</Link>
                     -
-                    <Link 
-                      to="/businesses" 
-                      onClick={() => { 
-                        this.props.deleteOneBusiness(id); 
-                        alertify.set('notifier', 'position', 'top-right')
+                    <Link
+                      to="/businesses"
+                      onClick={() => {
+                        this.props.deleteOneBusiness(id);
+                        alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Business deleted Successfully');
                         }
-                      } >delete</Link>
-                  </div>
+                      }
+                    >delete
+                    </Link>
+                                             </div>
                 : null
               }
 
                     <div className="row data2 mt-3 ml-4">
                       <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
-                      <button className="btn btn-outline-dark mr-1 share">
-                      Share
-                        <i className="fa fa-facebook" />
-                        <i className="fa fa-twitter" />
-                        <i className="fa fa-envelope" />
-                      </button>
                     </div>
 
                   </div> {/** end data * */}
@@ -126,13 +124,11 @@ class BusinessDetails extends Component {
                     <hr className="straight" />
                     <div className="row">
                       <div className="col star">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <span className="rate">5.0</span>
-                      (2 Reviews)
+                        { stars(averageReviews(reviews)) }
+                        <span className="rate">
+                          {averageReviews(reviews)}
+                        </span>
+                      ({reviews.length} Reviews)
                       </div>
                       <div className="col like">
                       5 likes <i className="fa fa-heart" />
@@ -149,41 +145,41 @@ class BusinessDetails extends Component {
                   <form onSubmit={this.onSubmit}>
                     <h5 className="my-3">Add Review</h5>
                     <div className="row">
-                    <div className="form-group col">
-                      <label htmlFor="title">Review <small>*</small> </label>
-                      <textarea
-                      type="text"
-                      className="form-control"
-                      required
-                      value={this.state.content}
-                      onChange={this.onChange}
-                      name="content"
-                    />
-                    </div>
-                    <div className="form-group col">
-                      <label htmlFor="inputState">Star <small>*</small> </label>
-                      <select
-                      id="inputState"
-                      className="form-control"
-                      value={this.state.star}
-                      onChange={this.onChange}
-                      name="star"
-                    >
-                      <option value="" disabled>choose star</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
+                      <div className="form-group col">
+                        <label htmlFor="title">Review <small>*</small> </label>
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          required
+                          value={this.state.content}
+                          onChange={this.onChange}
+                          name="content"
+                        />
+                      </div>
+                      <div className="form-group col">
+                        <label htmlFor="inputState">Star <small>*</small> </label>
+                        <select
+                          id="inputState"
+                          className="form-control"
+                          value={this.state.star}
+                          onChange={this.onChange}
+                          name="star"
+                        >
+                          <option value="" disabled>choose star</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
                     </div>
                     <div className="">
                       <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
-                  </div>
-                </form>
+                    </div>
+                  </form>
 
-                <hr className="straight" />
+                  <hr className="straight" />
 
                   <div className="all-reviews">
 
@@ -193,8 +189,8 @@ class BusinessDetails extends Component {
                 </div> {/** end card-body * */}
 
               </div>
-            </div>
           </div>
+        </div>
 
       </div>
     );

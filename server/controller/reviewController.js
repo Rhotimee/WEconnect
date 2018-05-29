@@ -31,19 +31,18 @@ export default class ReviewController {
           as: 'reviewer',
           attributes: ['firstName']
         }]
-      }).then((reviews) => {
-        if (reviews.length === 0) {
-          return response.status(404).json({
-            error: true,
-            message: 'No review found'
-          });
-        }
-        return response.status(200).json({
+      }).then(reviews =>
+        // if (reviews.length === 0) {
+        //   return response.status(404).json({
+        //     error: true,
+        //     message: 'No review found'
+        //   });
+        // }
+        response.status(200).json({
           error: false,
           message: 'Reviews found',
           reviews,
-        });
-      }).catch(error => response.status(500).json({
+        })).catch(error => response.status(500).json({
         error: error.message,
         message: 'Server Error',
       }));

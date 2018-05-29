@@ -9,21 +9,21 @@ class Signup extends Component {
   render() {
     const { userSignupRequest } = this.props;
     return (
-        <div className="cover">
-          <div className="cover-overlay">
+      <div className="cover">
+        <div className="cover-overlay">
 
-            <div className="container py-5 auth" id="signup">
-              <div className="card  text-center card-form my-2">
-                <div className="card-body">
-                  <h3>Sign up </h3>
-                  <p>Fill this form to register</p>
-                  <SignupForm userSignupRequest={userSignupRequest} />
-                </div>
-                <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
+          <div className="container py-5 auth" id="signup">
+            <div className="card  text-center card-form my-2">
+              <div className="card-body">
+                <h3>Sign up </h3>
+                <p>Fill this form to register</p>
+                <SignupForm userSignupRequest={userSignupRequest} />
               </div>
+              <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
             </div>
           </div>
         </div>
+      </div>
     );
   }
 }

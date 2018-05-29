@@ -28,6 +28,13 @@ export default class BusinessController {
       });
     }
 
+    if (name.trim() === '' || details.trim() === '' || location.trim() === '' || category.trim() === '') {
+      return response.status(400).json({
+        message: 'Enter Valid Input',
+        error: true,
+      });
+    }
+
     // Check if business name already exists
     Business.find({ where: { name } }).then((business) => {
       if (business.name === name) {
@@ -37,6 +44,7 @@ export default class BusinessController {
         });
       }
     });
+    console.log('about to create business');
 
     // Create the business
     Business.create({
@@ -62,7 +70,7 @@ export default class BusinessController {
    */
   static update(request, response) {
     const {
-      name, details, location, category
+      name, details, location, category, businessImage
     } = request.body;
 
     Business.findById(request.params.id)
@@ -81,16 +89,6 @@ export default class BusinessController {
           });
         }
 
-        // Check if business name already exists
-        Business.find({ where: { name } }).then((foundBusiness) => {
-          if (foundBusiness) {
-            return response.status(409).json({
-              error: true,
-              message: 'Business name already exists',
-            });
-          }
-        });
-
         if (details.trim() === '' || location.trim() === '' || category.trim() === '') {
           return response.status(400).json({
             message: 'Enter Valid Input',
@@ -103,13 +101,14 @@ export default class BusinessController {
           name: name || business.name,
           details: details || business.details,
           location: location || business.location,
-          category: category || business.category
+          category: category || business.category,
+          businessImage: businessImage || business.businessImage,
         }).then((updateBusiness) => {
           if (updateBusiness) {
             return response.status(200).json({
               error: false,
               message: 'Business updated',
-              business: updateBusiness
+              business: updateBusiness,
             });
           }
         });
