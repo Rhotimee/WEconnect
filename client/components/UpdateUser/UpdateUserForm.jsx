@@ -6,7 +6,7 @@ class UpdateUserForm extends Component {
   constructor(props) {
     super(props);
 
-    const { user, updateUserDetails } = this.props
+    const { user, updateUserDetails } = this.props;
 
     this.state = {
       firstName: user.firstName,
@@ -23,17 +23,16 @@ class UpdateUserForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.updateUserDetails(this.props.user.id ,this.state).then(
+    this.props.updateUserDetails(this.props.user.id, this.state).then(
       () => {
         this.context.router.history.push('/');
-        alertify.set('notifier', 'position', 'top-right')
+        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Profile Updated Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message })
-        alertify.set('notifier', 'position', 'top-right')
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
         alertify.error(this.state.errors);
-      
       }
     );
   }

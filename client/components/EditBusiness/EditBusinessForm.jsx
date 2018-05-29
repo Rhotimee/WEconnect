@@ -32,49 +32,47 @@ class EditBusinessForm extends Component {
   }
 
   onFileChange(event) {
-    const file = event.target.files[0]
-    console.log(file)
+    const file = event.target.files[0];
+    console.log(file);
 
-    this.setState({ businessImage: file })
+    this.setState({ businessImage: file });
   }
 
   onSubmit(event) {
     event.preventDefault();
-    
+
     const businessInfo = {
       name: this.state.name,
       location: this.state.location,
       category: this.state.details,
       details: this.state.details,
       businessImage: this.state.businessImage
-    }
+    };
 
     const updateBusiness = new FormData();
-  
+
     const businessInfoKeys = Object.keys(businessInfo);
     businessInfoKeys.forEach((key) => {
       updateBusiness.append(key, businessInfo[key]);
     });
 
     const id = this.props.business.id;
-    this.props.updateOneBusiness(id , updateBusiness).then(
+    this.props.updateOneBusiness(id, updateBusiness).then(
       () => {
         this.context.router.history.push(`/businesses/${id}`);
-        alertify.set('notifier', 'position', 'top-right')
+        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Business Updated Successfully');
       },
-      ({error}) => {
-        alertify.set('notifier', 'position', 'top-right')
+      ({ error }) => {
+        alertify.set('notifier', 'position', 'top-right');
         alertify.error(error);
-        console.log(error)
+        console.log(error);
       }
-    )
+    );
   }
 
   render() {
-    
     return (
-
       <form className="row" onSubmit={this.onSubmit} >
         <p className="col-12">Fields with <small>*</small> are required </p>
         <div className="form-group col-sm-6">
@@ -159,14 +157,14 @@ class EditBusinessForm extends Component {
 
         <div className="form-group col-md-6 mb-3">
           <label htmlFor="filefield">Business Image</label>
-          <input 
-            type="file" 
-            className="form-control-file" 
-            id="filefield" 
+          <input
+            type="file"
+            className="form-control-file"
+            id="filefield"
             onChange={this.onFileChange}
             name="businessImage"
             accept="image/*"
-            />
+          />
         </div>
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>
       </form>

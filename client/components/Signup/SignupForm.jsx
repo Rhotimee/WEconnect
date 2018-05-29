@@ -28,7 +28,7 @@ class SignupForm extends Component {
     this.props.userSignupRequest(this.state).then(
       () => {
         this.context.router.history.push('/');
-        alertify.set('notifier', 'position', 'top-right')
+        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Signed up  Successfully');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })

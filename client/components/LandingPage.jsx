@@ -3,7 +3,7 @@ import { fetchBusinesses } from '../actions/businessAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class LandingPage extends Component{
+class LandingPage extends Component {
   constructor(props) {
     super(props);
 
@@ -14,31 +14,25 @@ class LandingPage extends Component{
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
   }
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  
 
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
     this.props.fetchBusinesses(this.state.type, this.state.text)
-    .then(
-      () => {
-        this.context.router.history.push('/businesses');        
-       },
-    );
+      .then(() => {
+        this.context.router.history.push('/businesses');
+      }, );
   }
 
-render(){
-
-
-return (
-  <div className="cover">
+  render() {
+    return (
+      <div className="cover">
     <div className="cover-overlay">
 
       <div className="container justify-content-center pt-5 content">
@@ -54,15 +48,14 @@ return (
         <form action="" className="justify-content-center p-3 mx-4" onSubmit={this.onSubmit}>
           <div className="row">
             <div className="col-md-6 px-1 my-1">
-            <input 
-                  name="text"
-                  type="text" 
-                  className="b-name form-control form-control-lg" 
-                  placeholder="I'm looking for..." 
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  
-                  />
+              <input
+                name="text"
+                type="text"
+                className="b-name form-control form-control-lg"
+                placeholder="I'm looking for..."
+                value={this.state.text}
+                onChange={this.onChange}
+              />
             </div>
             <div className="col-md-4 px-1 my-1">
               <div className="input-group">
@@ -70,15 +63,15 @@ return (
                   <span className="input-group-text bg-light" id="basic-addon1"> <i className="fa fa-map-marker" /> </span>
                 </div>
                 <select
-                    className="form-control form-control-lg"
-                    onChange={this.onChange}
-                    name='type'
-                  >
-                    <option defaultValue>Choose...</option>
-                    <option value="location">Location</option>
-                    <option value="category">Category</option>
+                  className="form-control form-control-lg"
+                  onChange={this.onChange}
+                  name="type"
+                >
+                  <option defaultValue>Choose...</option>
+                  <option value="location">Location</option>
+                  <option value="category">Category</option>
 
-                  </ select>
+                </select>
               </div>
             </div>
             <div className="col-md-2 px-1 my-1">
@@ -110,10 +103,12 @@ return (
 
     </div>
   </div>
-);}}
+    );
+  }
+}
 
 LandingPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default connect(null, {fetchBusinesses}) (LandingPage);
+export default connect(null, { fetchBusinesses })(LandingPage);

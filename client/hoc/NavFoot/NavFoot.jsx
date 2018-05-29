@@ -5,7 +5,7 @@ import Footer from './Footer';
 const NavFoot = props => (
   <div>
     <NavBar />
-      {props.children}
+    {props.children}
     <Footer />
   </div>
 );

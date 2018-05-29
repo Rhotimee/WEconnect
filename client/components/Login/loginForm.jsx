@@ -26,7 +26,7 @@ class LoginForm extends Component {
     this.props.userSigninRequest(this.state).then(
       () => {
         this.context.router.history.push('/');
-        alertify.set('notifier', 'position', 'top-right')
+        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Logged In Successfully');
       },
       ({ data }) => this.setState({ errors: data, isLoading: false })

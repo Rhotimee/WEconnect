@@ -13,12 +13,12 @@ class EditBusiness extends Component {
     if (!this.props.business) {
       return <h2>Loading...</h2>;
     }
-    console.log(this.props.business)
+    console.log(this.props.business);
     return (
       <div className="add-business-cover">
-          <div className="add-business container py-5 text-dark">
-            <EditBusinessForm business={this.props.business} updateOneBusiness={updateOneBusiness} />
-          </div>
+        <div className="add-business container py-5 text-dark">
+          <EditBusinessForm business={this.props.business} updateOneBusiness={updateOneBusiness} />
+        </div>
       </div>
 
     );

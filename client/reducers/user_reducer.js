@@ -6,14 +6,15 @@ const initialState = {
   signedInUser: {}
 };
 
-export default (state = initialState, action = {} ) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
     case 'CURRENT_USER':
-    return {
-      isAuthenticated: !isEmpty(action.signedInUser),
-      signedInUser: action.signedInUser
-    }
+      return {
+        isAuthenticated: !isEmpty(action.signedInUser),
+        signedInUser: action.signedInUser
+      };
     default:
       return state;
   }
-}
+};
+
