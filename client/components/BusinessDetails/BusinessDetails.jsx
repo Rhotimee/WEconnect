@@ -72,7 +72,7 @@ class BusinessDetails extends Component {
               <div className="card col px-0">
                 <img 
                   className="card-img-top img-overlay" 
-                  src={business.businessImage ? business.businessImage : "img/bg3.jpg"} 
+                  src={ business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' } 
                   alt="" height="300px;" />
                 <div className="card-img-overlay ">
                   <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
@@ -85,7 +85,7 @@ class BusinessDetails extends Component {
                         <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
                       </div>
                       <div className="p-1">
-                        <h3 className="">Restaurant</h3>
+                        <h3 className="">{business.category}</h3>
                         <p><i className="fa fa-map-marker" /> {business.location}</p>
                       </div>
                     </div>

@@ -1,13 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-const stars = (no) => {
-  const arr = []
-  for (let i = 0; i < no; i++){
-    arr.push(i)
-  }
-  return arr.map((star, i) => <i key={i} className="fa fa-star"></i> )
-}
+import stars from '../../helpers/stars'
 
 const ReviewCard = ({ content, star, reviewer, userId, businessId }) => {
   return (

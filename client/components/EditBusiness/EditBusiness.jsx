@@ -16,7 +16,7 @@ class EditBusiness extends Component {
     console.log(this.props.business)
     return (
       <div className="add-business-cover">
-          <div className="add-business container py-5 mt-3 text-dark">
+          <div className="add-business container py-5 text-dark">
             <EditBusinessForm business={this.props.business} updateOneBusiness={updateOneBusiness} />
           </div>
       </div>

@@ -11,7 +11,7 @@ class AddBusinessForm extends Component {
       location: '',
       category: '',
       details: '',
-      errors: {},
+      errors: '',
       isLoading: false,
       businessImage: null
 
@@ -41,7 +41,7 @@ class AddBusinessForm extends Component {
       location: this.state.location,
       category: this.state.details,
       details: this.state.details,
-      businessImage: this.state.businessImage
+      businessImage: this.state.businessImage,
     }
   
     const registerBusiness = new FormData();
@@ -57,8 +57,12 @@ class AddBusinessForm extends Component {
         alertify.set('notifier', 'position', 'top-right')
         alertify.success('Business Added');
       },
-      ({ data }) => this.setState({ errors: data, isLoading: false })
-    );
+      ({ response }) => { this.setState({ errors: response.data.message})
+      console.log('hi')      
+      alertify.set('notifier', 'position', 'top-right')
+      alertify.error(this.state.errors);
+    }
+    )
   }
 
   render() {
@@ -144,6 +148,10 @@ class AddBusinessForm extends Component {
           </select>
         </div>
 
+        <div className="col-md-4 mb-2 ">
+          <img className="" src={this.state.businessImage} alt="Card image cap"/>
+        </div>
+
         <div className="form-group col-md-6 mb-3">
           <label htmlFor="filefield">Business Image</label>
           <input 
@@ -155,6 +163,7 @@ class AddBusinessForm extends Component {
             accept="image/*"
             />
         </div>
+
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>
       </form>
     );

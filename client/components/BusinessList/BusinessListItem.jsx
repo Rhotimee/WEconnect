@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 const List_Businesses = ({ business, onBusinessSelect }) => (
   <div
-      className="card col-sm-3 px-0"
-    // onClick={() => onBusinessSelect(business)}
-    >
-      <img className="card-img-top img-overlay" src={business.businessImage ? business.businessImage : "img/bg3.jpg"}  alt="" />
+      className="card col-sm-3 px-0">
+      <img 
+        className="card-img-top img-overlay" 
+        src={ business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' }   
+        alt="" />
       <div className="card-img-overlay">
         <Link to={`/businesses/${business.id}`} className="h2 text-white card-title px-2">{business.name}</Link>
       </div>
