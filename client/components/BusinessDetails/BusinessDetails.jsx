@@ -67,17 +67,17 @@ class BusinessDetails extends Component {
           <div className="row">
 
             <div className="card col px-0">
-                <img
+              <img
                   className="card-img-top img-overlay"
                   src={business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg'}
                   alt=""
                   height="300px;"
                 />
-                <div className="card-img-overlay ">
+              <div className="card-img-overlay ">
                   <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
                 </div>
 
-                <div className="card-body text-dark bg-light">
+              <div className="card-body text-dark bg-light">
                   <div className="data">
                     <div className="row data1 ml-1">
                       <div className="p-1">
@@ -103,7 +103,7 @@ class BusinessDetails extends Component {
                       }
                     >delete
                     </Link>
-                                             </div>
+                  </div>
                 : null
               }
 
@@ -188,7 +188,7 @@ class BusinessDetails extends Component {
                   </div>
                 </div> {/** end card-body * */}
 
-              </div>
+            </div>
           </div>
         </div>
 
