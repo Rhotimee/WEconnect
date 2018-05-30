@@ -5,22 +5,23 @@ import { Aux } from '../aux';
 import { userSignoutRequest, fetchOneUser } from '../../actions/userActions';
 
 class Navbar extends Component {
-  componentWillMount() {
-    this.props.fetchOneUser(this.props.signedInUser.signedInUser.id);
-  }
+  // componentWillMount() {
+  //   this.props.fetchOneUser(this.props.signedInUser.signedInUser.id);
+  // }
 
   render() {
-    const { user } = this.props;
+    // const { user } = this.props;
 
-    if (!user) {
-      return <h2>Loading...</h2>;
-    }
+    // if (!user) {
+    //   return <h2>Loading...</h2>;
+    // }
+
     const Auth = (
       <Aux>
         <li className="nav-item mr-3">
           <Link className="nav-link" to="/add-business">Add Business</Link>
         </li>
-        <div className="dropdown mr-3">
+        {/* <div className="dropdown mr-3">
           <Link
             className="nav-link dropdown-toggle"
             to={`/user/${user.id}`}
@@ -34,9 +35,9 @@ class Navbar extends Component {
             <Link className="dropdown-item" to={`/user/${user.id}`}>My Profile</Link>
             <Link className="dropdown-item" to={`/user/${user.id}/update`}>Update Profile</Link>
             <Link className="dropdown-item" to="#">Change Password</Link>
-            <Link className="dropdown-item" to="/" onClick={this.props.userSignoutRequest}>Signout</Link>
+            <Link className="dropdown-item" to="/" onClick={() => this.props.userSignoutRequest()}>Signout</Link>
           </div>
-        </div>
+        </div> */}
       </Aux>
     );
 

@@ -34,18 +34,14 @@ export function userSigninRequest(userData) {
   });
 }
 
-const userSignoutRequest = () => (dispatch) => {
+export const userSignoutRequest = () => (dispatch) => {
   localStorage.removeItem('userToken');
   setAuthToken();
   dispatch(setCurrentUser());
 };
 
-export const fetchOneUser = id => (dispatch) => {
-  return axios.get(`/api/v1/users/${id}`).then((response) => {
-    dispatch(oneUser(response.data.user));
-  });
-};
+export const fetchOneUser = id => dispatch => axios.get(`/api/v1/users/${id}`).then((response) => {
+  dispatch(oneUser(response.data.user));
+});
 
-export const updateUserDetails = (id, userData) => (dispatch) => {
-  return axios.put(`/api/v1/users/${id}`, userData).then(response => response.data.business)
-}
+export const updateUserDetails = (id, userData) => dispatch => axios.put(`/api/v1/users/${id}`, userData).then(response => response.data.business);
