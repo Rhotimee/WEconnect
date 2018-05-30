@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUserDetails, fetchOneUser } from '../../actions/userActions';
 import UpdateUserForm from './UpdateUserForm';
-import PropTypes from 'prop-types';
 
 class UpdateUser extends Component {
   componentWillMount() {
