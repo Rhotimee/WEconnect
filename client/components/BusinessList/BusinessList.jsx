@@ -16,27 +16,23 @@ class BusinessList extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
   }
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  
 
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
     this.props.fetchBusinesses(this.state.type, this.state.text)
-    .then(
-      () => {  },
-    );
+      .then(() => { },);
   }
 
 
   componentDidMount() {
-    this.props.fetchBusinesses(this.state.type , this.state.text);
+    this.props.fetchBusinesses(this.state.type, this.state.text);
   }
 
 
@@ -50,24 +46,23 @@ class BusinessList extends Component {
 
     return (
       <div className="bg-cover" >
-          <div className="list-cover">
+        <div className="list-cover">
 
-            <form 
-              action="" 
-              className="container bg-search py-5 sticky-top"
-              onSubmit={this.onSubmit}
-              >
-              <div className="row mx-4 ">
+          <form
+            action=""
+            className="container bg-search py-5 sticky-top"
+            onSubmit={this.onSubmit}
+          >
+            <div className="row mx-4 ">
               <div className="col-md-6 px-1 my-1">
-                <input 
+                <input
                   name="text"
-                  type="text" 
-                  className="b-name form-control form-control-lg" 
-                  placeholder="I'm looking for..." 
+                  type="text"
+                  className="b-name form-control form-control-lg"
+                  placeholder="I'm looking for..."
                   value={this.state.text}
                   onChange={this.onChange}
-                  
-                  />
+                />
               </div>
               <div className="col-md-4 px-1 my-1">
                 <div className="input-group">
@@ -77,29 +72,29 @@ class BusinessList extends Component {
                   <select
                     className="form-control form-control-lg"
                     onChange={this.onChange}
-                    name='type'
+                    name="type"
                   >
                     <option defaultValue>Choose...</option>
                     <option value="location">Location</option>
                     <option value="category">Category</option>
 
-                  </ select>
-                  
+                  </select>
+
                 </div>
               </div>
               <div className="col-md-2 px-1 my-1">
                 <button className="form-control form-control-lg btn-dark search" type="submit" onSubmit={this.onSubmit}> <i className="fa fa-search" />  Search</button>
               </div>
             </div>
-            </form>
+          </form>
 
-            <div className="mx-4"id="business-list">
-              <div className="row justify-content-center">
+          <div className="mx-4"id="business-list">
+            <div className="row justify-content-center">
               {eachBusiness}
             </div>
-            </div>
-
           </div>
+
+        </div>
       </div>
     );
   }
