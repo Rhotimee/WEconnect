@@ -74,7 +74,7 @@ export default class UserController {
       email: email.trim().toLowerCase(),
       password: hash,
     }).then((user) => {
-      const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
+      const token = jwt.sign({ id: user.id, firstName: user.firstName }, process.env.SALT, { expiresIn: 86400 * 5 });
       return response.status(201).json({
         token,
         error: false,
@@ -113,7 +113,7 @@ export default class UserController {
             message: 'Email or Password Incorrect'
           });
         }
-        const token = jwt.sign({ id: user.id }, process.env.SALT, { expiresIn: 86400 * 5 });
+        const token = jwt.sign({ id: user.id, firstName: user.firstName }, process.env.SALT, { expiresIn: 86400 * 5 });
 
         return response.status(200).json({
           token,

@@ -1,43 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
 import { Aux } from '../aux';
-import { userSignoutRequest, fetchOneUser } from '../../actions/userActions';
+import { userSignoutRequest } from '../../actions/userActions';
 
 class Navbar extends Component {
-  // componentWillMount() {
-  //   this.props.fetchOneUser(this.props.signedInUser.signedInUser.id);
-  // }
+  onSignout(event) {
+    event.preventDefault();
+    this.props.userSignoutRequest();
+    this.context.router.history.push('/');
+    alertify.set('notifier', 'position', 'top-right');
+    alertify.success('Signed Out Successfully');
+  }
 
   render() {
-    // const { user } = this.props;
-
-    // if (!user) {
-    //   return <h2>Loading...</h2>;
-    // }
-
+    const { signedInUser } = this.props.signedInUser;
     const Auth = (
       <Aux>
         <li className="nav-item mr-3">
           <Link className="nav-link" to="/add-business">Add Business</Link>
         </li>
-        {/* <div className="dropdown mr-3">
-          <Link
-            className="nav-link dropdown-toggle"
-            to={`/user/${user.id}`}
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >{user.firstName}
-          </Link>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <Link className="dropdown-item" to={`/user/${user.id}`}>My Profile</Link>
-            <Link className="dropdown-item" to={`/user/${user.id}/update`}>Update Profile</Link>
-            <Link className="dropdown-item" to="#">Change Password</Link>
-            <Link className="dropdown-item" to="/" onClick={() => this.props.userSignoutRequest()}>Signout</Link>
+        { signedInUser ? (
+          <div className="dropdown mr-3">
+            <Link
+              className="nav-link dropdown-toggle"
+              to={`/user/${signedInUser.id}`}
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >{signedInUser.firstName}
+            </Link>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <Link className="dropdown-item" to={`/user/${signedInUser.id}`}>My Profile</Link>
+              <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`}>Update Profile</Link>
+              <Link className="dropdown-item" to="#">Change Password</Link>
+              <Link className="dropdown-item" to="/" onClick={this.onSignout.bind(this)}>Signout</Link>
+            </div>
           </div>
-        </div> */}
+        ) : null}
+
+
       </Aux>
     );
 
@@ -74,9 +79,30 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     signedInUser: state.user_reducer,
-    user: state.oneUser.oneUser,
   };
 }
 
+Navbar.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { userSignoutRequest, fetchOneUser })(Navbar);
+
+export default connect(mapStateToProps, { userSignoutRequest })(Navbar);
+
+//  {/* // <div className="dropdown mr-3">
+//         {/* //   <Link */}
+//         //     className="nav-link dropdown-toggle"
+//         //     to={`/user/${signedInUser.id}`}
+//         //     id="dropdownMenuButton"
+//         //     data-toggle="dropdown"
+//         //     aria-haspopup="true"
+//         //     aria-expanded="false"
+//         //   >{signedInUser.firstName}
+//         //   </Link> */}
+//         //   <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//         //     <Link className="dropdown-item" to={`/user/${signedInUser.id}`}>My Profile</Link>
+//         //     <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`}>Update Profile</Link>
+//         //     <Link className="dropdown-item" to="#">Change Password</Link>
+//         //     <Link className="dropdown-item" to="/" onClick={this.onSignout.bind(this)}>Signout</Link>
+//         //   </div>
+//         // </div>
