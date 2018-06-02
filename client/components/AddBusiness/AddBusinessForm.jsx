@@ -19,7 +19,6 @@ class AddBusinessForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
-
   }
 
   onChange(event) {
@@ -27,10 +26,10 @@ class AddBusinessForm extends Component {
   }
 
   onFileChange(event) {
-    const file = event.target.files[0]
-    console.log(file)
+    const file = event.target.files[0];
+    console.log(file);
 
-    this.setState({ businessImage: file })
+    this.setState({ businessImage: file });
   }
 
   onSubmit(event) {
@@ -39,13 +38,13 @@ class AddBusinessForm extends Component {
     const businessInfo = {
       name: this.state.name,
       location: this.state.location,
-      category: this.state.details,
+      category: this.state.category,
       details: this.state.details,
       businessImage: this.state.businessImage,
-    }
-  
+    };
+
     const registerBusiness = new FormData();
-  
+
     const businessInfoKeys = Object.keys(businessInfo);
     businessInfoKeys.forEach((key) => {
       registerBusiness.append(key, businessInfo[key]);
@@ -54,15 +53,15 @@ class AddBusinessForm extends Component {
     this.props.addOneBusiness(registerBusiness).then(
       () => {
         this.context.router.history.push('/businesses');
-        alertify.set('notifier', 'position', 'top-right')
+        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Business Added');
       },
-      ({ response }) => { 
-        this.setState({ errors: response.data.message})    
-        alertify.set('notifier', 'position', 'top-right')
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
         alertify.error(this.state.errors);
-    }
-    )
+      }
+    );
   }
 
   render() {
@@ -149,19 +148,19 @@ class AddBusinessForm extends Component {
         </div>
 
         <div className="col-md-4 mb-2 ">
-          <img className="" src={this.state.businessImage} alt="Card image cap"/>
+          <img className="" src={this.state.businessImage} alt="Card image cap" />
         </div>
 
         <div className="form-group col-md-6 mb-3">
           <label htmlFor="filefield">Business Image</label>
-          <input 
-            type="file" 
-            className="form-control-file" 
-            id="filefield" 
+          <input
+            type="file"
+            className="form-control-file"
+            id="filefield"
             onChange={this.onFileChange}
             name="businessImage"
             accept="image/*"
-            />
+          />
         </div>
 
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>

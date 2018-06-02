@@ -79,113 +79,114 @@ class BusinessDetails extends Component {
 
               <div className="card-body text-dark bg-light">
                 <div className="data">
-                    <div className="row data1 ml-1">
-                      <div className="p-1">
-                        <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
-                      </div>
-                      <div className="p-1">
-                        <h3 className="">{business.category}</h3>
-                        <p><i className="fa fa-map-marker" /> {business.location}</p>
-                      </div>
+                  <div className="row data1 ml-1">
+                    <div className="p-1">
+                      <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
                     </div>
+                    <div className="p-1">
+                      <h3 className="">{business.category}</h3>
+                      <p><i className="fa fa-map-marker" /> {business.location}</p>
+                    </div>
+                  </div>
 
-                    {
-                  business.userId === user ? <div>
-                    <Link to={`/businesses/${id}/edit`}>edit</Link>
+                  {
+                  business.userId === user ?
+                    <div>
+                      <Link to={`/businesses/${id}/edit`}>edit</Link>
                     -
-                    <Link
-                      to="/businesses"
-                      onClick={() => {
+                      <Link
+                        to="/businesses"
+                        onClick={() => {
                         this.props.deleteOneBusiness(id);
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Business deleted Successfully');
                         }
                       }
-                    >delete
-                    </Link>
-                                             </div>
+                      >delete
+                      </Link>
+                    </div>
                 : null
               }
 
-                    <div className="row data2 mt-3 ml-4">
-                      <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
-                    </div>
+                  <div className="row data2 mt-3 ml-4">
+                    <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
+                  </div>
 
-                  </div> {/** end data * */}
+                </div> {/** end data * */}
 
                 <div className="row mt-2">
-                    <p className="col-md-6">
-                      {business.details}
-                    </p>
-                    <img className="col-md-6" width="500" src={`https://maps.googleapis.com/maps/api/staticmap?center=${business.location}&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos`} alt="Google Map of ikeja lagos" />
-                  </div>
+                  <p className="col-md-6">
+                    {business.details}
+                  </p>
+                  <img className="col-md-6" width="500" src={`https://maps.googleapis.com/maps/api/staticmap?center=${business.location}&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos`} alt="Google Map of ikeja lagos" />
+                </div>
 
                 <div className="review">
-                    <hr className="straight" />
-                    <div className="row">
-                      <div className="col star">
-                        { stars(averageReviews(reviews)) }
-                        <span className="rate">
-                          {averageReviews(reviews)}
-                        </span>
+                  <hr className="straight" />
+                  <div className="row">
+                    <div className="col star">
+                      { stars(averageReviews(reviews)) }
+                      <span className="rate">
+                        {averageReviews(reviews)}
+                      </span>
                       ({reviews.length} Reviews)
-                      </div>
-                      <div className="col like">
+                    </div>
+                    <div className="col like">
                       5 likes <i className="fa fa-heart" />
-                      </div>
-                      <div className="col">
+                    </div>
+                    <div className="col">
                         Business Owner: <Link to={`/user/${business.userId}`}>{business.business_owner.firstName}</Link>
-                      </div>
                     </div>
                   </div>
+                </div>
 
                 {/* Reviews */}
                 <hr className="straight" />
 
                 <form onSubmit={this.onSubmit}>
-                    <h5 className="my-3">Add Review</h5>
-                    <div className="row">
-                      <div className="form-group col">
-                        <label htmlFor="title">Review <small>*</small> </label>
-                        <textarea
-                          type="text"
-                          className="form-control"
-                          required
-                          value={this.state.content}
-                          onChange={this.onChange}
-                          name="content"
-                        />
-                      </div>
-                      <div className="form-group col">
-                        <label htmlFor="inputState">Star <small>*</small> </label>
-                        <select
-                          id="inputState"
-                          className="form-control"
-                          value={this.state.star}
-                          onChange={this.onChange}
-                          name="star"
-                        >
-                          <option value="" disabled>choose star</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
+                  <h5 className="my-3">Add Review</h5>
+                  <div className="row">
+                    <div className="form-group col">
+                      <label htmlFor="title">Review <small>*</small> </label>
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        required
+                        value={this.state.content}
+                        onChange={this.onChange}
+                        name="content"
+                      />
                     </div>
-                    <div className="">
-                      <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
+                    <div className="form-group col">
+                      <label htmlFor="inputState">Star <small>*</small> </label>
+                      <select
+                        id="inputState"
+                        className="form-control"
+                        value={this.state.star}
+                        onChange={this.onChange}
+                        name="star"
+                      >
+                        <option value="" disabled>choose star</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                     </div>
-                  </form>
+                  </div>
+                  <div className="">
+                    <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
+                  </div>
+                </form>
 
                 <hr className="straight" />
 
                 <div className="all-reviews">
 
-                    { eachReview }
+                  { eachReview }
 
-                  </div>
+                </div>
               </div> {/** end card-body * */}
 
             </div>
