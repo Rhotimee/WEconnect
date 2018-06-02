@@ -68,17 +68,17 @@ class BusinessDetails extends Component {
 
             <div className="card col px-0">
               <img
-                  className="card-img-top img-overlay"
-                  src={business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg'}
-                  alt=""
-                  height="300px;"
-                />
+                className="card-img-top img-overlay"
+                src={business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg'}
+                alt=""
+                height="300px;"
+              />
               <div className="card-img-overlay ">
-                  <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
-                </div>
+                <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
+              </div>
 
               <div className="card-body text-dark bg-light">
-                  <div className="data">
+                <div className="data">
                     <div className="row data1 ml-1">
                       <div className="p-1">
                         <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
@@ -103,7 +103,7 @@ class BusinessDetails extends Component {
                       }
                     >delete
                     </Link>
-                  </div>
+                                             </div>
                 : null
               }
 
@@ -113,14 +113,14 @@ class BusinessDetails extends Component {
 
                   </div> {/** end data * */}
 
-                  <div className="row mt-2">
+                <div className="row mt-2">
                     <p className="col-md-6">
                       {business.details}
                     </p>
                     <img className="col-md-6" width="500" src={`https://maps.googleapis.com/maps/api/staticmap?center=${business.location}&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos`} alt="Google Map of ikeja lagos" />
                   </div>
 
-                  <div className="review">
+                <div className="review">
                     <hr className="straight" />
                     <div className="row">
                       <div className="col star">
@@ -139,10 +139,10 @@ class BusinessDetails extends Component {
                     </div>
                   </div>
 
-                  {/* Reviews */}
-                  <hr className="straight" />
+                {/* Reviews */}
+                <hr className="straight" />
 
-                  <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit}>
                     <h5 className="my-3">Add Review</h5>
                     <div className="row">
                       <div className="form-group col">
@@ -179,14 +179,14 @@ class BusinessDetails extends Component {
                     </div>
                   </form>
 
-                  <hr className="straight" />
+                <hr className="straight" />
 
-                  <div className="all-reviews">
+                <div className="all-reviews">
 
                     { eachReview }
 
                   </div>
-                </div> {/** end card-body * */}
+              </div> {/** end card-body * */}
 
             </div>
           </div>
