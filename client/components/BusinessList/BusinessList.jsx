@@ -10,8 +10,8 @@ class BusinessList extends Component {
     super(props);
 
     this.state = {
-      text: '',
-      type: '',
+      text: this.props.search,
+      type: this.props.type,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -27,7 +27,7 @@ class BusinessList extends Component {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
     this.props.fetchBusinesses(this.state.type, this.state.text)
-      .then(() => { },);
+      .then(() => { }, );
   }
 
 
@@ -107,7 +107,7 @@ BusinessList.contextTypes = {
 
 
 function mapStateToProps(state) {
-  return { businesses: state.Businesses.allBusinesses };
+  return { businesses: state.Businesses.allBusinesses, search: state.search.search, type: state.search.type };
 }
 
 export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);
