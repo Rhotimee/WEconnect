@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
+
+/**
+ * @class BusinessDetails
+ *
+ * @classdesc Details of business
+ *
+ */
 class EditBusinessForm extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
     const { business } = this.props;
-
 
     this.state = {
       name: business.name,
@@ -15,29 +29,45 @@ class EditBusinessForm extends Component {
       category: business.category,
       details: business.details,
       errors: {},
-      isLoading: false,
-      businessImage: null
+      businessImage: business.businessImage
 
     };
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
-
-    // console.log(this.props);
   }
 
-
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onFileChange(event) {
     const file = event.target.files[0];
-    console.log(file);
-
     this.setState({ businessImage: file });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
 
@@ -56,21 +86,27 @@ class EditBusinessForm extends Component {
       updateBusiness.append(key, businessInfo[key]);
     });
 
-    const id = this.props.business.id;
+    const { id } = this.props.business;
     this.props.updateOneBusiness(id, updateBusiness).then(
       () => {
         this.context.router.history.push(`/businesses/${id}`);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Business Updated Successfully');
       },
-      ({ error }) => {
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(error);
-        console.log(error);
+        alertify.error(this.state.errors);
       }
     );
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
       <form className="row" onSubmit={this.onSubmit} >
@@ -107,8 +143,6 @@ class EditBusinessForm extends Component {
           <label htmlFor="inputAddress">Business Details <small>*</small></label>
           <textarea
             id="bizdetails"
-                // cols="30"
-                // rows="10"
             placeholder="lorem ipsum"
             required
             value={this.state.details}
