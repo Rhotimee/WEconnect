@@ -1,3 +1,10 @@
+/**
+   * @description onChange
+   *
+   * @param  {object} businessReviews  the event
+   *
+   * @returns {void}
+   */
 export default function averageReviews(businessReviews) {
   let total = 0;
   businessReviews.forEach((review) => {

@@ -1,11 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { userSignupRequest } from '../../actions/userActions';
 import SignupForm from './SignupForm';
-import PropTypes from 'prop-types';
 
-class Signup extends Component {
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
+class Signup extends PureComponent {
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     const { userSignupRequest } = this.props;
     return (
@@ -28,8 +39,8 @@ class Signup extends Component {
   }
 }
 
-// Signup.propTypes = {
-//   userSignupRequest: PropTypes.func.isRequired
-// }
+Signup.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired
+};
 
 export default connect(null, { userSignupRequest })(Signup);

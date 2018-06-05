@@ -250,7 +250,7 @@ class BusinessDetails extends Component {
 function mapStateToProps(state) {
   return {
     business: state.oneBusiness.oneBusiness,
-    user: state.user_reducer.signedInUser.id,
+    user: state.userReducer.signedInUser.id,
     reviews: state.allReviews.allReviews,
   };
 }

@@ -132,6 +132,7 @@ class EditBusinessForm extends Component {
             onChange={this.onChange}
             name="category"
           >
+            <option value="" disabled>choose category</option>
             <option>Repair & Services</option>
             <option>Events & Weddings</option>
             <option>Health & Wellness</option>

@@ -98,7 +98,7 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return {
     user: state.oneUser.oneUser,
-    authUser: state.user_reducer.signedInUser.id,
+    authUser: state.userReducer.signedInUser.id,
   };
 }
 
