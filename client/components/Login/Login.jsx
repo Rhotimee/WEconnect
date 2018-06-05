@@ -1,11 +1,24 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LoginForm from './loginForm';
 import { userSigninRequest } from '../../actions/userActions';
-import { connect } from 'react-redux';
 
-class Login extends Component {
+
+/**
+ * @class Login
+ *
+ * @classdesc logs in user
+ *
+ */
+class Login extends PureComponent {
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
-    const { userSigninRequest } = this.props;
     return (
 
       <div className="cover">
@@ -15,7 +28,7 @@ class Login extends Component {
               <div className="card-body my-3">
                 <h3>Sign In </h3>
                 <p>Fill this form to Login</p>
-                <LoginForm userSigninRequest={userSigninRequest} />
+                <LoginForm userSigninRequest={this.props.userSigninRequest} />
               </div>
               <div className="card-footer">No account yet?  <a href="signup.html">Sign up</a></div>
             </div>
@@ -26,6 +39,10 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  userSigninRequest: PropTypes.func.isRequired
+};
 
 
 export default connect(null, { userSigninRequest })(Login);
