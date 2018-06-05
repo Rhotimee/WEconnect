@@ -27,7 +27,7 @@ class AddBusinessForm extends Component {
       category: '',
       details: '',
       errors: '',
-      businessImage: null
+      businessImage: '',
 
     };
     this.onChange = this.onChange.bind(this);

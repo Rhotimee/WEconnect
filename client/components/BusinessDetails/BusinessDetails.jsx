@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import alertify from 'alertifyjs';
+import PropTypes from 'prop-types';
 import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
 import { fetchReviews, addReview } from '../../actions/reviewsAction';
-import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
-import alertify from 'alertifyjs';
 import averageReviews from '../../helpers/averageStar';
 import stars from '../../helpers/stars';
 
+
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
 class BusinessDetails extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
@@ -20,15 +36,34 @@ class BusinessDetails extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillMount() {
+  /**
+   * @description componentDidMount
+   *
+   * @returns {void}
+   */
+  componentDidMount() {
     this.props.fetchOneBusiness(this.props.match.params.id);
     this.props.fetchReviews(this.props.match.params.id);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
@@ -40,6 +75,12 @@ class BusinessDetails extends Component {
   }
 
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     const { business, user, reviews } = this.props;
     const { id } = this.props.match.params;
@@ -69,7 +110,7 @@ class BusinessDetails extends Component {
             <div className="card col px-0">
               <img
                 className="card-img-top img-overlay"
-                src={business.businessImage ? business.businessImage : 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg'}
+                src={business.businessImage === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.businessImage}
                 alt=""
                 height="300px;"
               />
@@ -92,10 +133,11 @@ class BusinessDetails extends Component {
                   {
                   business.userId === user ?
                     <div>
-                      <Link to={`/businesses/${id}/edit`}>edit</Link>
+                      <Link to={`/businesses/${id}/edit`} href>edit</Link>
                     -
                       <Link
                         to="/businesses"
+                        href
                         onClick={() => {
                         this.props.deleteOneBusiness(id);
                         alertify.set('notifier', 'position', 'top-right');
@@ -135,7 +177,7 @@ class BusinessDetails extends Component {
                       5 likes <i className="fa fa-heart" />
                     </div>
                     <div className="col">
-                        Business Owner: <Link to={`/user/${business.userId}`}>{business.business_owner.firstName}</Link>
+                        Business Owner: <Link to={`/user/${business.userId}`} href >{business.business_owner.firstName}</Link>
                     </div>
                   </div>
                 </div>
@@ -198,6 +240,13 @@ class BusinessDetails extends Component {
   }
 }
 
+/**
+   * @description mapStateToProps
+   *
+   * @param  {object} state  the state
+   *
+   * @returns {void}
+   */
 function mapStateToProps(state) {
   return {
     business: state.oneBusiness.oneBusiness,
@@ -206,6 +255,12 @@ function mapStateToProps(state) {
   };
 }
 
+BusinessDetails.propTypes = {
+  fetchOneBusiness: PropTypes.func.isRequired,
+  addReview: PropTypes.func.isRequired,
+  fetchReviews: PropTypes.func.isRequired,
+  deleteOneBusiness: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, {
   fetchOneBusiness, deleteOneBusiness, fetchReviews, addReview
