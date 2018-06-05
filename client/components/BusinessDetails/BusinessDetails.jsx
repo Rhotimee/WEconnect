@@ -11,9 +11,9 @@ import stars from '../../helpers/stars';
 
 
 /**
- * @class LoginForm
+ * @class BusinessDetails
  *
- * @classdesc logs in user
+ * @classdesc Details of business
  *
  */
 class BusinessDetails extends Component {
@@ -104,7 +104,7 @@ class BusinessDetails extends Component {
 
     return (
       <div className="bg-cover">
-        <div className="container mt-4 mb-4" id="business-detail">
+        <div className="container mb-4" id="business-detail">
           <div className="row">
 
             <div className="card col px-0">
@@ -115,7 +115,7 @@ class BusinessDetails extends Component {
                 height="300px;"
               />
               <div className="card-img-overlay ">
-                <a className="h1 text-white card-title" href="business-detail.html">{business.name}</a>
+                <a className="h1 text-white card-title" href="#">{business.name}</a>
               </div>
 
               <div className="card-body text-dark bg-light">

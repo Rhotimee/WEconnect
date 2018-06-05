@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
-import List_Business from './BusinessListItem';
 import { connect } from 'react-redux';
-import { fetchBusinesses } from '../../actions/businessAction';
 import PropTypes from 'prop-types';
+import ListBusiness from './BusinessListItem';
+import { fetchBusinesses } from '../../actions/businessAction';
 
-
+/**
+ * @class BusinessList
+ *
+ * @classdesc List all businesses
+ *
+ */
 class BusinessList extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
@@ -18,27 +31,48 @@ class BusinessList extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-
-  onSubmit(event) {
-    event.preventDefault();
-    // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.type, this.state.text)
-      .then(() => { }, );
-  }
-
-
+  /**
+   * @description componentDidMount
+   *
+   * @returns {void}
+   */
   componentDidMount() {
     this.props.fetchBusinesses(this.state.type, this.state.text);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
+  onSubmit(event) {
+    event.preventDefault();
+    // this.setState({ errors: {}, isLoading: true });
+    this.props.fetchBusinesses(this.state.type, this.state.text);
+  }
+
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     const eachBusiness = this.props.businesses.map(business => (
-      <List_Business
+      <ListBusiness
         key={business.id}
         business={business}
       />
@@ -100,14 +134,29 @@ class BusinessList extends Component {
   }
 }
 
+BusinessList.propTypes = {
+  search: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  fetchBusinesses: PropTypes.func.isRequired,
+};
 
 BusinessList.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-
+/**
+   * @description mapStateToProps
+   *
+   * @param  {object} state  the state
+   *
+   * @returns {void}
+   */
 function mapStateToProps(state) {
-  return { businesses: state.Businesses.allBusinesses, search: state.search.search, type: state.search.type };
+  return {
+    businesses: state.Businesses.allBusinesses,
+    search: state.search.search,
+    type: state.search.type,
+  };
 }
 
 export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);

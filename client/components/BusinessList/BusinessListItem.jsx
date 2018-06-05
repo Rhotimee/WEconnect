@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const List_Businesses = ({ business, onBusinessSelect }) => (
+const listBusinesses = ({ business }) => (
   <div
     className="card col-sm-3 px-0"
   >
@@ -11,7 +12,7 @@ const List_Businesses = ({ business, onBusinessSelect }) => (
       alt=""
     />
     <div className="card-img-overlay">
-      <Link to={`/businesses/${business.id}`} className="h2 text-white card-title px-2">{business.name}</Link>
+      <Link to={`/businesses/${business.id}`} href className="h2 text-white card-title px-2">{business.name}</Link>
     </div>
     <div className="card-body text-dark bg-light">
       <p className="card-text">{business.details}</p>
@@ -28,4 +29,8 @@ const List_Businesses = ({ business, onBusinessSelect }) => (
   </div>
 );
 
-export default List_Businesses;
+listBusinesses.prototype = {
+  business: PropTypes.object.isRequired
+};
+
+export default listBusinesses;

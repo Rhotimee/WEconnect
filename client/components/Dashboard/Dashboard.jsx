@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchOneUser } from '../../actions/userActions';
-import List_Business from '../BusinessList/BusinessListItem';
+import ListBusiness from '../BusinessList/BusinessListItem';
 import ReviewCard from '../BusinessDetails/ReviewCard';
 
+/**
+ * @class Dasboard
+ *
+ * @classdesc Dashboard
+ *
+ */
 class Dashboard extends Component {
-  componentWillMount() {
+  /**
+   * @description componentDidMount
+   *
+   * @returns {void}
+   */
+  componentDidMount() {
     this.props.fetchOneUser(this.props.match.params.id);
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     const { user, authUser } = this.props;
 
@@ -19,7 +37,7 @@ class Dashboard extends Component {
     }
 
     const eachBusiness = user.businesses.map(business => (
-      <List_Business
+      <ListBusiness
         key={business.id}
         business={business}
       />
@@ -47,7 +65,7 @@ class Dashboard extends Component {
         {
           user.id === authUser ?
             <div>
-              <Link to={`/user/${user.id}/update`}>update details</Link>
+              <Link to={`/user/${user.id}/update`} href>update details</Link>
             </div>
           : null
         }
@@ -70,11 +88,22 @@ class Dashboard extends Component {
   }
 }
 
+/**
+   * @description mapStateToProps
+   *
+   * @param  {object} state  the state
+   *
+   * @returns {void}
+   */
 function mapStateToProps(state) {
   return {
     user: state.oneUser.oneUser,
     authUser: state.user_reducer.signedInUser.id,
   };
 }
+
+Dashboard.propTypes = {
+  fetchOneUser: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, { fetchOneUser })(Dashboard);
