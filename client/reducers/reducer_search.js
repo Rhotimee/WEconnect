@@ -2,9 +2,9 @@
 const initialState = {
   search: '',
   type: ''
-}
+};
 
-const searchReducer = (state = initialState, action = {} ) => {
+const searchReducer = (state = initialState, action = {}) => {
   if (action.type === 'set_search') {
     return action.payload;
   }
