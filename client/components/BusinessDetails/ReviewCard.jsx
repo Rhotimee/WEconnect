@@ -12,7 +12,7 @@ const ReviewCard = ({
         <div className="caption mt-1">
           {/* i did this because of the dashboard. it  doesn't have reviewr */}
           { reviewer !== undefined ?
-            <small><Link to={`/user/${userId}`}>{reviewer.firstName}</Link></small>
+            <small><Link to={`/user/${userId}`} href>{reviewer.firstName}</Link></small>
           : null
         }
         </div>
@@ -26,7 +26,7 @@ const ReviewCard = ({
       </div>
       {/* this is for dashboard. */}
       { businessId !== undefined ?
-        <small className="ml-4"><Link to={`/businesses/${businessId}`}>Go To Business</Link></small>
+        <small className="ml-4"><Link to={`/businesses/${businessId}`} href>Go To Business</Link></small>
           : null
         }
     </div>

@@ -10,8 +10,13 @@ import EditBusiness from './components/EditBusiness/EditBusiness';
 import NavFoot from './hoc/NavFoot/NavFoot';
 import Dashboard from './components/Dashboard/Dashboard';
 import UpdateUser from './components/UpdateUser/UpdateUser';
+import NotFound from './components/NotFound';
 
-
+/**
+   * @description mapStateToProps
+   *
+   * @returns {void}
+   */
 function Routes() {
   return (
     <BrowserRouter>
@@ -25,6 +30,8 @@ function Routes() {
         <Route exact path="/businesses/:id/edit" component={EditBusiness} />
         <Route exact path="/user/:id" component={Dashboard} />
         <Route exact path="/user/:id/update" component={UpdateUser} />
+        <Route component={NotFound} />
+
       </NavFoot>
     </BrowserRouter>
   );

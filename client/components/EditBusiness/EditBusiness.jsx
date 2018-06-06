@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import EditBusinessForm from './EditBusinessForm';
 import { fetchOneBusiness, updateOneBusiness } from '../../actions/businessAction';
 
-
+/**
+ * @class BusinessDetails
+ *
+ * @classdesc Details of business
+ *
+ */
 class EditBusiness extends Component {
-  componentWillMount() {
+/**
+   * @description componentDidMount
+   *
+   * @returns {void}
+   */
+  componentDidMount() {
     this.props.fetchOneBusiness(this.props.match.params.id);
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     if (!this.props.business) {
       return <h2>Loading...</h2>;
@@ -25,6 +42,18 @@ class EditBusiness extends Component {
   }
 }
 
+EditBusiness.propTypes = {
+  fetchOneBusiness: PropTypes.func.isRequired,
+
+};
+
+/**
+   * @description mapStateToProps
+   *
+   * @param  {object} state  the state
+   *
+   * @returns {void}
+   */
 function mapStateToProps(state) {
   return {
     business: state.oneBusiness.oneBusiness

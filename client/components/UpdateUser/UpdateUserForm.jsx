@@ -2,11 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
 class UpdateUserForm extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
-    const { user, updateUserDetails } = this.props;
+    const { user } = this.props;
 
     this.state = {
       firstName: user.firstName,
@@ -17,10 +31,24 @@ class UpdateUserForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
     this.props.updateUserDetails(this.props.user.id, this.state).then(
@@ -37,6 +65,12 @@ class UpdateUserForm extends Component {
     );
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
       <form onSubmit={this.onSubmit}>
@@ -63,41 +97,7 @@ class UpdateUserForm extends Component {
             required
           />
         </div>
-        {/* <div className="form-group">
-          <input
-            type="email"
-            className="form-control form-control-lg"
-            placeholder="Email *"
-            value={this.state.email}
-            onChange={this.onChange}
-            name="email"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Password *"
-            value={this.state.password}
-            onChange={this.onChange}
-            name="password"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Confirm Password *"
-            value={this.state.confirmPassword}
-            onChange={this.onChange}
-            name="confirmPassword"
-            required
-          />
-        </div> */}
         <input
-          // disabled={this.state.isLoading}
           type="submit"
           className="btn btn-outline-dark btn-block"
         />

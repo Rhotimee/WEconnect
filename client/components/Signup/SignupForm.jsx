@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
+
+/**
+ * @class SignupForm
+ *
+ * @classdesc signup user
+ *
+ */
 class SignupForm extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,10 +33,24 @@ class SignupForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
@@ -35,6 +64,12 @@ class SignupForm extends Component {
     );
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
       <form onSubmit={this.onSubmit}>
@@ -103,6 +138,10 @@ class SignupForm extends Component {
     );
   }
 }
+
+SignupForm.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired
+};
 
 SignupForm.contextTypes = {
   router: PropTypes.object.isRequired

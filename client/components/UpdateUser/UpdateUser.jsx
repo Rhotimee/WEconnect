@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { updateUserDetails, fetchOneUser } from '../../actions/userActions';
 import UpdateUserForm from './UpdateUserForm';
 
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
 class UpdateUser extends Component {
+  /**
+   * @description componentDidMount
+   *
+   * @returns {void}
+   */
   componentWillMount() {
     this.props.fetchOneUser(this.props.match.params.id);
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     const { user, updateUserDetails } = this.props;
 
@@ -34,6 +52,17 @@ class UpdateUser extends Component {
   }
 }
 
+UpdateUser.propTypes = {
+  fetchOneUser: PropTypes.func.isRequired
+};
+
+/**
+   * @description mapStateToProps
+   *
+   * @param  {object} state  the state
+   *
+   * @returns {void}
+   */
 function mapStateToProps(state) {
   return {
     user: state.oneUser.oneUser,

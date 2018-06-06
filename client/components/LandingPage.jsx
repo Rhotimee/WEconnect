@@ -1,38 +1,81 @@
 import React, { Component } from 'react';
-import { fetchBusinesses, setSearch } from '../actions/businessAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import alertify from 'alertifyjs';
+import { fetchBusinesses, setSearch } from '../actions/businessAction';
 
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
 class LandingPage extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       text: '',
       type: '',
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
     // this.props.setSearch(event.target.value);
   }
 
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
 
-    this.props.setSearch({ search: this.state.text, type: this.state.type })
+    this.props.setSearch({ search: this.state.text, type: this.state.type });
     // this.setState({ errors: {}, isLoading: true });
     this.props.fetchBusinesses(this.state.type, this.state.text)
-      .then(() => {
-        this.context.router.history.push('/businesses');
-      },);
+      .then(
+        () => {
+          this.context.router.history.push('/businesses');
+        },
+        ({ response }) => {
+          this.setState({ errors: response.data.message });
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(this.state.errors);
+        }
+      );
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
       <div className="cover">
@@ -109,6 +152,11 @@ class LandingPage extends Component {
     );
   }
 }
+
+LandingPage.propTypes = {
+  setSearch: PropTypes.func.isRequired,
+  fetchBusinesses: PropTypes.func.isRequired,
+};
 
 LandingPage.contextTypes = {
   router: PropTypes.object.isRequired

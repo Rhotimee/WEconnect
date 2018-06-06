@@ -2,38 +2,72 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
-
+/**
+ * @class LoginForm
+ *
+ * @classdesc logs in user
+ *
+ */
 class LoginForm extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      isLoading: false,
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
-    this.setState({ errors: {}, isLoading: true });
     this.props.userSigninRequest(this.state).then(
       () => {
         this.context.router.history.push('/');
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Logged In Successfully');
       },
-      ({ data }) => this.setState({ errors: data, isLoading: false })
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(this.state.errors);
+      }
     );
   }
 
-
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
 
@@ -66,6 +100,10 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  userSigninRequest: PropTypes.func.isRequired
+};
 
 LoginForm.contextTypes = {
   router: PropTypes.object.isRequired

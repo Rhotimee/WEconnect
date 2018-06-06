@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
+
+/**
+ * @class AddBusinessForm
+ *
+ * @classdesc Add Business form
+ *
+ */
 class AddBusinessForm extends Component {
+  /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
   constructor(props) {
     super(props);
 
@@ -12,8 +27,7 @@ class AddBusinessForm extends Component {
       category: '',
       details: '',
       errors: '',
-      isLoading: false,
-      businessImage: null
+      businessImage: '',
 
     };
     this.onChange = this.onChange.bind(this);
@@ -21,17 +35,37 @@ class AddBusinessForm extends Component {
     this.onFileChange = this.onFileChange.bind(this);
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onFileChange(event) {
     const file = event.target.files[0];
-    console.log(file);
 
     this.setState({ businessImage: file });
   }
 
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
 
@@ -64,6 +98,12 @@ class AddBusinessForm extends Component {
     );
   }
 
+  /**
+   * @description render - renders the class component
+   *
+   * @return {object} returns an object
+   *
+   */
   render() {
     return (
 
@@ -90,6 +130,7 @@ class AddBusinessForm extends Component {
             onChange={this.onChange}
             name="category"
           >
+            <option value="" disabled>choose category</option>
             <option>Repair & Services</option>
             <option>Events & Weddings</option>
             <option>Health & Wellness</option>
@@ -148,7 +189,7 @@ class AddBusinessForm extends Component {
         </div>
 
         <div className="col-md-4 mb-2 ">
-          <img className="" src={this.state.businessImage} alt="Card image cap" />
+          <img className="" src={this.state.businessImage} alt="" />
         </div>
 
         <div className="form-group col-md-6 mb-3">
@@ -168,6 +209,10 @@ class AddBusinessForm extends Component {
     );
   }
 }
+
+AddBusinessForm.propTypes = {
+  addOneBusiness: PropTypes.func.isRequired
+};
 
 AddBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
