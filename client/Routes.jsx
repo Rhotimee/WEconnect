@@ -30,7 +30,7 @@ function Routes() {
         <Route exact path="/businesses/:id/edit" component={EditBusiness} />
         <Route exact path="/user/:id" component={Dashboard} />
         <Route exact path="/user/:id/update" component={UpdateUser} />
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
 
       </NavFoot>
     </BrowserRouter>
