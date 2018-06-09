@@ -28,6 +28,7 @@ class AddBusinessForm extends Component {
       details: '',
       errors: '',
       businessImage: '',
+      imagePreview: '',
 
     };
     this.onChange = this.onChange.bind(this);
@@ -56,7 +57,25 @@ class AddBusinessForm extends Component {
   onFileChange(event) {
     const file = event.target.files[0];
 
-    this.setState({ businessImage: file });
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+
+    if (file) {
+      fileReader.onload = () => {
+        const newImage = new Image();
+        newImage.src = fileReader.result;
+        newImage.onload = () => {
+          this.setState({
+            imagePreview: newImage.src,
+            businessImage: file
+          });
+        };
+      };
+    }
+
+
+    // this.setState({ businessImage: file });
   }
 
   /**
@@ -202,6 +221,9 @@ class AddBusinessForm extends Component {
             name="businessImage"
             accept="image/*"
           />
+        </div>
+        <div>
+          <img src={this.state.imagePreview} alt="" />
         </div>
 
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>
