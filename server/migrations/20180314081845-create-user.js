@@ -23,7 +23,7 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
-    userImage: {
+    Image: {
       type: Sequelize.STRING,
       allowNull: true,
       defaultValue: ''

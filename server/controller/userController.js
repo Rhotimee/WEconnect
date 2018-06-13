@@ -47,7 +47,7 @@ export default class UserController {
    */
   static signUp(request, response) {
     const {
-      email, password, firstName, lastName
+      email, password, firstName, lastName, Image
     } = request.body;
 
     if (!isEmail(email) || !password || !firstName || !lastName) {
@@ -73,8 +73,11 @@ export default class UserController {
       lastName,
       email: email.trim().toLowerCase(),
       password: hash,
+      Image
     }).then((user) => {
-      const token = jwt.sign({ id: user.id, firstName: user.firstName }, process.env.SALT, { expiresIn: 86400 * 5 });
+      const token = jwt.sign({
+        id: user.id, firstName: user.firstName
+      }, process.env.SALT, { expiresIn: 86400 * 3 });
       return response.status(201).json({
         token,
         error: false,
@@ -113,7 +116,9 @@ export default class UserController {
             message: 'Email or Password Incorrect'
           });
         }
-        const token = jwt.sign({ id: user.id, firstName: user.firstName }, process.env.SALT, { expiresIn: 86400 * 5 });
+        const token = jwt.sign({
+          id: user.id, firstName: user.firstName
+        }, process.env.SALT, { expiresIn: 86400 * 3 });
 
         return response.status(200).json({
           token,
@@ -210,6 +215,7 @@ export default class UserController {
         user.update({
           firstName: request.body.firstName || user.firstName,
           lastName: request.body.lastName || user.lastName,
+          Image: request.body.Image || user.Image
         }).then((updatedUser) => {
           if (!updatedUser) {
             return response.status(500).json({
