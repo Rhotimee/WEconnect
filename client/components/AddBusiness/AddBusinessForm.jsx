@@ -93,7 +93,7 @@ class AddBusinessForm extends Component {
       location: this.state.location,
       category: this.state.category,
       details: this.state.details,
-      businessImage: this.state.businessImage,
+      Image: this.state.businessImage,
     };
 
     const registerBusiness = new FormData();

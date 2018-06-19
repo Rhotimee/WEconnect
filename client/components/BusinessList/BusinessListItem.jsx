@@ -8,7 +8,7 @@ const listBusinesses = ({ business }) => (
   >
     <img
       className="card-img-top img-overlay"
-      src={business.businessImage === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.businessImage}
+      src={business.Image === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.Image}
       alt=""
     />
     <div className="card-img-overlay">

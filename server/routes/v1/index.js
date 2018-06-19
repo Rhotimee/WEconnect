@@ -38,7 +38,7 @@ router.get('/businesses/:id/reviews', Middleware.validParam, ReviewController.li
 // POST add reviews
 router.post('/businesses/:id/reviews', Middleware.isLoggedIn, Middleware.validParam, ReviewController.addReview);
 // 404
-router.get('*', (req, res) => {
+router.use('*', (req, res) => { 
   res.status(404).json({
     error: true,
     message: 'Not found'
