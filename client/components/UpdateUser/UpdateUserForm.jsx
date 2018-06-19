@@ -27,7 +27,7 @@ class UpdateUserForm extends Component {
       lastName: user.lastName,
       errors: '',
       Image: '',
-      imagePreview: ''
+      imagePreview: user.Image
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);

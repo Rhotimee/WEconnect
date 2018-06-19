@@ -29,8 +29,8 @@ class EditBusinessForm extends Component {
       category: business.category,
       details: business.details,
       errors: {},
-      businessImage: business.businessImage,
-      imagePreview: ''
+      businessImage: '',
+      imagePreview: business.Image
 
     };
 
