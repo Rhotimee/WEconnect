@@ -60,6 +60,7 @@ class Dashboard extends Component {
         <p>{user.firstName}</p>
         <p>{user.lastName}</p>
         <p>{user.email}</p>
+        <img src={user.Image} alt="" />
         <hr className="straight" />
 
         {

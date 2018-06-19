@@ -73,9 +73,6 @@ class AddBusinessForm extends Component {
         };
       };
     }
-
-
-    // this.setState({ businessImage: file });
   }
 
   /**
@@ -211,6 +208,10 @@ class AddBusinessForm extends Component {
           <img className="" src={this.state.businessImage} alt="" />
         </div>
 
+        <div>
+          <img src={this.state.imagePreview} alt="" />
+        </div>
+
         <div className="form-group col-md-6 mb-3">
           <label htmlFor="filefield">Business Image</label>
           <input
@@ -221,9 +222,6 @@ class AddBusinessForm extends Component {
             name="businessImage"
             accept="image/*"
           />
-        </div>
-        <div>
-          <img src={this.state.imagePreview} alt="" />
         </div>
 
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>

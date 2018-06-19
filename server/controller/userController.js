@@ -87,6 +87,7 @@ export default class UserController {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          Image: user.Image
         },
       });
     });
@@ -184,7 +185,8 @@ export default class UserController {
           firstName: user.firstName,
           lastName: user.lastName,
           businesses: user.businesses,
-          reviews: user.reviews
+          reviews: user.reviews,
+          Image: user.Image
         }
       });
     });
