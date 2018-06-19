@@ -110,12 +110,12 @@ class BusinessDetails extends Component {
             <div className="card col px-0">
               <img
                 className="card-img-top img-overlay"
-                src={business.businessImage === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.businessImage}
+                src={business.Image === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.Image}
                 alt=""
                 height="300px;"
               />
               <div className="card-img-overlay ">
-                <a className="h1 text-white card-title" href="#">{business.name}</a>
+                {/* <Link className="h1 text-white card-title" href="#">{business.name}</Link> */}
               </div>
 
               <div className="card-body text-dark bg-light">

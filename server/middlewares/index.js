@@ -8,7 +8,7 @@ import upload from '../utils/upload';
 dotenv.config();
 const { Business } = Model;
 
-const businessImgUpload = upload.single('businessImage');
+const ImgUpload = upload.single('Image');
 // const userImgUpload = upload.single('userImg');
 
 cloudinary.config({
@@ -87,7 +87,9 @@ export default class Middleware {
    */
   static isLoggedIn(request, response, next) {
     const token = request.body.token || request.query.token || request.headers['x-access-token'] || request.headers.authorization;
+    console.log(token, 'token');
     jwt.verify(token, process.env.SALT, (err, decoded) => {
+      console.log(decoded);
       if (err) {
         return response.status(401).json({
           error: true,
@@ -124,8 +126,8 @@ export default class Middleware {
    * @param {object} next Passes control to next middleware
    * @returns {object} next
    */
-  static businessImageUpload(request, response, next) {
-    businessImgUpload(request, response, (error) => {
+  static ImageUpload(request, response, next) {
+    ImgUpload(request, response, (error) => {
       if (error) {
         return response.status(400).json({
           error: true,
@@ -133,10 +135,14 @@ export default class Middleware {
         });
       } else if (request.file) {
         cloudinary.v2.uploader.upload(request.file.path, (err, result) => {
-          console.log(result);
-          request.body.businessImage = result.secure_url;
-          console.log('moving on to the business controller');
-          next();
+          if (!err && result !== undefined) {
+            request.body.Image = result.secure_url;
+            return next();
+          }
+          return response.status(400).json({
+            error: true,
+            message: 'failed to upload'
+          });
         });
       } else {
         next();

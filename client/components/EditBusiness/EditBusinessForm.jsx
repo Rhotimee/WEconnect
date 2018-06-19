@@ -29,7 +29,8 @@ class EditBusinessForm extends Component {
       category: business.category,
       details: business.details,
       errors: {},
-      businessImage: business.businessImage
+      businessImage: '',
+      imagePreview: business.Image
 
     };
 
@@ -58,7 +59,23 @@ class EditBusinessForm extends Component {
    */
   onFileChange(event) {
     const file = event.target.files[0];
-    this.setState({ businessImage: file });
+
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+
+    if (file) {
+      fileReader.onload = () => {
+        const newImage = new Image();
+        newImage.src = fileReader.result;
+        newImage.onload = () => {
+          this.setState({
+            imagePreview: newImage.src,
+            businessImage: file
+          });
+        };
+      };
+    }
   }
 
   /**
@@ -76,7 +93,7 @@ class EditBusinessForm extends Component {
       location: this.state.location,
       category: this.state.details,
       details: this.state.details,
-      businessImage: this.state.businessImage
+      Image: this.state.businessImage
     };
 
     const updateBusiness = new FormData();
@@ -188,6 +205,10 @@ class EditBusinessForm extends Component {
             <option>Lagos</option>
             <option>Ogun</option>
           </select>
+        </div>
+
+        <div>
+          <img src={this.state.imagePreview} alt="" />
         </div>
 
         <div className="form-group col-md-6 mb-3">

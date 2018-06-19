@@ -25,10 +25,13 @@ class UpdateUserForm extends Component {
     this.state = {
       firstName: user.firstName,
       lastName: user.lastName,
-      errors: ''
+      errors: '',
+      Image: '',
+      imagePreview: user.Image
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onFileChange = this.onFileChange.bind(this);
   }
 
   /**
@@ -49,11 +52,55 @@ class UpdateUserForm extends Component {
    *
    * @returns {void}
    */
+  onFileChange(event) {
+    const file = event.target.files[0];
+
+    const fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+
+    if (file) {
+      fileReader.onload = () => {
+        const newImage = new Image();
+        newImage.src = fileReader.result;
+        newImage.onload = () => {
+          this.setState({
+            imagePreview: newImage.src,
+            Image: file
+          });
+        };
+      };
+    }
+  }
+
+  /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
   onSubmit(event) {
     event.preventDefault();
-    this.props.updateUserDetails(this.props.user.id, this.state).then(
+
+    const userInfo = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      Image: this.state.Image,
+    };
+
+    const registerUser = new FormData();
+
+    const userInfoKeys = Object.keys(userInfo);
+    userInfoKeys.forEach((key) => {
+      registerUser.append(key, userInfo[key]);
+    });
+
+    this.props.updateUserDetails(this.props.user.id, registerUser).then(
       () => {
-        this.context.router.history.push('/');
+        this.context.router.history.push(`/user/${this.props.user.id}`);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Profile Updated Successfully');
       },
@@ -97,6 +144,23 @@ class UpdateUserForm extends Component {
             required
           />
         </div>
+
+        <div>
+          <img src={this.state.imagePreview} alt="" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="filefield">User Image</label>
+          <input
+            type="file"
+            className="form-control-file"
+            id="filefield"
+            onChange={this.onFileChange}
+            name="Image"
+            accept="image/*"
+          />
+        </div>
+
         <input
           type="submit"
           className="btn btn-outline-dark btn-block"

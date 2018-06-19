@@ -42,7 +42,7 @@ module.exports = {
           key: 'id',
         },
       },
-      businessImage: {
+      Image: {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: ''

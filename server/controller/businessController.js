@@ -16,7 +16,7 @@ export default class BusinessController {
    */
   static register(request, response) {
     const {
-      name, details, location, category, businessImage
+      name, details, location, category, Image
     } = request.body;
 
     const { userId } = request;
@@ -44,11 +44,10 @@ export default class BusinessController {
         });
       }
     });
-    console.log('about to create business');
 
     // Create the business
     Business.create({
-      name, details, location, category, userId, businessImage
+      name, details, location, category, userId, Image
     }).then(business => response.status(201).json({
       error: false,
       message: 'Business Created',
@@ -70,7 +69,7 @@ export default class BusinessController {
    */
   static update(request, response) {
     const {
-      name, details, location, category, businessImage
+      name, details, location, category, Image
     } = request.body;
 
     Business.findById(request.params.id)
@@ -102,7 +101,7 @@ export default class BusinessController {
           details: details || business.details,
           location: location || business.location,
           category: category || business.category,
-          businessImage: businessImage || business.businessImage,
+          Image: Image || business.Image,
         }).then((updateBusiness) => {
           if (updateBusiness) {
             return response.status(200).json({
