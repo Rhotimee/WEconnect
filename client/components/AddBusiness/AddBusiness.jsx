@@ -8,12 +8,6 @@ const AddBusiness = () => (
       <AddBusinessForm addOneBusiness={addOneBusiness} />
     </div>
   </div>
-  // <div className="add-business-cover">
-  //   <div className="add-business container py-5 text-dark">
-  //     <AddBusinessForm addOneBusiness={addOneBusiness} />
-  //   </div>
-  // </div>
-
 );
 
 export default AddBusiness;
