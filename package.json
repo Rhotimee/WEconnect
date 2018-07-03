@@ -10,7 +10,7 @@
     "unmigrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate:undo:all",
     "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all",
     "migrate": "npm run unmigrate && node ./node_modules/sequelize-cli/lib/sequelize db:migrate && npm run seed",
-    "postinstall": "npm run build",
+    "postinstall": "npm run build && npm run migrate",
     "test": "npm run migrate && nyc --reporter=html --reporter=text mocha server/tests/ --exit   --timeout 7000 --compilers js:babel-register",
     "test-watch": "nodemon --exec \"npm test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
