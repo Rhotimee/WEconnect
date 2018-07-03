@@ -121,7 +121,6 @@ class UpdateUserForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <p className="col-12 my-3">Fields with <small>*</small> are required </p>
         <div className="form-group">
           <input
             type="text"
@@ -145,12 +144,7 @@ class UpdateUserForm extends Component {
           />
         </div>
 
-        <div>
-          <img src={this.state.imagePreview} alt="" />
-        </div>
-
         <div className="form-group">
-          <label htmlFor="filefield">User Image</label>
           <input
             type="file"
             className="form-control-file"
@@ -160,11 +154,7 @@ class UpdateUserForm extends Component {
             accept="image/*"
           />
         </div>
-
-        <input
-          type="submit"
-          className="btn btn-outline-dark btn-block"
-        />
+        <input disabled={this.state.isLoading} type="submit" className="btn btn-outline-dark btn-block" />
       </form>
     );
   }

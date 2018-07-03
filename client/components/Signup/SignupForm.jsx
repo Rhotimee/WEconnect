@@ -118,7 +118,6 @@ class SignupForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <p className="col-12 my-3">Fields with <small>*</small> are required </p>
         <div className="form-group">
           <input
             type="text"
@@ -145,11 +144,11 @@ class SignupForm extends Component {
           <input
             type="email"
             className="form-control form-control-lg"
-            placeholder="Email *"
+            placeholder="Email"
+            required
             value={this.state.email}
             onChange={this.onChange}
             name="email"
-            required
           />
         </div>
         <div className="form-group">
@@ -157,10 +156,10 @@ class SignupForm extends Component {
             type="password"
             className="form-control form-control-lg"
             placeholder="Password *"
+            required
             value={this.state.password}
             onChange={this.onChange}
             name="password"
-            required
           />
         </div>
         <div className="form-group">
@@ -175,12 +174,7 @@ class SignupForm extends Component {
           />
         </div>
 
-        <div>
-          <img src={this.state.imagePreview} alt="" />
-        </div>
-
         <div className="form-group">
-          <label htmlFor="filefield">User Image</label>
           <input
             type="file"
             className="form-control-file"
@@ -190,13 +184,7 @@ class SignupForm extends Component {
             accept="image/*"
           />
         </div>
-
-        <input
-          disabled={this.state.isLoading}
-          type="submit"
-          className="btn btn-outline-dark btn-block"
-        />
-
+        <input disabled={this.state.isLoading} type="submit" className="btn btn-outline-dark btn-block" />
       </form>
     );
   }

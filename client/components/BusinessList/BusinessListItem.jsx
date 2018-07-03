@@ -2,28 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+
 const listBusinesses = ({ business }) => (
-  <div
-    className="card col-sm-3 px-0"
-  >
-    <img
-      className="card-img-top img-overlay"
-      src={business.Image === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.Image}
-      alt=""
-    />
-    <div className="card-img-overlay">
-      <Link to={`/businesses/${business.id}`} href className="h2 text-white card-title px-2">{business.name}</Link>
-    </div>
-    <div className="card-body text-dark bg-light">
-      <p className="card-text">{business.details}</p>
-      <div className="star">
-        <i className="fa fa-star" />
-        <i className="fa fa-star" />
-        <i className="fa fa-star" />
-        <i className="fa fa-star" />
-        <i className="fa fa-star" />
-        <span className="rate mr-2">5.0 </span>
-        <span>(2 Reviews)</span>
+  <div className="business-card p-3 my-2 mx-sm-5">
+    <div className="row">
+      <div className="col-md-2">
+        <img
+          src={business.Image === '' ?
+          'http://res.cloudinary.com/timi/image/upload/v1527336718/jmkhsmzsjlyp5xk4rfbe.jpg' : business.Image
+      }
+          alt=""
+        />
+      </div>
+      <div className="col-md-6 px-3 pt-2">
+        <Link className="h3" to={`/businesses/${business.id}`}>{business.name}</Link>
+        <p className="">{business.category}</p>
+        <p>{business.location}</p>
+      </div>
+      <div className="col-md-4">
+        <div className="row mx-1 justify-content-md-center pt-sm-2">
+          <div className="mr-2 rating-star">
+            <i className="fas fa-star" />
+            <i className="fas fa-star" />
+            <i className="fas fa-star" />
+            <i className="far fa-star" />
+            <i className="far fa-star" />
+          </div>
+          <div className="rating-value p-1">3.0</div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +37,10 @@ const listBusinesses = ({ business }) => (
 
 listBusinesses.prototype = {
   business: PropTypes.object.isRequired
+};
+
+listBusinesses.contextTypes = {
+  router: PropTypes.object.isRequired
 };
 
 export default listBusinesses;

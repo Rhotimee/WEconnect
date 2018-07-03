@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ListBusiness from './BusinessListItem';
 import { fetchBusinesses } from '../../actions/businessAction';
 
@@ -79,54 +80,29 @@ class BusinessList extends Component {
     ));
 
     return (
-      <div className="bg-cover" >
-        <div className="list-cover">
+      <div>
+        <div className="nav-2 py-2">
+          <ul className="nav justify-content-center">
+            <li className="nav-item">
+              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Resturant</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Coffee</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Fun</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Nightlife</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Shopping</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="container my-5">
 
-          <form
-            action=""
-            className="container bg-search py-5 sticky-top"
-            onSubmit={this.onSubmit}
-          >
-            <div className="row mx-4 ">
-              <div className="col-md-6 px-1 my-1">
-                <input
-                  name="text"
-                  type="text"
-                  className="b-name form-control form-control-lg"
-                  placeholder="I'm looking for..."
-                  value={this.state.text}
-                  onChange={this.onChange}
-                />
-              </div>
-              <div className="col-md-4 px-1 my-1">
-                <div className="input-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text bg-light" id="basic-addon1"> <i className="fa fa-map-marker" /> </span>
-                  </div>
-                  <select
-                    className="form-control form-control-lg"
-                    onChange={this.onChange}
-                    name="type"
-                  >
-                    <option defaultValue>Choose...</option>
-                    <option value="location">Location</option>
-                    <option value="category">Category</option>
-
-                  </select>
-
-                </div>
-              </div>
-              <div className="col-md-2 px-1 my-1">
-                <button className="form-control form-control-lg btn-dark search" type="submit" onSubmit={this.onSubmit}> <i className="fa fa-search" />  Search</button>
-              </div>
-            </div>
-          </form>
-
-          <div className="mx-4"id="business-list">
-            <div className="row justify-content-center">
-              {eachBusiness}
-            </div>
-          </div>
+          {eachBusiness}
 
         </div>
       </div>

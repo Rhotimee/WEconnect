@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import PropTypes from 'prop-types';
 import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
@@ -68,6 +67,7 @@ class BusinessDetails extends Component {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
     this.props.addReview(this.props.match.params.id, this.state).then(() => {
+      this.setState({ content: '', star: '' });
       this.props.fetchReviews(this.props.match.params.id);
       alertify.set('notifier', 'position', 'top-right');
       alertify.success('Reviews Added');
@@ -84,7 +84,6 @@ class BusinessDetails extends Component {
   render() {
     const { business, user, reviews } = this.props;
     const { id } = this.props.match.params;
-
 
     if (!business) {
       return <h2>Loading...</h2>;
@@ -103,138 +102,104 @@ class BusinessDetails extends Component {
 
 
     return (
-      <div className="bg-cover">
-        <div className="container mb-4" id="business-detail">
+      <div className="bg-cover details-page">
+        <div className="container">
+          <img
+            className="my-4 card-img-top img-overlay business-image"
+            src={business.Image === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527336718/jmkhsmzsjlyp5xk4rfbe.jpg' : business.Image}
+            alt=""
+          />
           <div className="row">
-
-            <div className="card col px-0">
-              <img
-                className="card-img-top img-overlay"
-                src={business.Image === '' ? 'http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg' : business.Image}
-                alt=""
-                height="300px;"
-              />
-              <div className="card-img-overlay ">
-                {/* <Link className="h1 text-white card-title" href="#">{business.name}</Link> */}
+            <div className="col-sm-8">
+              <div className="row">
+                <div className="col-3">
+                  <img className="category-image" src="/img/wine.jpg" alt="" />
+                </div>
+                <div className="col-9">
+                  <h3 className="row my-1">{business.name}</h3>
+                  <p className="row">{ stars(averageReviews(reviews)) }</p>
+                  <p className="row light-color">{business.category}</p>
+                </div>
               </div>
+            </div>
+            <div className="col-sm-4 my-2 details-button">
+              <button className="btn btn-danger mr-1 mt-1" href="#write_review"><i className="far fa-star" /> Write a review</button>
+              <button className="btn btn-light mr-1 mt-1"><i className="fas fa-heart text-danger" /> Save</button>
+              <button className="btn btn-light mr-1 mt-1"><i className="fas fa-share-alt" /> Share</button>
+            </div>
+          </div>
 
-              <div className="card-body text-dark bg-light">
-                <div className="data">
-                  <div className="row data1 ml-1">
-                    <div className="p-1">
-                      <img src="img/bg3.jpg" alt="" height="75px" width="120px" />
-                    </div>
-                    <div className="p-1">
-                      <h3 className="">{business.category}</h3>
-                      <p><i className="fa fa-map-marker" /> {business.location}</p>
-                    </div>
-                  </div>
-
-                  {
-                  business.userId === user ?
-                    <div>
-                      <Link to={`/businesses/${id}/edit`} href>edit</Link>
-                    -
-                      <Link
-                        to="/businesses"
-                        href
-                        onClick={() => {
-                        this.props.deleteOneBusiness(id);
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success('Business deleted Successfully');
-                        }
-                      }
-                      >delete
-                      </Link>
-                    </div>
-                : null
-              }
-
-                  <div className="row data2 mt-3 ml-4">
-                    <button className="btn btn-outline-dark mr-2 like"> Like <i className="fa fa-heart" /></button>
-                  </div>
-
-                </div> {/** end data * */}
-
-                <div className="row mt-2">
-                  <p className="col-md-6">
-                    {business.details}
-                  </p>
-                  <img className="col-md-6" width="500" src={`https://maps.googleapis.com/maps/api/staticmap?center=${business.location}&zoom=13&scale=2&size=600x50&maptype=roadmap&format=png&visual_refresh=true&markers=size:small%7Ccolor:0xff682e%7Clabel:1%7Cikeja+lagos`} alt="Google Map of ikeja lagos" />
+          <div className="row my-4">
+            <div className="col-md-9 mb-4">
+              <div className="content-box mb-4">
+                <p className="">{business.details}</p>
+              </div>
+              <div className="content-box">
+                <h4>Reviews & Tips</h4>
+              </div>
+              <div className="review-list mb-4">
+                <div className="">
+                  {eachReview}
                 </div>
-
-                <div className="review">
-                  <hr className="straight" />
-                  <div className="row">
-                    <div className="col star">
-                      { stars(averageReviews(reviews)) }
-                      <span className="rate">
-                        {averageReviews(reviews)}
-                      </span>
-                      ({reviews.length} Reviews)
-                    </div>
-                    <div className="col like">
-                      5 likes <i className="fa fa-heart" />
-                    </div>
-                    <div className="col">
-                        Business Owner: <Link to={`/user/${business.userId}`} href >{business.business_owner.firstName}</Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Reviews */}
-                <hr className="straight" />
-
+              </div>
+              <div className="content-box">
+                <h4>Rate and Write a Review</h4>
+              </div>
+              <div className="content-box" id="write_review">
                 <form onSubmit={this.onSubmit}>
-                  <h5 className="my-3">Add Review</h5>
-                  <div className="row">
-                    <div className="form-group col">
-                      <label htmlFor="title">Review <small>*</small> </label>
-                      <textarea
-                        type="text"
-                        className="form-control"
-                        required
-                        value={this.state.content}
-                        onChange={this.onChange}
-                        name="content"
-                      />
-                    </div>
-                    <div className="form-group col">
-                      <label htmlFor="inputState">Star <small>*</small> </label>
-                      <select
-                        id="inputState"
-                        className="form-control"
-                        value={this.state.star}
-                        onChange={this.onChange}
-                        name="star"
-                      >
-                        <option value="" disabled>choose star</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="">
-                    <button className="btn btn-outline-dark ml-3" type="submit">Submit</button>
-                  </div>
+                  <p>Select your rating</p>
+                  <select
+                    id="inputState"
+                    className="form-control mb-2"
+                    value={this.state.star}
+                    onChange={this.onChange}
+                    name="star"
+                  >
+                    <option value="" disabled>choose star</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                  <textarea
+                    className="form-control"
+                    rows="3"
+                    placeholder="Help others choose perfect place"
+                    type="text"
+                    required
+                    value={this.state.content}
+                    onChange={this.onChange}
+                    name="content"
+                  />
+                  <button className="btn btn-dark my-3">Submit review</button>
                 </form>
-
-                <hr className="straight" />
-
-                <div className="all-reviews">
-
-                  { eachReview }
-
+              </div>
+            </div>
+            <div className="col-md-3 mb-4">
+              <div className="content-box mb-4">
+                <div id="map" className="mb-4">
+                  <img className="" src="/img/mapIkaja.jpg" alt="Google Map of ikeja lagos" />
                 </div>
-              </div> {/** end card-body * */}
-
+                <div className="contact-details ml-3">
+                  <p><i className="fas fa-map-marker-alt" /> {business.location}</p>
+                  <p><i className="fas fa-phone" /> +2348135585366</p>
+                  <p><i className="far fa-clock" /> Open till 6:00pm</p>
+                  <p><i className="fas fa-globe" /> weconnect.com</p>
+                </div>
+              </div>
+              <div className="content-box contact-box mb-4">
+                <h3>Contact Us</h3>
+                <form action="">
+                  <input type="text" placeholder="Name" className="form-control mb-2" />
+                  <input type="text" placeholder="Email" className="form-control mb-2" />
+                  <textarea type="text" placeholder="Message" className="form-control mb-2" />
+                  <button type="submit" className="btn btn-dark form-control">Submit </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     );
   }
