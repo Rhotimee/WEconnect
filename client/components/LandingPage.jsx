@@ -156,9 +156,9 @@ class LandingPage extends Component {
 
           <div className="row my-5 justify-content-center">
             <div className="card col-md-3 px-0 m-3">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/drones.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Drone Naija</p>
                 <div className="star">
         3.0
                   <i className="fas fa-star" />
@@ -170,9 +170,9 @@ class LandingPage extends Component {
             </div>
 
             <div className="card col-md-3 px-0 m-3">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/fish.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Bella Fish</p>
                 <div className="star">
         3.0
                   <i className="fas fa-star" />
@@ -185,9 +185,9 @@ class LandingPage extends Component {
 
 
             <div className="card col-md-3 px-0 m-3">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/photo.jpeg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Dokun Photos</p>
                 <div className="star">
         3.0
                   <i className="fas fa-star" />
@@ -242,31 +242,31 @@ class LandingPage extends Component {
 
           <div className="row my-5 justify-content-center" id="cate-g">
             <div className="card">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/restaurant.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Resturant</p>
               </div>
             </div>
 
             <div className="card">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/corporate.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Professional</p>
               </div>
             </div>
 
 
             <div className="card">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/drinks.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Nightlife</p>
               </div>
             </div>
 
             <div className="card">
-              <img className="card-img-top img-overlay" src="http://res.cloudinary.com/timi/image/upload/v1527485880/dummylogo4.jpg" alt="" />
+              <img className="card-img-top img-overlay" src="/img/shopping.jpg" alt="" />
               <div className="card-body text-dark bg-light">
-                <p className="card-text">Best Decorations</p>
+                <p className="card-text">Shopping</p>
               </div>
             </div>
 
