@@ -93,6 +93,9 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item mr-3">
+              <Link className="nav-link text-light my-1" to="/businesses"><i className="fa fa-th" aria-hidden="true" /> Explore </Link>
+            </li>
+            <li className="nav-item mr-3">
               <Link className="btn btn-outline-light" to="/login">Login</Link>
             </li>
             <li className="nav-item mr-3">
