@@ -93,10 +93,10 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item mr-3">
-              <Link className="btn btn-outline-light" to="/">Login</Link>
+              <Link className="btn btn-outline-light" to="/login">Login</Link>
             </li>
             <li className="nav-item mr-3">
-              <Link className="btn btn-outline-light" to="/">Signup</Link>
+              <Link className="btn btn-outline-light" to="/signup">Signup</Link>
             </li>
           </ul>
         </div>
