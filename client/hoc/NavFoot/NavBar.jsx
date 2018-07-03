@@ -56,8 +56,8 @@ class Navbar extends Component {
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <Link className="dropdown-item" to={`/user/${signedInUser.id}`} href>My Profile</Link>
               <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`} href>Update Profile</Link>
-              <Link className="dropdown-item" to="#" href>Change Password</Link>
-              <Link className="dropdown-item" to="/" onClick={this.onSignout.bind(this)} href>Signout</Link>
+              <Link className="dropdown-item" to="/">Change Password</Link>
+              <Link className="dropdown-item" to="/" onClick={() => this.onSignout()} href>Signout</Link>
             </div>
           </div>
         ) : null}
@@ -69,29 +69,52 @@ class Navbar extends Component {
     const Guest = (
       <Aux>
         <li className="nav-item">
-          <Link className="nav-link" to="/login" href>Log In</Link>
+          <Link className="nav-link" to="/login">Log In</Link>
         </li>
         <li className="nav-item mr-2">
-          <Link className="nav-link" to="/signup" href>Sign Up</Link>
+          <Link className="nav-link" to="/signup">Sign Up</Link>
         </li>
       </Aux>
     );
 
     return (
-      <nav className=" navbar navbar-expand-sm navbar-dark nav-bg py-3">
-        <Link className="navbar-brand ml-3" to="/" href>WECONNECT</Link>
+      <nav className="sticky-top navbar navbar-expand-md navbar-dark nav-nav py-3">
+        <Link className="navbar-brand ml-3" to="/">WECONNECT</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
+
+        <form className="form-inline ml-md-5 ml-xs-3 mav-search">
+          <input className="form-control mr-sm-1 my-1" type="search" placeholder="I'm looking for..." aria-label="Search" />
+          <input className="form-control mr-sm-1 my-1" type="search" placeholder="Location" aria-label="Search" />
+          <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
+        </form>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/businesses" href><i className="fa fa-th" aria-hidden="true" /> Explore</Link>
+            <li className="nav-item mr-3">
+              <Link className="btn btn-outline-light" to="/">Login</Link>
             </li>
-            {this.props.signedInUser.isAuthenticated ? Auth : Guest }
+            <li className="nav-item mr-3">
+              <Link className="btn btn-outline-light" to="/">Signup</Link>
+            </li>
           </ul>
         </div>
       </nav>
+    // <nav className=" navbar navbar-expand-sm navbar-dark nav-bg py-3">
+    //   <Link className="navbar-brand ml-3" to="/" href>WECONNECT</Link>
+    //   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    //     <span className="navbar-toggler-icon" />
+    //   </button>
+    //   <div className="collapse navbar-collapse" id="navbarNav">
+    //     <ul className="navbar-nav ml-auto">
+    //       <li className="nav-item">
+    //         <Link className="nav-link" to="/businesses" href><i className="fa fa-th" aria-hidden="true" /> Explore</Link>
+    //       </li>
+    //       {this.props.signedInUser.isAuthenticated ? Auth : Guest }
+    //     </ul>
+    //   </div>
+    // </nav>
     );
   }
 }
