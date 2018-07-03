@@ -57,7 +57,7 @@ class Navbar extends Component {
               <Link className="dropdown-item" to={`/user/${signedInUser.id}`} href>My Profile</Link>
               <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`} href>Update Profile</Link>
               <Link className="dropdown-item" to="/">Change Password</Link>
-              <Link className="dropdown-item" to="/" onClick={() => this.onSignout()} href>Signout</Link>
+              <Link className="dropdown-item" to="/" onClick={this.onSignout.bind(this)} href>Signout</Link>
             </div>
           </div>
         ) : null}
@@ -68,11 +68,11 @@ class Navbar extends Component {
 
     const Guest = (
       <Aux>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">Log In</Link>
+        <li className="nav-item mr-3">
+          <Link className="btn btn-outline-light" to="/login">Login</Link>
         </li>
-        <li className="nav-item mr-2">
-          <Link className="nav-link" to="/signup">Sign Up</Link>
+        <li className="nav-item mr-3">
+          <Link className="btn btn-outline-light" to="/signup">Signup</Link>
         </li>
       </Aux>
     );
@@ -83,41 +83,25 @@ class Navbar extends Component {
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
+        {
+          this.context.router.route.location.pathname === '/' ? null :
 
-        <form className="form-inline ml-md-5 ml-xs-3 mav-search">
-          <input className="form-control mr-sm-1 my-1" type="search" placeholder="I'm looking for..." aria-label="Search" />
-          <input className="form-control mr-sm-1 my-1" type="search" placeholder="Location" aria-label="Search" />
-          <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
-        </form>
+          <form className="form-inline ml-md-5 ml-xs-3 mav-search">
+            <input className="form-control mr-sm-1 my-1" type="search" placeholder="I'm looking for..." aria-label="Search" />
+            <input className="form-control mr-sm-1 my-1" type="search" placeholder="Location" aria-label="Search" />
+            <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
+          </form>
+        }
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item mr-3">
-              <Link className="nav-link text-light my-1" to="/businesses"><i className="fa fa-th" aria-hidden="true" /> Explore </Link>
+              <Link className="nav-link text-light" to="/businesses"><i className="fa fa-th" aria-hidden="true" /> Explore </Link>
             </li>
-            <li className="nav-item mr-3">
-              <Link className="btn btn-outline-light" to="/login">Login</Link>
-            </li>
-            <li className="nav-item mr-3">
-              <Link className="btn btn-outline-light" to="/signup">Signup</Link>
-            </li>
+            {this.props.signedInUser.isAuthenticated ? Auth : Guest }
           </ul>
         </div>
       </nav>
-    // <nav className=" navbar navbar-expand-sm navbar-dark nav-bg py-3">
-    //   <Link className="navbar-brand ml-3" to="/" href>WECONNECT</Link>
-    //   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    //     <span className="navbar-toggler-icon" />
-    //   </button>
-    //   <div className="collapse navbar-collapse" id="navbarNav">
-    //     <ul className="navbar-nav ml-auto">
-    //       <li className="nav-item">
-    //         <Link className="nav-link" to="/businesses" href><i className="fa fa-th" aria-hidden="true" /> Explore</Link>
-    //       </li>
-    //       {this.props.signedInUser.isAuthenticated ? Auth : Guest }
-    //     </ul>
-    //   </div>
-    // </nav>
     );
   }
 }
