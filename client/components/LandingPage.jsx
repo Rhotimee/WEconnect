@@ -78,7 +78,7 @@ class LandingPage extends Component {
    */
   render() {
     return (
-      <body>
+      <div>
         <div className="cover-img">
           <div className="cover-overlay">
             <div className="container justify-content-center pt-5 content">
@@ -273,7 +273,7 @@ class LandingPage extends Component {
 
           </div>
         </div>
-      </body>
+      </div>
 
 
     // <div className="cover">
