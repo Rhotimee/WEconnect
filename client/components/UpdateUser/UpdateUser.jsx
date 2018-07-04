@@ -33,17 +33,15 @@ class UpdateUser extends Component {
       return <h2>Loading...</h2>;
     }
     return (
-      <div className="cover">
-        <div className="cover-overlay">
-
-          <div className="container py-5 auth" id="signup">
-            <div className="card  text-center card-form my-2">
-              <div className="card-body">
-                <h3>Update Details</h3>
-                <p>Fill this form to Update Details</p>
+      <div className="login-cover-img">
+        <div className="login-cover-overlay">
+          <div className="container py-3">
+            <div className="card text-center mt-5 pt-3 auth-card ">
+              <div className="card-body ">
+                <h3>Sign Up </h3>
+                <p>Fill this form to Signup</p>
                 <UpdateUserForm updateUserDetails={updateUserDetails} user={user} />
               </div>
-              <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
             </div>
           </div>
         </div>

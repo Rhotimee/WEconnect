@@ -124,7 +124,6 @@ class AddBusinessForm extends Component {
     return (
 
       <form className="row" onSubmit={this.onSubmit} >
-        <p className="col-12">Fields with <small>*</small> are required </p>
         <div className="form-group col-sm-6">
           <label htmlFor="text">Buisness Name <small>*</small> </label>
           <input
@@ -167,7 +166,7 @@ class AddBusinessForm extends Component {
           />
         </div>
         <div className="form-group col-md-6">
-          <label htmlFor="inputCity">City <small>*</small> </label>
+          <label htmlFor="inputCity">Location <small>*</small> </label>
           <input
             type="text"
             className="form-control"
@@ -204,25 +203,24 @@ class AddBusinessForm extends Component {
           </select>
         </div>
 
-        <div className="col-md-4 mb-2 ">
-          <img className="" src={this.state.businessImage} alt="" />
+        <div className="row mx-1">
+          <div className="form-group col-md-6 mb-3">
+            <input
+              type="file"
+              className="form-control-file"
+              id="filefield"
+              onChange={this.onFileChange}
+              name="businessImage"
+              accept="image/*"
+            />
+          </div>
+
+          <div className="col-md-4 mb-2 ">
+            <img className="" src={this.state.imagePreview} alt="" />
+          </div>
         </div>
 
-        <div>
-          <img src={this.state.imagePreview} alt="" />
-        </div>
-
-        <div className="form-group col-md-6 mb-3">
-          <label htmlFor="filefield">Business Image</label>
-          <input
-            type="file"
-            className="form-control-file"
-            id="filefield"
-            onChange={this.onFileChange}
-            name="businessImage"
-            accept="image/*"
-          />
-        </div>
+        <p className="col-12">Fields with <small>*</small> are required </p>
 
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>
       </form>

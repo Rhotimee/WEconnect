@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { userSignupRequest } from '../../actions/userActions';
 import SignupForm from './SignupForm';
 
@@ -20,21 +21,21 @@ class Signup extends PureComponent {
   render() {
     const { userSignupRequest } = this.props;
     return (
-      <div className="cover">
-        <div className="cover-overlay">
-
-          <div className="container py-5 auth" id="signup">
-            <div className="card  text-center card-form my-2">
-              <div className="card-body">
-                <h3>Sign up </h3>
-                <p>Fill this form to register</p>
+      <div className="login-cover-img">
+        <div className="login-cover-overlay">
+          <div className="container py-3">
+            <div className="card text-center mt-5 pt-3 auth-card ">
+              <div className="card-body ">
+                <h3>Sign Up </h3>
+                <p>Fill this form to Signup</p>
                 <SignupForm userSignupRequest={userSignupRequest} />
               </div>
-              <div className="card-footer">Have an account ?  <a href="signin.html">Sign in</a></div>
+              <div className="card-footer py-4">Have an account?  <Link to="/login">Login</Link></div>
             </div>
           </div>
         </div>
       </div>
+
     );
   }
 }

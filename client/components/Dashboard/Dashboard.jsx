@@ -57,33 +57,55 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <p>{user.firstName}</p>
-        <p>{user.lastName}</p>
-        <p>{user.email}</p>
-        <img src={user.Image} alt="" />
-        <hr className="straight" />
-
-        {
-          user.id === authUser ?
-            <div>
-              <Link to={`/user/${user.id}/update`} href>update details</Link>
+        <div className="container">
+          <div className="row my-4 user-profile p-4">
+            <div className="col-md-2">
+              <img src={user.Image ? user.Image : '/img/user1.jpg'} alt="" />
             </div>
-          : null
-        }
-
-        <div className="mx-4"id="business-list">
-          <div className="row justify-content-center">
-            {user.businesses.length > 0 ? eachBusiness : 'No Business Found'}
+            <div className="col-md-6 mx-4">
+              <h4>{user.firstName} {user.lastName}</h4>
+              <p>{user.businesses.length} {user.businesses.length > 1 ? 'Listed Businesses' : 'Listed Business' }</p>
+              <p>{user.reviews.length} {user.reviews.length > 1 ? 'reviews' : 'review' }</p>
+            </div>
+            <div className="col-md-3 user-social-links">
+              <i className="fab fa-facebook-f mx-3" />
+              <i className="fab fa-twitter mx-3" />
+              <i className="fab fa-google-plus-g mx-3" />
+            </div>
           </div>
         </div>
 
-        <div className="all-reviews">
-          { eachReview }
+        <div className="container py-4">
+          <div className="row profile mb-5">
+            <div className="col-md-3">
+              <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">My Businesses</a>
+                <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Reviews</a>
+                <a className="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Liked Businesses</a>
+              </div>
+            </div>
+            <div className="col-md-9">
+              <div className="tab-content" id="v-pills-tabContent">
+                <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                  <div className="container">
+                    {user.businesses.length > 0 ? eachBusiness : 'No Business Found'}
+                  </div>
+                </div>
+                <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                  <div className="review-list mb-4">
+                    <div className="">
+                      { user.reviews.length > 0 ? eachReview : 'No Review Found' }
+                    </div>
+
+                  </div>
+                </div>
+                <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">c</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <hr className="straight" />
-
-
       </div>
     );
   }

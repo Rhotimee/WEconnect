@@ -72,12 +72,11 @@ class LoginForm extends Component {
     return (
 
       <form onSubmit={this.onSubmit}>
-        <p className="col-12 my-3">Fields with <small>*</small> are required </p>
         <div className="form-group">
           <input
             type="email"
             className="form-control form-control-lg"
-            placeholder="Email *"
+            placeholder="Email"
             required
             value={this.state.email}
             onChange={this.onChange}
@@ -97,6 +96,7 @@ class LoginForm extends Component {
         </div>
         <input type="submit" className="btn btn-outline-dark btn-block" />
       </form>
+
     );
   }
 }

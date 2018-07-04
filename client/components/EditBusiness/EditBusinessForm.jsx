@@ -91,7 +91,7 @@ class EditBusinessForm extends Component {
     const businessInfo = {
       name: this.state.name,
       location: this.state.location,
-      category: this.state.details,
+      category: this.state.category,
       details: this.state.details,
       Image: this.state.businessImage
     };
@@ -127,7 +127,6 @@ class EditBusinessForm extends Component {
   render() {
     return (
       <form className="row" onSubmit={this.onSubmit} >
-        <p className="col-12">Fields with <small>*</small> are required </p>
         <div className="form-group col-sm-6">
           <label htmlFor="text">Buisness Name <small>*</small> </label>
           <input
@@ -150,10 +149,10 @@ class EditBusinessForm extends Component {
             name="category"
           >
             <option value="" disabled>choose category</option>
-            <option>Repair & Services</option>
-            <option>Events & Weddings</option>
-            <option>Health & Wellness</option>
-            <option>Professional Services</option>
+            <option>Resturant</option>
+            <option>Professional</option>
+            <option>Nightlife</option>
+            <option>Shopping</option>
             <option>Others</option>
           </select>
         </div>
@@ -170,7 +169,7 @@ class EditBusinessForm extends Component {
           />
         </div>
         <div className="form-group col-md-6">
-          <label htmlFor="inputCity">City <small>*</small> </label>
+          <label htmlFor="inputCity">Location <small>*</small> </label>
           <input
             type="text"
             className="form-control"
@@ -207,21 +206,25 @@ class EditBusinessForm extends Component {
           </select>
         </div>
 
-        <div>
-          <img src={this.state.imagePreview} alt="" />
+        <div className="row mx-1">
+          <div className="form-group col-md-6 mb-3">
+            <input
+              type="file"
+              className="form-control-file"
+              id="filefield"
+              onChange={this.onFileChange}
+              name="businessImage"
+              accept="image/*"
+            />
+          </div>
+
+          <div className="col-md-4 mb-2 ">
+            <img className="" src={this.state.imagePreview} alt="" />
+          </div>
         </div>
 
-        <div className="form-group col-md-6 mb-3">
-          <label htmlFor="filefield">Business Image</label>
-          <input
-            type="file"
-            className="form-control-file"
-            id="filefield"
-            onChange={this.onFileChange}
-            name="businessImage"
-            accept="image/*"
-          />
-        </div>
+        <p className="col-12">Fields with <small>*</small> are required </p>
+
         <button type="submit" className="m-3 col-md-2 btn btn-dark mb-5">Submit</button>
       </form>
     );
