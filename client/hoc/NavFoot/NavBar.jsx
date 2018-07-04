@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 import { Aux } from '../aux';
 import { userSignoutRequest } from '../../actions/userActions';
+import { fetchBusinesses, setSearch } from '../../actions/businessAction';
 
 /**
  * @class LoginForm
@@ -13,6 +14,64 @@ import { userSignoutRequest } from '../../actions/userActions';
  *
  */
 class Navbar extends Component {
+    /**
+   * constructor - contains the constructor
+   *
+   * @param  {object} props the properties of the class component
+   *
+   * @return {void} no return or void
+   *
+   */
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: '',
+      type: '',
+      errors: {}
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+   /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+    // this.props.setSearch(event.target.value);
+  }
+
+    /**
+   * @description onChange
+   *
+   * @param  {object} event  the event
+   *
+   * @returns {void}
+   */
+  onSubmit(event) {
+    event.preventDefault();
+
+    this.props.setSearch({ search: this.state.text, type: this.state.type });
+    // this.setState({ errors: {}, isLoading: true });
+    this.props.fetchBusinesses(this.state.type, this.state.text)
+      .then(
+        () => {
+          this.context.router.history.push('/businesses');
+        },
+        ({ response }) => {
+          this.setState({ errors: response.data.message });
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(this.state.errors);
+        }
+      );
+  }
+
+
   /**
    * @description onSignout
    *
@@ -86,9 +145,32 @@ class Navbar extends Component {
         {
           this.context.router.route.location.pathname === '/' ? null :
 
-          <form className="form-inline ml-md-5 ml-xs-3 mav-search">
-            <input className="form-control mr-sm-1 my-1" type="search" placeholder="I'm looking for..." aria-label="Search" />
-            <input className="form-control mr-sm-1 my-1" type="search" placeholder="Location" aria-label="Search" />
+          <form className="form-inline ml-md-5 ml-xs-3 mav-search" onSubmit={this.onSubmit}>
+            <input 
+              name="text"
+              className="form-control mr-sm-1 my-1" 
+              type="search" 
+              placeholder="I'm looking for..." 
+              aria-label="Search" 
+              value={this.state.text}
+              onChange={this.onChange}
+              />
+              <select
+                className="form-control mr-sm-1 my-1"
+                onChange={this.onChange}
+                name="type"
+              >
+                <option defaultValue>Choose...</option>
+                <option value="location">Location</option>
+                <option value="category">Category</option>
+
+              </select>
+            {/* <input 
+              className="form-control mr-sm-1 my-1" 
+              type="search" placeholder="Location" 
+              aria-label="Search" 
+              
+              /> */}
             <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
           </form>
         }
@@ -128,5 +210,5 @@ Navbar.contextTypes = {
 };
 
 
-export default connect(mapStateToProps, { userSignoutRequest })(Navbar);
+export default connect(mapStateToProps, { userSignoutRequest, setSearch, fetchBusinesses })(Navbar);
 
