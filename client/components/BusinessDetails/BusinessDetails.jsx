@@ -7,6 +7,7 @@ import { fetchReviews, addReview } from '../../actions/reviewsAction';
 import ReviewCard from './ReviewCard';
 import averageReviews from '../../helpers/averageStar';
 import stars from '../../helpers/stars';
+import Loader from '../Loader';
 
 
 /**
@@ -86,7 +87,7 @@ class BusinessDetails extends Component {
     const { id } = this.props.match.params;
 
     if (!business) {
-      return <h2>Loading...</h2>;
+      return <Loader/>;
     }
 
     const eachReview = reviews.map(review => (
