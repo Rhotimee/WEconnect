@@ -163,17 +163,35 @@ export default class BusinessController {
    * @returns {object} response.
    */
   static list(request, response) {
-    Business.findAll({}).then((businesses) => {
-      if (businesses.length === 0) {
+    const { page } = request.params;
+    const limit = 5; // number of businesses per page
+    const offset = limit * (page - 1);
+
+    Business.findAndCountAll({
+      order: [['createdAt', 'DESC']],
+      limit,
+      offset
+    }).then((businesses) => {
+      const pages = Math.ceil(businesses.count / limit);
+      if (businesses.length === 0 || page > pages) {
         return response.status(404).json({
           error: true,
-          message: 'No business found'
+          message: 'No business found',
+          pagination: {
+            pages,
+            page
+          }
         });
       }
+
       return response.status(200).json({
         error: false,
         message: 'Businesses Found',
         businesses,
+        pagination: {
+          pages,
+          page
+        }
       });
     }).catch(() => response.status(500).json({
       error: true,
