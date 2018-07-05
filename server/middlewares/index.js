@@ -32,47 +32,75 @@ export default class Middleware {
    * @returns {object} response.
    */
   static sorter(request, response, next) {
-    const { location, category } = request.query;
+    const { location, category, page } = request.query;
+
+    const limit = 5; // number of businesses per page
+    const offset = limit * (page - 1);
 
     if (!location && !category) {
+      request.params.page = page;
       next();
     }
 
     if (location) {
-      Business.findAll({
+      Business.findAndCountAll({
         where: {
           location:
           { $ilike: `%${location}%` }
-        }
+        },
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset
       }).then((businesses) => {
-        if (businesses.length === 0) {
+        const pages = Math.ceil(businesses.count / limit);
+        if (businesses.length === 0 || page > pages) {
           return response.status(404).json({
             error: true,
-            message: `No business found in ${location}`
+            message: `No business found in ${location}`,
+            pagination: {
+              pages,
+              page
+            }
           });
         }
         return response.status(200).json({
           error: false,
           businesses,
+          pagination: {
+            pages,
+            page
+          }
         });
       });
     }
 
     if (category) {
-      Business.findAll({
+      Business.findAndCountAll({
         where: {
           category: { $ilike: `%${category}%` }
-        }
+        },
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset
       }).then((businesses) => {
-        if (businesses.length === 0) {
+        const pages = Math.ceil(businesses.count / limit);
+        if (businesses.length === 0 || page > pages) {
           return response.status(404).json({
             error: true,
-            message: `No business found in ${category}`
+            message: `No business found in ${category}`,
+            pagination: {
+              pages,
+              page
+            }
           });
         }
         return response.status(200).json({
           error: false,
           businesses,
+          pagination: {
+            pages,
+            page
+          }
         });
       });
     }

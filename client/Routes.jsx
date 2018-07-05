@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import LandingPage from './components/LandingPage';
 import BusinessList from './components/BusinessList/BusinessList';
@@ -11,6 +11,8 @@ import NavFoot from './hoc/NavFoot/NavFoot';
 import Dashboard from './components/Dashboard/Dashboard';
 import UpdateUser from './components/UpdateUser/UpdateUser';
 import NotFound from './components/NotFound';
+import NavBar from './hoc/NavFoot/NavBar';
+import Footer from './hoc/NavFoot/Footer';
 
 /**
    * @description mapStateToProps
@@ -20,7 +22,16 @@ import NotFound from './components/NotFound';
 function Routes() {
   return (
     <BrowserRouter>
-      <NavFoot>
+    <div>
+      <Switch>
+        <Route exact path="/">
+          <NavBar showBox={false} />
+        </Route>
+        <Route>
+          <NavBar showBox={true} />
+        </Route>
+      </Switch>
+      {/* <NavFoot> */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/businesses" component={BusinessList} />
         <Route exact path="/add-business" component={AddBusinessx} />
@@ -31,8 +42,10 @@ function Routes() {
         <Route exact path="/user/:id" component={Dashboard} />
         <Route exact path="/user/:id/update" component={UpdateUser} />
         {/* <Route component={NotFound} /> */}
+      <Footer/>
+      </div>
+      {/* </NavFoot> */}
 
-      </NavFoot>
     </BrowserRouter>
   );
 }

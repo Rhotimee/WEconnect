@@ -1,7 +1,9 @@
+import 'rc-pagination/assets/index.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Pagination from 'rc-pagination';
 import ListBusiness from './BusinessListItem';
 import { fetchBusinesses } from '../../actions/businessAction';
 
@@ -26,10 +28,11 @@ class BusinessList extends Component {
     this.state = {
       text: this.props.search,
       type: this.props.type,
+      page: this.props.page,
+      current: 1
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -38,31 +41,19 @@ class BusinessList extends Component {
    * @returns {void}
    */
   componentDidMount() {
-    this.props.fetchBusinesses(this.state.type, this.state.text);
+    this.props.fetchBusinesses(this.state.page, this.state.type, this.state.text);
   }
 
   /**
    * @description onChange
    *
-   * @param  {object} event  the event
+   * @param  {object} page  the event
    *
    * @returns {void}
    */
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  /**
-   * @description onChange
-   *
-   * @param  {object} event  the event
-   *
-   * @returns {void}
-   */
-  onSubmit(event) {
-    event.preventDefault();
-    // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.type, this.state.text);
+  onChange(page) {
+    this.setState({ current: page });
+    this.props.fetchBusinesses(page, this.state.type, this.state.text);
   }
 
   /**
@@ -72,7 +63,11 @@ class BusinessList extends Component {
    *
    */
   render() {
-    const eachBusiness = this.props.businesses.map(business => (
+    if (!this.props.data.businesses) {
+      return <p>Loading...</p>;
+    }
+
+    const eachBusiness = this.props.data.businesses.rows.map(business => (
       <ListBusiness
         key={business.id}
         business={business}
@@ -105,6 +100,19 @@ class BusinessList extends Component {
           {eachBusiness}
 
         </div>
+
+        <div className="d-flex justify-content-center">
+          <Pagination
+            showTotal={(total, range) =>
+                `${range[0]} - ${range[1]} of ${this.props.data.pagination.pages} businesses`
+              }
+            total={this.props.data.businesses.count}
+            defaultPageSize={5}
+            current={this.state.current}
+            onChange={this.onChange}
+          />
+        </div>
+
       </div>
     );
   }
@@ -113,6 +121,7 @@ class BusinessList extends Component {
 BusinessList.propTypes = {
   search: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  page: PropTypes.string.isRequired,
   fetchBusinesses: PropTypes.func.isRequired,
 };
 
@@ -129,9 +138,10 @@ BusinessList.contextTypes = {
    */
 function mapStateToProps(state) {
   return {
-    businesses: state.Businesses.allBusinesses,
+    data: state.Businesses.allBusinesses,
     search: state.search.search,
     type: state.search.type,
+    page: state.search.page
   };
 }
 

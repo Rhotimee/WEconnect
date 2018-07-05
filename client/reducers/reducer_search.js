@@ -1,7 +1,8 @@
 
 const initialState = {
   search: '',
-  type: ''
+  type: '',
+  page: 1,
 };
 
 const searchReducer = (state = initialState, action = {}) => {
