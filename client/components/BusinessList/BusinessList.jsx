@@ -26,6 +26,7 @@ class BusinessList extends Component {
     this.state = {
       text: this.props.search,
       type: this.props.type,
+      page: this.props.page,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -38,7 +39,7 @@ class BusinessList extends Component {
    * @returns {void}
    */
   componentDidMount() {
-    this.props.fetchBusinesses(this.state.type, this.state.text);
+    this.props.fetchBusinesses(this.state.page, this.state.type, this.state.text);
   }
 
   /**
@@ -132,6 +133,7 @@ function mapStateToProps(state) {
     businesses: state.Businesses.allBusinesses,
     search: state.search.search,
     type: state.search.type,
+    page: state.search.page
   };
 }
 

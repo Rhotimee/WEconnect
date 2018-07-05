@@ -16,15 +16,16 @@ export function oneBusiness(business) {
   };
 }
 
-export const setSearch = ({ search, type }) => (dispatch) => {
+export const setSearch = ({ page, search, type }) => (dispatch) => {
   dispatch({
     type: 'set_search',
-    payload: { search, type }
+    payload: { page, search, type }
   });
 };
 
-export const fetchBusinesses = (type, text) => (dispatch) => axios.get(`/api/v1/businesses?${type}=${text}`).then((response) => {
-    dispatch(allBusinesses(response.data.businesses));
+// export const fetchBusinesses = (page, type, text) => (dispatch) => console.log([`/api/v1/businesses?page=${page}&${type}=${text}`, page, type, text]);
+export const fetchBusinesses = (page, type, text) => (dispatch) => axios.get(`/api/v1/businesses?page=${page}&${type}=${text}`).then((response) => {
+    dispatch(allBusinesses(response.data.businesses.rows));
   });
 
 export const fetchOneBusiness = id => (dispatch) => axios.get(`/api/v1/businesses/${id}`).then((response) => {
