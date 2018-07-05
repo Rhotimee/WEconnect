@@ -63,7 +63,12 @@ class BusinessList extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.type, this.state.text);
+    this.props.fetchBusinesses(this.state.type, this.state.text)
+  }
+
+  LoadMoreBusiness () {
+    const page2 = this.state.page + 1
+    this.props.fetchBusinesses(page2, this.state.type, this.state.text);
   }
 
   /**
@@ -73,7 +78,13 @@ class BusinessList extends Component {
    *
    */
   render() {
-    const eachBusiness = this.props.businesses.map(business => (
+    if (!this.props.data.businesses){
+      return <p>Loading...</p>
+    }
+
+    console.log(this.props.data)
+
+    const eachBusiness = this.props.data.businesses.rows.map(business => (
       <ListBusiness
         key={business.id}
         business={business}
@@ -106,6 +117,13 @@ class BusinessList extends Component {
           {eachBusiness}
 
         </div>
+      
+        <div className="row justify-content-center">
+          <button 
+            className="mt-3 mb-5 btn btn-outline-dark"
+            onClick={() => this.LoadMoreBusiness()}          
+            >Load More Businesses</button>
+        </div>
       </div>
     );
   }
@@ -130,7 +148,7 @@ BusinessList.contextTypes = {
    */
 function mapStateToProps(state) {
   return {
-    businesses: state.Businesses.allBusinesses,
+    data: state.Businesses.allBusinesses,
     search: state.search.search,
     type: state.search.type,
     page: state.search.page

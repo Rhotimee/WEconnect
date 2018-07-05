@@ -25,7 +25,7 @@ export const setSearch = ({ page, search, type }) => (dispatch) => {
 
 // export const fetchBusinesses = (page, type, text) => (dispatch) => console.log([`/api/v1/businesses?page=${page}&${type}=${text}`, page, type, text]);
 export const fetchBusinesses = (page, type, text) => (dispatch) => axios.get(`/api/v1/businesses?page=${page}&${type}=${text}`).then((response) => {
-    dispatch(allBusinesses(response.data.businesses.rows));
+    dispatch(allBusinesses(response.data));
   });
 
 export const fetchOneBusiness = id => (dispatch) => axios.get(`/api/v1/businesses/${id}`).then((response) => {

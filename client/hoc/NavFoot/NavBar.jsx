@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 import { Aux } from '../aux';
@@ -95,6 +95,7 @@ class Navbar extends Component {
    *
    */
   render() {
+    console.log(window.location.pathname)
     const { signedInUser } = this.props.signedInUser;
     const Auth = (
       <Aux>
@@ -144,7 +145,10 @@ class Navbar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         {
-          this.context.router.route.location.pathname === '/' ? null :
+          // window.location.pathname === '/' 
+          this.props.showBox === false
+          
+          ? null :
 
           <form className="form-inline ml-md-5 ml-xs-3 mav-search" onSubmit={this.onSubmit}>
             <input 
@@ -166,12 +170,6 @@ class Navbar extends Component {
                 <option value="category">Category</option>
 
               </select>
-            {/* <input 
-              className="form-control mr-sm-1 my-1" 
-              type="search" placeholder="Location" 
-              aria-label="Search" 
-              
-              /> */}
             <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
           </form>
         }
