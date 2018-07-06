@@ -38,8 +38,8 @@ class UpdateUser extends Component {
           <div className="container py-3">
             <div className="card text-center mt-5 pt-3 auth-card ">
               <div className="card-body ">
-                <h3>Sign Up </h3>
-                <p>Fill this form to Signup</p>
+                <h3>Update User Details</h3>
+                <p>Fill this form to update details</p>
                 <UpdateUserForm updateUserDetails={updateUserDetails} user={user} />
               </div>
             </div>
