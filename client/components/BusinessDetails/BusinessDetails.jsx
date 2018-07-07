@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import PropTypes from 'prop-types';
 import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
@@ -87,7 +88,7 @@ class BusinessDetails extends Component {
     const { id } = this.props.match.params;
 
     if (!business) {
-      return <Loader/>;
+      return <Loader />;
     }
 
     const eachReview = reviews.map(review => (
@@ -129,6 +130,27 @@ class BusinessDetails extends Component {
               <button className="btn btn-light mr-1 mt-1"><i className="fas fa-share-alt" /> Share</button>
             </div>
           </div>
+          {
+            business.userId === user ?
+              <div className="container row  my-4 justify-content-center">
+                <Link
+                  className="btn btn-primary mr-2"
+                  to={`/businesses/${id}/edit`}
+                ><i className="far fa-edit" /> Edit Business
+                </Link>
+                <Link
+                  className="btn btn-danger"
+                  to="/businesses"
+                  onClick={() => {
+                  this.props.deleteOneBusiness(id);
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success('Business deleted Successfully');
+                  }}
+                ><i className="far fa-trash-alt" /> Delete Business
+                </Link>
+              </div>
+            : null
+          }
 
           <div className="row my-4">
             <div className="col-md-9 mb-4">
