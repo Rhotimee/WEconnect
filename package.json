@@ -14,7 +14,8 @@
     "test": "npm run migrate && nyc --reporter=html --reporter=text mocha server/tests/ --exit   --timeout 7000 --compilers js:babel-register",
     "test-watch": "nodemon --exec \"npm test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "jest": "jest"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,17 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Rhotimee/weconnect/issues"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "setupFiles": [
+      "<rootDir>/client/tests/setup.js",
+      "<rootDir>/client/tests/mock/localStorage.js"
+    ],
+    "roots": [
+      "<rootDir>/client/tests"
+    ]
   },
   "dependencies": {
     "alertifyjs": "^1.11.1",
@@ -37,8 +49,11 @@
     "cors": "^2.8.4",
     "css-loader": "^0.28.11",
     "dotenv": "^5.0.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "express": "~4.15.5",
+    "jest": "^23.3.0",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.10",
     "morgan": "~1.9.0",
@@ -52,6 +67,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.4.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
@@ -83,9 +99,11 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0",
+    "moxios": "^0.4.0",
     "nodemon": "^1.17.1",
     "nyc": "^11.4.1",
     "react-hot-loader": "^4.1.3",
+    "redux-mock-store": "^1.5.3",
     "url-loader": "^1.0.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
