@@ -32,10 +32,10 @@ export const fetchOneBusiness = id => (dispatch) => axios.get(`/api/v1/businesse
     dispatch(oneBusiness(response.data.business));
   });
 
-export function addOneBusiness(userData) {
-  return axios.post('/api/v1/businesses', userData).then(response => response.data.business);
+export function addOneBusiness(businessData) {
+  return axios.post('/api/v1/businesses', businessData).then(response => response.data.business);
 }
 
 export const deleteOneBusiness = (id) => axios.delete(`/api/v1/businesses/${id}`).then(response => response.data.business);
 
-export const updateOneBusiness = (id, userData) => axios.put(`/api/v1/businesses/${id}`, userData).then(response => response.data.business);
+export const updateOneBusiness = (id, businessData) => axios.put(`/api/v1/businesses/${id}`, businessData).then(response => response.data.business);

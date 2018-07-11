@@ -95,7 +95,7 @@ describe('userActions', () => {
   });
 
   describe('Update User', () => {
-    it('should dispatch fetch user action', (done) => {
+    it('should dispatch update user action', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
