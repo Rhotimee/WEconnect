@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import LandingPage from './components/LandingPage';
 import BusinessList from './components/BusinessList/BusinessList';
-import AddBusinessx from './components/AddBusiness/AddBusiness';
+import AddBusiness from './container/AddBusiness';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import BusinessDetails from './components/BusinessDetails/BusinessDetails';
@@ -34,7 +34,7 @@ function Routes() {
       {/* <NavFoot> */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/businesses" component={BusinessList} />
-        <Route exact path="/add-business" component={AddBusinessx} />
+        <Route exact path="/add-business" component={AddBusiness} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/businesses/:id" component={BusinessDetails} />
