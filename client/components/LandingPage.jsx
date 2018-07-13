@@ -25,6 +25,7 @@ class LandingPage extends Component {
     this.state = {
       text: '',
       type: '',
+      page: 1,
       errors: {}
     };
 
@@ -57,7 +58,7 @@ class LandingPage extends Component {
 
     this.props.setSearch({ search: this.state.text, type: this.state.type });
     // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.type, this.state.text)
+    this.props.fetchBusinesses(this.state.page, this.state.type, this.state.text)
       .then(
         () => {
           this.context.router.history.push('/businesses');

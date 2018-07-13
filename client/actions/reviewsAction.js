@@ -18,7 +18,6 @@ export const fetchReviews = id => (
 export const addReview = (id, userData) => (
   (dispatch) => {
     return axios.post(`/api/v1/businesses/${id}/reviews`, userData)
-  .then(response => response.data.review
-  )
+      .then(response => response.data.review);
   });
 

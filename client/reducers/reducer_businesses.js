@@ -1,4 +1,4 @@
-const initialState = { allBusinesses: [] };
+const initialState = { allBusinesses: {} };
 
 const BusinessReducer = (state = initialState, action = {}) => {
   switch (action.type) {

@@ -9,10 +9,10 @@ export function setCurrentUser(user) {
   };
 }
 
-export function oneUser(business) {
+export function oneUser(user) {
   return {
     type: 'FETCH_ONE_USER',
-    payload: business
+    payload: user
   };
 }
 
@@ -37,7 +37,7 @@ export function userSigninRequest(userData) {
 export const userSignoutRequest = () => (dispatch) => {
   localStorage.removeItem('userToken');
   setAuthToken();
-  dispatch(setCurrentUser());
+  dispatch(setCurrentUser({}));
 };
 
 export const fetchOneUser = id => dispatch => axios.get(`/api/v1/users/${id}`).then((response) => {

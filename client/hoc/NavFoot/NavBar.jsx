@@ -14,7 +14,7 @@ import { fetchBusinesses, setSearch } from '../../actions/businessAction';
  *
  */
 class Navbar extends Component {
-    /**
+  /**
    * constructor - contains the constructor
    *
    * @param  {object} props the properties of the class component
@@ -35,7 +35,7 @@ class Navbar extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-   /**
+  /**
    * @description onChange
    *
    * @param  {object} event  the event
@@ -44,10 +44,9 @@ class Navbar extends Component {
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    // this.props.setSearch(event.target.value);
   }
 
-    /**
+  /**
    * @description onChange
    *
    * @param  {object} event  the event
@@ -95,7 +94,6 @@ class Navbar extends Component {
    *
    */
   render() {
-    console.log(window.location.pathname)
     const { signedInUser } = this.props.signedInUser;
     const Auth = (
       <Aux>
@@ -145,31 +143,31 @@ class Navbar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         {
-          // window.location.pathname === '/' 
+          // window.location.pathname === '/'
           this.props.showBox === false
-          
+
           ? null :
 
           <form className="form-inline ml-md-5 ml-xs-3 mav-search" onSubmit={this.onSubmit}>
-            <input 
+            <input
               name="text"
-              className="form-control mr-sm-1 my-1" 
-              type="search" 
-              placeholder="I'm looking for..." 
-              aria-label="Search" 
+              className="form-control mr-sm-1 my-1"
+              type="search"
+              placeholder="I'm looking for..."
+              aria-label="Search"
               value={this.state.text}
               onChange={this.onChange}
-              />
-              <select
-                className="form-control mr-sm-1 my-1"
-                onChange={this.onChange}
-                name="type"
-              >
-                <option defaultValue>Choose...</option>
-                <option value="location">Location</option>
-                <option value="category">Category</option>
+            />
+            <select
+              className="form-control mr-sm-1 my-1"
+              onChange={this.onChange}
+              name="type"
+            >
+              <option defaultValue>Choose...</option>
+              <option value="location">Location</option>
+              <option value="category">Category</option>
 
-              </select>
+            </select>
             <button className="btn btn-outline-light" type="submit"><i className="fas fa-search" /></button>
           </form>
         }

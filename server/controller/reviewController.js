@@ -89,7 +89,6 @@ export default class ReviewController {
         message: 'Review Created',
         review,
       })).catch((err) => {
-        console.log(err);
         response.status(500).json({
           error: err,
           message: 'Server Error',
