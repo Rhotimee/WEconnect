@@ -9,6 +9,7 @@ import {
   deleteOneBusiness,
   fetchOneBusiness,
   fetchBusinesses,
+  setSearch
 } from '../../actions/businessAction';
 
 const middleware = [thunk];
@@ -84,6 +85,25 @@ describe('businessActions', () => {
     });
   });
 
+  describe('Set Search Action', () => {
+    it('should dispatch set search action', (done) => {
+      const search = {
+        page: 1,
+        search: 'lagos',
+        type: 'location',
+      };
+
+      const expecedtAction = [{
+        type: 'set_search',
+        payload: search
+      }];
+
+      const store = mockStore({});
+      store.dispatch(setSearch(search));
+      expect(store.getActions()).toEqual(expecedtAction);
+      done();
+    });
+  });
 
   describe('Update Business', () => {
     it('should dispatch update business action', (done) => {

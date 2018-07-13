@@ -1,12 +1,9 @@
-import { token } from './userData';
-
 export const updatedBusinessDetails = {
   id: 1,
   name: 'Andela',
   details: 'Empowering tomorrows leaders',
   location: 'Lagos',
   category: 'Ict',
-  token,
 };
 
 export const businessDetails2 = {
@@ -15,7 +12,6 @@ export const businessDetails2 = {
   details: 'Empowering tomorrows leaders',
   location: 'Lagos',
   category: 'Ict',
-  token,
 };
 
 
