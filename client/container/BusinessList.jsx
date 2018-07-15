@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Pagination from 'rc-pagination';
-import ListBusiness from './BusinessListItem';
-import { fetchBusinesses } from '../../actions/businessAction';
+import ListBusiness from '../components/BusinessListItem';
+import { fetchBusinesses } from '../actions/businessAction';
 
 /**
  * @class BusinessList
@@ -141,8 +141,13 @@ function mapStateToProps(state) {
     data: state.Businesses.allBusinesses,
     search: state.search.search,
     type: state.search.type,
-    page: state.search.page
+    page: state.search.page,
   };
 }
+
+BusinessList.propTypes = {
+  rows: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);

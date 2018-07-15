@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
+import LoginForm from '../components/loginForm';
+import { userSigninRequest } from '../actions/userActions';
+
 
 /**
- * @class LoginForm
+ * @class Login
  *
  * @classdesc logs in user
  *
  */
-class LoginForm extends Component {
+class Login extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -69,44 +73,28 @@ class LoginForm extends Component {
    *
    */
   render() {
+    const { email, password } = this.state;
+    const { onChange, onSubmit } = this;
     return (
 
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <input
-            type="email"
-            className="form-control form-control-lg"
-            placeholder="Email"
-            required
-            value={this.state.email}
-            onChange={this.onChange}
-            name="email"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Password *"
-            required
-            value={this.state.password}
-            onChange={this.onChange}
-            name="password"
-          />
-        </div>
-        <input type="submit" className="btn btn-outline-dark btn-block" />
-      </form>
+      <LoginForm
+        email={email}
+        password={password}
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />
 
     );
   }
 }
 
-LoginForm.propTypes = {
+Login.propTypes = {
   userSigninRequest: PropTypes.func.isRequired
 };
 
-LoginForm.contextTypes = {
+Login.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default LoginForm;
+
+export default connect(null, { userSigninRequest })(Login);

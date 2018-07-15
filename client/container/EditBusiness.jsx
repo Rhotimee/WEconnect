@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import EditBusinessForm from './EditBusinessForm';
-import { fetchOneBusiness, updateOneBusiness } from '../../actions/businessAction';
+import EditBusinessForm from '../components/EditBusinessForm';
+import { fetchOneBusiness, updateOneBusiness } from '../actions/businessAction';
 
 /**
  * @class BusinessDetails

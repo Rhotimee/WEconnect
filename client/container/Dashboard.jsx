@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchOneUser } from '../../actions/userActions';
-import ListBusiness from '../BusinessList/BusinessListItem';
-import ReviewCard from '../BusinessDetails/ReviewCard';
+import { Link } from 'react-router-dom';
+import { fetchOneUser } from '../actions/userActions';
+import ListBusiness from '../components/BusinessListItem';
+import ReviewCard from '../components/ReviewCard';
 
 /**
  * @class Dasboard
@@ -66,6 +66,11 @@ class Dashboard extends Component {
               <h4>{user.firstName} {user.lastName}</h4>
               <p>{user.businesses.length} {user.businesses.length > 1 ? 'Listed Businesses' : 'Listed Business' }</p>
               <p>{user.reviews.length} {user.reviews.length > 1 ? 'reviews' : 'review' }</p>
+              {
+          user.id === authUser ?
+            <Link to={`/user/${authUser}/update`} className="btn btn-outline-dark">Edit</Link>
+          : null
+        }
             </div>
             <div className="col-md-3 user-social-links">
               <i className="fab fa-facebook-f mx-3" />
@@ -79,8 +84,8 @@ class Dashboard extends Component {
           <div className="row profile mb-5">
             <div className="col-md-3">
               <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">My Businesses</a>
-                <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Reviews</a>
+                <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Businesses</a>
+                <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Reviews</a>
                 <a className="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Liked Businesses</a>
               </div>
             </div>
@@ -127,6 +132,9 @@ function mapStateToProps(state) {
 
 Dashboard.propTypes = {
   fetchOneUser: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  authUser: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, { fetchOneUser })(Dashboard);

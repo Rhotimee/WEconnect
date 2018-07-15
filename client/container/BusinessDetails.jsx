@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import PropTypes from 'prop-types';
-import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
-import { fetchReviews, addReview } from '../../actions/reviewsAction';
-import ReviewCard from './ReviewCard';
-import averageReviews from '../../helpers/averageStar';
-import stars from '../../helpers/stars';
-import Loader from '../Loader';
+import { fetchOneBusiness, deleteOneBusiness } from '../actions/businessAction';
+import { fetchReviews, addReview } from '../actions/reviewsAction';
+import ReviewCard from '../components/ReviewCard';
+import averageReviews from '../helpers/averageStar';
+import stars from '../helpers/stars';
+import Loader from '../components/Loader';
 
 
 /**
@@ -247,7 +247,11 @@ BusinessDetails.propTypes = {
   fetchOneBusiness: PropTypes.func.isRequired,
   addReview: PropTypes.func.isRequired,
   fetchReviews: PropTypes.func.isRequired,
-  deleteOneBusiness: PropTypes.func.isRequired
+  deleteOneBusiness: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  business: PropTypes.object.isRequired,
+  user: PropTypes.number.isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, {
