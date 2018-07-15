@@ -1,23 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import stars from '../../helpers/stars';
+import PropTypes from 'prop-types';
+import stars from '../helpers/stars';
 
 const ReviewCard = ({
-  content, star, reviewer, userId, businessId
+  content, star, reviewer, userId
 }) => (
 
   <div className="content-box">
-
     <div className="row">
       { reviewer !== undefined ?
         <div className="col-md-2">
-
           <img src={!reviewer.image ? '/img/Blank-profile.png' : reviewer.image} alt="" />
-
         </div>
         : null
       }
-
       <div className="col-md-6">
         { reviewer !== undefined ?
           <p><Link to={`/user/${userId}`}>{reviewer.firstName} {reviewer.lastName}</Link></p>
@@ -27,9 +24,14 @@ const ReviewCard = ({
       </div>
       <div className="col-md-4 star align-self-top">{ stars(star) }</div>
     </div>
-
   </div>
-
 );
+
+ReviewCard.propTypes = {
+  content: PropTypes.string.isRequired,
+  star: PropTypes.number.isRequired,
+  reviewer: PropTypes.object.isRequired,
+  userId: PropTypes.number.isRequired,
+};
 
 export default ReviewCard;

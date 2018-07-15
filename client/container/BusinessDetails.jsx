@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import PropTypes from 'prop-types';
-import { fetchOneBusiness, deleteOneBusiness } from '../../actions/businessAction';
-import { fetchReviews, addReview } from '../../actions/reviewsAction';
-import ReviewCard from './ReviewCard';
-import averageReviews from '../../helpers/averageStar';
-import stars from '../../helpers/stars';
-import Loader from '../Loader';
+import { fetchOneBusiness, deleteOneBusiness } from '../actions/businessAction';
+import { fetchReviews, addReview } from '../actions/reviewsAction';
+import ReviewCard from '../components/ReviewCard';
+import averageReviews from '../helpers/averageStar';
+import stars from '../helpers/stars';
+import Loader from '../components/Loader';
 
 
 /**
@@ -32,6 +32,7 @@ class BusinessDetails extends Component {
     this.state = {
       content: '',
       star: '',
+      errors: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -68,12 +69,19 @@ class BusinessDetails extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addReview(this.props.match.params.id, this.state).then(() => {
-      this.setState({ content: '', star: '' });
-      this.props.fetchReviews(this.props.match.params.id);
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Reviews Added');
-    });
+    this.props.addReview(this.props.match.params.id, this.state).then(
+      () => {
+        this.setState({ content: '', star: '' });
+        this.props.fetchReviews(this.props.match.params.id);
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Reviews Added');
+      },
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(this.state.errors);
+      }
+    );
   }
 
 
@@ -247,7 +255,11 @@ BusinessDetails.propTypes = {
   fetchOneBusiness: PropTypes.func.isRequired,
   addReview: PropTypes.func.isRequired,
   fetchReviews: PropTypes.func.isRequired,
-  deleteOneBusiness: PropTypes.func.isRequired
+  deleteOneBusiness: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  business: PropTypes.object.isRequired,
+  user: PropTypes.number.isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, {

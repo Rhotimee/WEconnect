@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
-
+import { userSignupRequest } from '../actions/userActions';
+import SignupForm from '../components/SignupForm';
 
 /**
- * @class SignupForm
+ * @class LoginForm
  *
- * @classdesc signup user
+ * @classdesc logs in user
  *
  */
-class SignupForm extends Component {
+class Signup extends PureComponent {
   /**
    * constructor - contains the constructor
    *
@@ -26,9 +28,10 @@ class SignupForm extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      errors: '',
+      errors: null,
       Image: '',
-      imagePreview: ''
+      imagePreview: '',
+      isLoading: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -101,11 +104,16 @@ class SignupForm extends Component {
 
     this.props.userSignupRequest(registerUser).then(
       () => {
+        this.setState({ isLoading: true });
         this.context.router.history.push('/');
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Signed up  Successfully');
       },
-      ({ data }) => this.setState({ errors: data, isLoading: false })
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(this.state.errors);
+      }
     );
   }
 
@@ -116,86 +124,42 @@ class SignupForm extends Component {
    *
    */
   render() {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      imagePreview,
+      isLoading
+    } = this.state;
+    const { onChange, onSubmit, onFileChange } = this;
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control form-control-lg"
-            placeholder="First Name *"
-            value={this.state.firstName}
-            onChange={this.onChange}
-            name="firstName"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control form-control-lg"
-            placeholder="Last Name *"
-            value={this.state.lastName}
-            onChange={this.onChange}
-            name="lastName"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="email"
-            className="form-control form-control-lg"
-            placeholder="Email"
-            required
-            value={this.state.email}
-            onChange={this.onChange}
-            name="email"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Password *"
-            required
-            value={this.state.password}
-            onChange={this.onChange}
-            name="password"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Confirm Password *"
-            value={this.state.confirmPassword}
-            onChange={this.onChange}
-            name="confirmPassword"
-            required
-          />
-        </div>
 
-        <div className="form-group">
-          <input
-            type="file"
-            className="form-control-file"
-            id="filefield"
-            onChange={this.onFileChange}
-            name="Image"
-            accept="image/*"
-          />
-        </div>
-        <input disabled={this.state.isLoading} type="submit" className="btn btn-outline-dark btn-block" />
-      </form>
+      <SignupForm
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        password={password}
+        confirmPassword={confirmPassword}
+        imagePreview={imagePreview}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onFileChange={onFileChange}
+        isLoading={isLoading}
+      />
+
+
     );
   }
 }
 
-SignupForm.propTypes = {
+Signup.propTypes = {
   userSignupRequest: PropTypes.func.isRequired
 };
 
-SignupForm.contextTypes = {
+Signup.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default SignupForm;
+export default connect(null, { userSignupRequest })(Signup);

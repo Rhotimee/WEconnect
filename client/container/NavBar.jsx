@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
-import { Aux } from '../aux';
-import { userSignoutRequest } from '../../actions/userActions';
-import { fetchBusinesses, setSearch } from '../../actions/businessAction';
+import { Aux } from '../hoc/aux';
+import { userSignoutRequest } from '../actions/userActions';
+import { fetchBusinesses, setSearch } from '../actions/businessAction';
 
 /**
  * @class LoginForm
@@ -33,6 +33,7 @@ class Navbar extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSignout = this.onSignout.bind(this);
   }
 
   /**
@@ -116,7 +117,7 @@ class Navbar extends Component {
               <Link className="dropdown-item" to={`/user/${signedInUser.id}`} href>My Profile</Link>
               <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`} href>Update Profile</Link>
               <Link className="dropdown-item" to="/">Change Password</Link>
-              <Link className="dropdown-item" to="/" onClick={this.onSignout.bind(this)} href>Signout</Link>
+              <Link className="dropdown-item" to="/" onClick={this.onSignout} href>Signout</Link>
             </div>
           </div>
         ) : null}
@@ -143,7 +144,6 @@ class Navbar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         {
-          // window.location.pathname === '/'
           this.props.showBox === false
 
           ? null :
@@ -200,6 +200,10 @@ function mapStateToProps(state) {
 
 Navbar.propTypes = {
   userSignoutRequest: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  fetchBusinesses: PropTypes.func.isRequired,
+  signedInUser: PropTypes.object.isRequired,
+  showBox: PropTypes.bool.isRequired,
 };
 
 Navbar.contextTypes = {

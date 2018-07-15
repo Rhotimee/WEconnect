@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateUserDetails, fetchOneUser } from '../../actions/userActions';
-import UpdateUserForm from './UpdateUserForm';
+import { updateUserDetails, fetchOneUser } from '../actions/userActions';
+import UpdateUserForm from '../components/UpdateUserForm';
 
 /**
  * @class LoginForm
@@ -40,7 +40,10 @@ class UpdateUser extends Component {
               <div className="card-body ">
                 <h3>Update User Details</h3>
                 <p>Fill this form to update details</p>
-                <UpdateUserForm updateUserDetails={updateUserDetails} user={user} />
+                <UpdateUserForm
+                  updateUserDetails={updateUserDetails}
+                  user={user}
+                />
               </div>
             </div>
           </div>
@@ -51,7 +54,10 @@ class UpdateUser extends Component {
 }
 
 UpdateUser.propTypes = {
-  fetchOneUser: PropTypes.func.isRequired
+  fetchOneUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  updateUserDetails: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 /**
