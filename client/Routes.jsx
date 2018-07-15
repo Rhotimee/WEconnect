@@ -9,9 +9,9 @@ import BusinessDetails from './container/BusinessDetails';
 import EditBusiness from './container/EditBusiness';
 import Dashboard from './container/Dashboard';
 import UpdateUser from './container/UpdateUser';
-import NotFound from './components/NotFound';
-import NavBar from './hoc/NavFoot/NavBar';
-import Footer from './hoc/NavFoot/Footer';
+// import NotFound from './components/NotFound';
+import NavBar from './container/NavBar';
+import Footer from './components/Footer';
 
 /**
    * @description mapStateToProps
