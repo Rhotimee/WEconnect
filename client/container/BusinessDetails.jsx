@@ -32,6 +32,7 @@ class BusinessDetails extends Component {
     this.state = {
       content: '',
       star: '',
+      errors: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -68,12 +69,19 @@ class BusinessDetails extends Component {
   onSubmit(event) {
     event.preventDefault();
     // this.setState({ errors: {}, isLoading: true });
-    this.props.addReview(this.props.match.params.id, this.state).then(() => {
-      this.setState({ content: '', star: '' });
-      this.props.fetchReviews(this.props.match.params.id);
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Reviews Added');
-    });
+    this.props.addReview(this.props.match.params.id, this.state).then(
+      () => {
+        this.setState({ content: '', star: '' });
+        this.props.fetchReviews(this.props.match.params.id);
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Reviews Added');
+      },
+      ({ response }) => {
+        this.setState({ errors: response.data.message });
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(this.state.errors);
+      }
+    );
   }
 
 
