@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
@@ -11,7 +11,7 @@ import SignupForm from '../components/SignupForm';
  * @classdesc logs in user
  *
  */
-class Signup extends PureComponent {
+export class Signup extends Component {
   /**
    * constructor - contains the constructor
    *

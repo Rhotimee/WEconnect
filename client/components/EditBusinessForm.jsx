@@ -231,6 +231,12 @@ class EditBusinessForm extends Component {
   }
 }
 
+EditBusinessForm.propTypes = {
+  business: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  updateOneBusiness: PropTypes.func.isRequired,
+};
+
 EditBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
