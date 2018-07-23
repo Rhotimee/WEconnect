@@ -110,14 +110,21 @@ class LandingPage extends Component {
                         name="type"
                       >
                         <option defaultValue>Choose...</option>
-                        <option value="location">Location</option>
+                        <option id="search-location" value="location">Location</option>
                         <option value="category">Category</option>
 
                       </select>
                     </div>
                   </div>
                   <div className="col-md-2 px-1 my-1">
-                    <button className="form-control form-control-lg btn-outline-light search" type="submit"> <i className="fas fa-search" />  Search</button>
+                    <button
+                      className="form-control form-control-lg btn-outline-light search"
+                      type="submit"
+                      id="landing-input-button"
+                    >
+                      <i className="fas fa-search" />
+                      Search
+                    </button>
                   </div>
                 </div>
               </form>

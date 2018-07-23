@@ -7,7 +7,7 @@ const ReviewCard = ({
   content, star, reviewer, userId
 }) => (
 
-  <div className="content-box">
+  <div className="content-box review">
     <div className="row">
       { reviewer !== undefined ?
         <div className="col-md-2">

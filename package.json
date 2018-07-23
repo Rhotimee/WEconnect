@@ -101,6 +101,7 @@
     "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0",
     "moxios": "^0.4.0",
+    "nightwatch": "^0.9.21",
     "nodemon": "^1.17.1",
     "nyc": "^11.4.1",
     "react-hot-loader": "^4.1.3",
