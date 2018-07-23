@@ -99,7 +99,12 @@ class Navbar extends Component {
     const Auth = (
       <Aux>
         <li className="nav-item mr-3">
-          <Link className="nav-link" to="/add-business" href>Add Business</Link>
+          <Link
+            className="nav-link"
+            to="/add-business"
+            id="add-business"
+          >Add Business
+          </Link>
         </li>
         { signedInUser ? (
           <div className="dropdown mr-3">
@@ -121,8 +126,6 @@ class Navbar extends Component {
             </div>
           </div>
         ) : null}
-
-
       </Aux>
     );
 
@@ -175,7 +178,7 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item mr-3">
-              <Link className="nav-link text-light" to="/businesses"><i className="fa fa-th" aria-hidden="true" /> Explore </Link>
+              <Link id="explore" className="nav-link text-light" to="/businesses"><i className="fa fa-th" aria-hidden="true" /> Explore </Link>
             </li>
             {this.props.signedInUser.isAuthenticated ? Auth : Guest }
           </ul>

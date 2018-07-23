@@ -12,7 +12,7 @@ const AddBusinessForm = ({
   onFileChange,
 }) =>
   (
-    <form className="row" onSubmit={onSubmit} >
+    <form className="row" onSubmit={onSubmit} id="add-business-form">
       <div className="form-group col-sm-6">
         <label htmlFor="text">Buisness Name <small>*</small> </label>
         <input
@@ -35,11 +35,11 @@ const AddBusinessForm = ({
           name="category"
         >
           <option value="" disabled>choose category</option>
-          <option>Repair & Services</option>
-          <option>Events & Weddings</option>
-          <option>Health & Wellness</option>
-          <option>Professional Services</option>
-          <option>Others</option>
+          <option id="resturant">Resturant</option>
+          <option id="professional">Professional</option>
+          <option id="nightlife">Nightlife</option>
+          <option id="shopping">Shopping</option>
+          <option id="others">Others</option>
         </select>
       </div>
       <div className="form-group col-md-6">

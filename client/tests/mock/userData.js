@@ -14,7 +14,7 @@ export const oneUserDetail = {
   businesses: 'user.businesses',
   reviews: 'user.reviews',
   Image: 'user.Image'
-}
+};
 
 
 export const token = jwt.sign(userDetails, 'PASSWORD1234');

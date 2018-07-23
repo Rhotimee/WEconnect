@@ -70,7 +70,11 @@ class BusinessList extends Component {
     const eachBusiness = this.props.data.businesses.rows.map(business => (
       <ListBusiness
         key={business.id}
-        business={business}
+        Image={business.Image}
+        id={business.id}
+        category={business.category}
+        location={business.location}
+        name={business.name}
       />
     ));
 

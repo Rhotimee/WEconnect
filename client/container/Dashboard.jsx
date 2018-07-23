@@ -39,7 +39,11 @@ class Dashboard extends Component {
     const eachBusiness = user.businesses.map(business => (
       <ListBusiness
         key={business.id}
-        business={business}
+        Image={business.Image}
+        id={business.id}
+        category={business.category}
+        location={business.location}
+        name={business.name}
       />
     ));
 

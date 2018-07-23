@@ -11,7 +11,7 @@ import { addOneBusiness } from '../actions/businessAction';
  * @classdesc Add Business
  *
  */
-class AddBusiness extends Component {
+export class AddBusiness extends Component {
   /**
    * constructor - contains the constructor
    *

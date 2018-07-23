@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTIxMTk0MTE0LCJleHAiOjcwMjI0MDM3MTR9.jnrbW_TXHJ-0QBBsGvMa7Zq-3egs7yToSm-EL-OCv2w';
 
 const Business = {
-  name: `Moremi Gloals ${Math.random() * 100}`,
+  name: 'Moremi Gloals',
   details: 'Best Ict Resources',
   location: 'lagos',
   category: 'ICT',
