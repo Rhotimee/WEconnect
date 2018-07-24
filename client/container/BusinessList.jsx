@@ -2,10 +2,10 @@ import 'rc-pagination/assets/index.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import alertify from 'alertifyjs';
 import Pagination from 'rc-pagination';
 import ListBusiness from '../components/BusinessListItem';
-import { fetchBusinesses } from '../actions/businessAction';
+import { fetchBusinesses, setSearch } from '../actions/businessAction';
 
 /**
  * @class BusinessList
@@ -25,14 +25,16 @@ class BusinessList extends Component {
   constructor(props) {
     super(props);
 
+    const { search, type, page } = this.props;
     this.state = {
-      text: this.props.search,
-      type: this.props.type,
-      page: this.props.page,
+      text: search,
+      type,
+      page,
       current: 1
     };
 
-    this.onChange = this.onChange.bind(this);
+    const { onChange } = this;
+    this.onChange = onChange.bind(this);
   }
 
   /**
@@ -41,7 +43,8 @@ class BusinessList extends Component {
    * @returns {void}
    */
   componentDidMount() {
-    this.props.fetchBusinesses(this.state.page, this.state.type, this.state.text);
+    const { page, type, text } = this.state;
+    this.props.fetchBusinesses(page, type, text);
   }
 
   /**
@@ -52,8 +55,33 @@ class BusinessList extends Component {
    * @returns {void}
    */
   onChange(page) {
+    const { type, text } = this.state;
     this.setState({ current: page });
-    this.props.fetchBusinesses(page, this.state.type, this.state.text);
+    this.props.fetchBusinesses(page, type, text);
+  }
+
+  /**
+   * @description onCLick
+   *
+   * @param  {text}  text
+   *
+   * @returns {object} returns business object
+   */
+  onClick(text) {
+    const { setSearch, fetchBusinesses } = this.props;
+    const { page } = this.state;
+    setSearch({ search: text, type: 'category' });
+
+    fetchBusinesses(page, 'category', text)
+      .then(
+        () => {
+          this.context.router.history.push('/businesses');
+        },
+        ({ response }) => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(response.data.message);
+        }
+      );
   }
 
   /**
@@ -67,35 +95,61 @@ class BusinessList extends Component {
       return <p>Loading...</p>;
     }
 
-    const eachBusiness = this.props.data.businesses.rows.map(business => (
-      <ListBusiness
-        key={business.id}
-        Image={business.Image}
-        id={business.id}
-        category={business.category}
-        location={business.location}
-        name={business.name}
-      />
-    ));
+    const eachBusiness = this.props.data.businesses.rows.map((business) => {
+      const {
+        id, Image, category, location, name, reviews
+      } = business;
+      return (
+        <ListBusiness
+          key={id}
+          Image={Image}
+          id={id}
+          category={category}
+          location={location}
+          name={name}
+          reviews={reviews}
+        />
+      );
+    });
 
     return (
       <div>
         <div className="nav-2 py-2">
           <ul className="nav justify-content-center">
             <li className="nav-item">
-              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Resturant</Link>
+              <div
+                className="nav-link btn btn-outline-dark mx-2 my-1"
+                onClick={() => this.onClick('restaurant')}
+              >Resturant
+              </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Coffee</Link>
+              <div
+                className="nav-link btn btn-outline-dark mx-2 my-1"
+                onClick={() => this.onClick('professional')}
+              >Professional
+              </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Fun</Link>
+              <div
+                className="nav-link btn btn-outline-dark mx-2 my-1"
+                onClick={() => this.onClick('fun')}
+              >Fun
+              </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Nightlife</Link>
+              <div
+                className="nav-link btn btn-outline-dark mx-2 my-1"
+                onClick={() => this.onClick('nightlife')}
+              >Nightlife
+              </div>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-outline-dark mx-2 my-1" to="/">Shopping</Link>
+              <div
+                className="nav-link btn btn-outline-dark mx-2 my-1"
+                onClick={() => this.onClick('shopping')}
+              >Shopping
+              </div>
             </li>
           </ul>
         </div>
@@ -152,6 +206,8 @@ function mapStateToProps(state) {
 BusinessList.propTypes = {
   rows: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  fetchBusinesses: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { fetchBusinesses })(BusinessList);
+export default connect(mapStateToProps, { fetchBusinesses, setSearch })(BusinessList);

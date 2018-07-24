@@ -5,7 +5,7 @@ const stars = (no) => {
   for (let i = 0; i < no; i++) {
     arr.push(i);
   }
-  return arr.map((star, i) => <i key={i} className="fa fa-star" />);
+  return arr.map((star, i) => <i key={i} className="fas fa-star" />);
 };
 
 

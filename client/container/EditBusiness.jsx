@@ -43,7 +43,9 @@ class EditBusiness extends Component {
 
 EditBusiness.propTypes = {
   fetchOneBusiness: PropTypes.func.isRequired,
-
+  business: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 /**

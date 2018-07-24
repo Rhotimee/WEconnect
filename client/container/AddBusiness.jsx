@@ -87,9 +87,10 @@ export class AddBusiness extends Component {
    * @returns {void}
    */
   onSubmit(event) {
+    const { context, setState, state } = this;
     const {
       name, location, category, details, businessImage,
-    } = this.state;
+    } = state;
     event.preventDefault();
 
     const businessInfo = {
@@ -109,14 +110,14 @@ export class AddBusiness extends Component {
 
     addOneBusiness(registerBusiness).then(
       () => {
-        this.context.router.history.push('/businesses');
+        context.router.history.push('/businesses');
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Business Added');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
+        setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(this.state.errors);
+        alertify.error(state.errors);
       }
     );
   }
@@ -129,9 +130,11 @@ export class AddBusiness extends Component {
    */
   render() {
     const {
+      onChange, onSubmit, onFileChange, state
+    } = this;
+    const {
       name, location, category, details, businessImage, imagePreview
-    } = this.state;
-    const { onChange, onSubmit, onFileChange } = this;
+    } = state;
     return (
       <div>
         <div className="container py-5 add-business">

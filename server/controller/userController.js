@@ -175,7 +175,7 @@ export default class UserController {
       include: [{
         model: Business,
         as: 'businesses',
-        attributes: ['name', 'details', 'id']
+        attributes: ['name', 'details', 'id', 'Image', 'category', 'location']
       },
       {
         model: Review,

@@ -29,9 +29,10 @@ class UpdateUserForm extends Component {
       Image: '',
       imagePreview: user.Image
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
+    const { onChange, onSubmit, onFileChange } = this;
+    this.onChange = onChange.bind(this);
+    this.onSubmit = onSubmit.bind(this);
+    this.onFileChange = onFileChange.bind(this);
   }
 
   /**
@@ -83,12 +84,15 @@ class UpdateUserForm extends Component {
   onSubmit(event) {
     event.preventDefault();
 
+    const {
+      firstName, lastName, email, password, Image
+    } = this.state;
     const userInfo = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      Image: this.state.Image,
+      firstName,
+      lastName,
+      email,
+      password,
+      Image,
     };
 
     const registerUser = new FormData();
@@ -98,16 +102,19 @@ class UpdateUserForm extends Component {
       registerUser.append(key, userInfo[key]);
     });
 
-    this.props.updateUserDetails(this.props.user.id, registerUser).then(
+    const {
+      props, context, setState, state
+    } = this;
+    props.updateUserDetails(props.user.id, registerUser).then(
       () => {
-        this.context.router.history.push(`/user/${this.props.user.id}`);
+        context.router.history.push(`/user/${props.user.id}`);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Profile Updated Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
+        setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(this.state.errors);
+        alertify.error(state.errors);
       }
     );
   }
@@ -119,15 +126,17 @@ class UpdateUserForm extends Component {
    *
    */
   render() {
+    const { onSubmit, onChange, onFileChange } = this;
+    const { firstName, lastName, isLoading } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <input
             type="text"
             className="form-control form-control-lg"
             placeholder="First Name *"
-            value={this.state.firstName}
-            onChange={this.onChange}
+            value={firstName}
+            onChange={onChange}
             name="firstName"
             required
           />
@@ -137,8 +146,8 @@ class UpdateUserForm extends Component {
             type="text"
             className="form-control form-control-lg"
             placeholder="Last Name *"
-            value={this.state.lastName}
-            onChange={this.onChange}
+            value={lastName}
+            onChange={onChange}
             name="lastName"
             required
           />
@@ -149,12 +158,12 @@ class UpdateUserForm extends Component {
             type="file"
             className="form-control-file"
             id="filefield"
-            onChange={this.onFileChange}
+            onChange={onFileChange}
             name="Image"
             accept="image/*"
           />
         </div>
-        <input disabled={this.state.isLoading} type="submit" className="btn btn-outline-dark btn-block" />
+        <input disabled={isLoading} type="submit" className="btn btn-outline-dark btn-block" />
       </form>
     );
   }
@@ -163,5 +172,10 @@ class UpdateUserForm extends Component {
 UpdateUserForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
+
+UpdateUserForm.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
 
 export default UpdateUserForm;
