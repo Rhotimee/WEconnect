@@ -251,24 +251,31 @@ class LandingPage extends Component {
             <div className="carousel-inner ">
               <div className="carousel-item active">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing
-                  elit. Iusto reprehenderit cupiditate modi eos,
-                  numquam magni enim sapiente unde laboriosam quas animi
-
+                It is exciting to have a business site that gives business owners
+                the opportunity to showcase their products and services
+                to the world at large at no cost.
                 </p>
+                <footer className="blockquote-footer"> Timi Web </footer>
               </div>
               <div className="carousel-item">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Iusto reprehenderit cupiditate modi eos, numquam magni enim
-                  fuga ratione quis, ipsa sit, dolores, corrupti provident.
+                Very impressive site I must say. And with its easy to navigate features,
+                I dare say that, in the nearest future, Weconnect will
+                rank amongst the biggest Business Search Sites in the
+                globe. Just keep improving!
                 </p>
+                <footer className="blockquote-footer"> Banjoj Limited </footer>
               </div>
               <div className="carousel-item">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  dolores, corrupti provident.
+                I thank you Weconnect as it has allowed me to post and
+                showcase what i do to the world. Its a gradual process
+                and it takes a while for people to get to know and see what
+                you post, but once they do, the traffic will start flowing in...
+                I appreciate the opportunity given to me to share
+                my music on Weconnect. Nice one.
                 </p>
+                <footer className="blockquote-footer"> Qwerty Known </footer>
               </div>
             </div>
           </div>

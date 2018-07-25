@@ -110,7 +110,7 @@ class Navbar extends Component {
           </Link>
         </li>
         { signedInUser ? (
-          <div className="dropdown mr-3">
+          <div className="dropleft mr-3">
             <Link
               className="nav-link dropdown-toggle"
               to={`/user/${id}`}
