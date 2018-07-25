@@ -128,6 +128,14 @@ class BusinessDetails extends Component {
       Image, name, category, details, location, userId
     } = business;
 
+    const mapping = {
+      Resturant: '/img/jollof.jpg',
+      Professional: '/img/mac.jpg',
+      Fun: '/img/fun.jpg',
+      Nightlife: '/img/wine.jpg',
+      Shopping: '/img/shopping.jpg'
+    };
+
     return (
       <div className="bg-cover details-page">
         <div className="container">
@@ -140,7 +148,7 @@ class BusinessDetails extends Component {
             <div className="col-sm-8">
               <div className="row">
                 <div className="col-3">
-                  <img className="category-image" src="/img/wine.jpg" alt="" />
+                  <img className="category-image" src={mapping[`${category}`]} alt="" />
                 </div>
                 <div className="col-9">
                   <h3 className="row my-1">{name}</h3>

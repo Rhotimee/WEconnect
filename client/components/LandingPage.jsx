@@ -120,7 +120,7 @@ class LandingPage extends Component {
       return <p>Loading...</p>;
     }
 
-    const eachBusiness = this.props.data.businesses.rows.slice(0, 3).map((business) => {
+    const eachBusiness = this.props.data.businesses.rows.slice(1).slice(-3).map((business) => {
       const {
         id, Image, category, location, name, reviews
       } = business;

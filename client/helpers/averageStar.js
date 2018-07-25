@@ -14,5 +14,5 @@ export default function averageReviews(businessReviews) {
     return 0;
   }
   const average = total / businessReviews.length;
-  return average;
+  return Math.round(average * 10) / 10;
 }
