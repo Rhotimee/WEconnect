@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// The props below was destructured inside the function
 const AddBusinessForm = ({
   name,
   location,

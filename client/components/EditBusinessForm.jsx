@@ -25,6 +25,7 @@ class EditBusinessForm extends Component {
       name, location, category, details, Image
     } = this.props.business;
 
+    //  update the state with the data coming from the store.
     this.state = {
       name,
       location,
@@ -43,6 +44,7 @@ class EditBusinessForm extends Component {
     this.onFileChange = onFileChange.bind(this);
   }
 
+  // onChange updates the state with the value of the input
   /**
    * @description onChange
    *
@@ -54,6 +56,7 @@ class EditBusinessForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  // onFile chnage enables us read the uploaded image and preview it.
   /**
    * @description onChange
    *
