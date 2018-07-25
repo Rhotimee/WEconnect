@@ -41,7 +41,7 @@ listBusinesses.propTypes = {
   category: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  // reviews: PropTypes.array.isRequired
+  reviews: PropTypes.array.isRequired
 };
 
 listBusinesses.contextTypes = {

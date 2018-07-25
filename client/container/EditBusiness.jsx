@@ -10,7 +10,7 @@ import { fetchOneBusiness, updateOneBusiness } from '../actions/businessAction';
  * @classdesc Details of business
  *
  */
-class EditBusiness extends Component {
+export class EditBusiness extends Component {
 /**
    * @description componentDidMount
    *

@@ -12,7 +12,7 @@ import { userSigninRequest } from '../actions/userActions';
  * @classdesc logs in user
  *
  */
-class Login extends Component {
+export class Login extends Component {
   /**
    * constructor - contains the constructor
    *

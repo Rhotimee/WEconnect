@@ -5,7 +5,7 @@ import average from '../helpers/averageStar';
 import star from '../helpers/stars';
 
 
-const listBusinesses = ({
+const listBusinesses2 = ({
   Image, id, name, reviews
 }) => (
 
@@ -30,15 +30,15 @@ const listBusinesses = ({
 
 );
 
-listBusinesses.propTypes = {
+listBusinesses2.propTypes = {
   Image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-listBusinesses.contextTypes = {
+listBusinesses2.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default listBusinesses;
+export default listBusinesses2;

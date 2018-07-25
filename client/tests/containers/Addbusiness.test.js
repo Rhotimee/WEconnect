@@ -1,27 +1,57 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AddBusiness } from '../../container/AddBusiness';
-import AddBusinessForm from '../../components/AddBusinessForm';
+// import AddBusinessForm from '../../components/AddBusinessForm';
+
+let props;
+const setup = () => {
+  props = {
+    history: {
+      push: jest.fn()
+    },
+    userSignupRequest: jest.fn(() => Promise.resolve()),
+  };
+  return shallow(<AddBusiness {...props} />);
+};
 
 describe('<AddBusiness />', () => {
-  let wrapper;
+  it('should set state', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
 
-  beforeEach(() => {
-    wrapper = shallow(<AddBusiness />);
+    const event = {
+      target: {
+        name: 'name',
+        value: 'Andela'
+      }
+    };
+    action.onChange(event);
+    expect(action.state.name).toEqual('Andela');
   });
 
-  it('should render <AddBusinessForm /> component', () => {
-    // wrapper.setState({
-    //   name: 'Andela',
-    //   location: 'lagos',
-    //   category: 'ict',
-    //   details: 'lorem 67',
-    //   errors: '',
-    //   businessImage: '',
-    //   imagePreview: ''
-    // });
-    expect(wrapper.find(AddBusinessForm)).toHaveLength(1);
-    expect(wrapper.find('div')).toHaveLength(2);
+  it('should return  items if not', () => {
+    const wrapper = setup();
+    expect(wrapper.find('div').length).toBe(2);
+    expect(wrapper.find('AddBusinessForm').length).toBe(1);
+  });
+
+  it('should submit', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
+    const onSubmit = jest.spyOn(action, 'onSubmit');
+    const event = {
+      target: {
+        name: 'lorem',
+        location: 'yemi',
+        category: 'isaiah@gmail.com',
+        details: 'password',
+        businessImage: 'link',
+      },
+      preventDefault: jest.fn()
+    };
+    action.onSubmit(event);
+
+    expect(onSubmit).toBeCalled();
   });
 });
 

@@ -176,12 +176,6 @@ class BusinessList extends Component {
   }
 }
 
-BusinessList.propTypes = {
-  search: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  page: PropTypes.string.isRequired,
-  fetchBusinesses: PropTypes.func.isRequired,
-};
 
 BusinessList.contextTypes = {
   router: PropTypes.object.isRequired
@@ -204,7 +198,7 @@ function mapStateToProps(state) {
 }
 
 BusinessList.propTypes = {
-  rows: PropTypes.array.isRequired,
+  // rows: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
   setSearch: PropTypes.func.isRequired,
   fetchBusinesses: PropTypes.func.isRequired,

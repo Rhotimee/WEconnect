@@ -13,6 +13,6 @@ describe('Business List Item test', () => {
       location="string"
       name="list"
     />);
-    expect(wrapper.find('div').length).toBe(8);
+    expect(wrapper.find('div').length).toBe(7);
   });
 });

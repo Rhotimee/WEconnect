@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Signup } from '../../container/Signup';
+import { EditBusiness } from '../../container/EditBusiness';
+// import AddBusinessForm from '../../components/AddBusinessForm';
 
 let props;
 const setup = () => {
@@ -10,15 +11,10 @@ const setup = () => {
     },
     userSignupRequest: jest.fn(() => Promise.resolve()),
   };
-  return shallow(<Signup {...props} />);
+  return shallow(<EditBusiness {...props} />);
 };
 
-describe('<Signup test />', () => {
-  it('should return  items if not', () => {
-    const wrapper = setup();
-    expect(wrapper.find('SignupForm').length).toBe(1);
-  });
-
+describe('<EditBusiness />', () => {
   it('should set state', () => {
     const wrapper = setup();
     const action = wrapper.instance();
@@ -26,11 +22,17 @@ describe('<Signup test />', () => {
     const event = {
       target: {
         name: 'name',
-        value: 'Isaiah'
+        value: 'Andela'
       }
     };
     action.onChange(event);
-    expect(action.state.name).toEqual('Isaiah');
+    expect(action.state.name).toEqual('Andela');
+  });
+
+  it('should return  items if not', () => {
+    const wrapper = setup();
+    expect(wrapper.find('div').length).toBe(2);
+    expect(wrapper.find('AddBusinessForm').length).toBe(1);
   });
 
   it('should submit', () => {
@@ -39,10 +41,11 @@ describe('<Signup test />', () => {
     const onSubmit = jest.spyOn(action, 'onSubmit');
     const event = {
       target: {
-        firstName: 'rotimi',
-        lastName: 'yemi',
-        email: 'isaiah@gmail.com',
-        password: 'password'
+        name: 'lorem',
+        location: 'yemi',
+        category: 'isaiah@gmail.com',
+        details: 'password',
+        businessImage: 'link',
       },
       preventDefault: jest.fn()
     };
@@ -51,3 +54,4 @@ describe('<Signup test />', () => {
     expect(onSubmit).toBeCalled();
   });
 });
+

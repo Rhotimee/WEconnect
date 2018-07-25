@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 import { fetchBusinesses, setSearch } from '../actions/businessAction';
-import ListBusiness from '../components/BusinessListItem2';
+import ListBusiness2 from '../components/BusinessListItem2';
 
 /**
  * @class LoginForm
@@ -124,8 +124,11 @@ class LandingPage extends Component {
       const {
         id, Image, category, location, name, reviews
       } = business;
+      if (reviews === undefined) {
+        return reviews === [];
+      }
       return (
-        <ListBusiness
+        <ListBusiness2
           key={id}
           Image={Image}
           id={id}
@@ -141,7 +144,7 @@ class LandingPage extends Component {
       text
     } = this.state;
 
-    const { onChange, onClick, onSubmit } = this;
+    const { onChange } = this;
 
     return (
       <div>
@@ -155,7 +158,7 @@ class LandingPage extends Component {
                 </h4>
               </div>
 
-              <form action="" className="justify-content-center p-3 mx-4 search-form" onSubmit={onSubmit}>
+              <form action="" className="justify-content-center p-3 mx-4 search-form" onSubmit={this.onSubmit}>
                 <div className="row">
                   <div className="col-md-6 px-1 my-1">
                     <input
@@ -197,28 +200,28 @@ class LandingPage extends Component {
               <div className="row text-white text-center justify-content-center pt-4 pb-5">
                 <div
                   className="category-item"
-                  onClick={() => onClick('restaurant')}
+                  onClick={() => this.onClick('restaurant')}
                 >
                   <ion-icon name="restaurant" />
               Resturants
                 </div>
                 <div
                   className="category-item"
-                  onClick={() => onClick('professional')}
+                  onClick={() => this.onClick('professional')}
                 >
                   <ion-icon name="briefcase" />
               Professional
                 </div>
                 <div
                   className="category-item"
-                  onClick={() => onClick('nightlife')}
+                  onClick={() => this.onClick('nightlife')}
                 >
                   <ion-icon name="wine" />
               Nightlife
                 </div>
                 <div
                   className="category-item"
-                  onClick={() => onClick('shopping')}
+                  onClick={() => this.onClick('shopping')}
                 >
                   <ion-icon name="cart" />
               Shopping
@@ -246,7 +249,7 @@ class LandingPage extends Component {
         </div>
 
         <div id="carouselExampleControls" className="carousel slide text-center bg-review recent-reviews" data-ride="carousel">
-          <div className="container">
+          <div className="container text-light">
             <h2 className="mb-3">Reviews</h2>
             <div className="carousel-inner ">
               <div className="carousel-item active">
@@ -255,7 +258,7 @@ class LandingPage extends Component {
                 the opportunity to showcase their products and services
                 to the world at large at no cost.
                 </p>
-                <footer className="blockquote-footer"> Timi Web </footer>
+                <footer className="blockquote-footer text-light"> Timi Web </footer>
               </div>
               <div className="carousel-item">
                 <p>
@@ -264,7 +267,7 @@ class LandingPage extends Component {
                 rank amongst the biggest Business Search Sites in the
                 globe. Just keep improving!
                 </p>
-                <footer className="blockquote-footer"> Banjoj Limited </footer>
+                <footer className="blockquote-footer text-light"> Banjoj Limited </footer>
               </div>
               <div className="carousel-item">
                 <p>
@@ -275,7 +278,7 @@ class LandingPage extends Component {
                 I appreciate the opportunity given to me to share
                 my music on Weconnect. Nice one.
                 </p>
-                <footer className="blockquote-footer"> Qwerty Known </footer>
+                <footer className="blockquote-footer text-light"> Qwerty Known </footer>
               </div>
             </div>
           </div>
@@ -299,7 +302,7 @@ class LandingPage extends Component {
           <div className="row my-5 justify-content-center" id="cate-g">
             <div
               className="card"
-              onClick={() => onClick('restaurant')}
+              onClick={() => this.onClick('restaurant')}
             >
               <img className="card-img-top img-overlay" src="/img/restaurant.jpg" alt="" />
               <div className="card-body text-dark bg-light">
@@ -309,7 +312,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
-              onClick={() => onClick('professional')}
+              onClick={() => this.onClick('professional')}
             >
               <img className="card-img-top img-overlay" src="/img/corporate.jpg" alt="" />
               <div className="card-body text-dark bg-light">
@@ -320,7 +323,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
-              onClick={() => onClick('nightlife')}
+              onClick={() => this.onClick('nightlife')}
             >
               <img className="card-img-top img-overlay" src="/img/drinks.jpg" alt="" />
               <div className="card-body text-dark bg-light">
@@ -330,7 +333,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
-              onClick={() => onClick('shopping')}
+              onClick={() => this.onClick('shopping')}
             >
               <img className="card-img-top img-overlay" src="/img/shopping.jpg" alt="" />
               <div className="card-body text-dark bg-light">
