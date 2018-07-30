@@ -44,7 +44,7 @@ describe('POST businesses/', () => {
 describe('GET businesses/', () => {
   it('should return 200', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses?location=lagos')
+      .get('/api/v1/businesses?page=1&location=lagos')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
@@ -53,7 +53,7 @@ describe('GET businesses/', () => {
   });
   it('/api/v1/businesses?location=<location> should return 404', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses?location=testing')
+      .get('/api/v1/businesses?page=1&location=testing')
       .end((err, res) => {
         // expect(res).to.have.status(404);
         // console.log(res);
@@ -63,7 +63,7 @@ describe('GET businesses/', () => {
   });
   it('should return 200', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses?category=ICT')
+      .get('/api/v1/businesses?page=1&category=ICT')
       .end((err, res) => {
         expect(res.body.error)
           .to.eqls(false);
@@ -72,7 +72,7 @@ describe('GET businesses/', () => {
   });
   it('should return 404', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses?category=dddka')
+      .get('/api/v1/businesses?page=1&category=dddka')
       .end((err, res) => {
         expect(res.body.error)
           .to.eqls(true);
