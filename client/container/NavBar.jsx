@@ -13,7 +13,7 @@ import { fetchBusinesses, setSearch } from '../actions/businessAction';
  * @classdesc logs in user
  *
  */
-class Navbar extends Component {
+export class Navbar extends Component {
   /**
    * constructor - contains the constructor
    *

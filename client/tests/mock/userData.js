@@ -1,6 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { businessList0 } from './businessData';
-import { reviewList } from './reviewData';
 
 
 export const userDetails = {
@@ -18,6 +16,55 @@ export const oneUserDetail = {
   Image: 'user.Image',
 };
 
+const businesses = [
+  {
+    id: 1,
+    name: 'Andela',
+    details: 'Empowering tomorrows leaders',
+    location: 'Lagos',
+    category: 'Ict',
+    Image: 'link',
+    reviews: []
+  },
+  {
+    id: 2,
+    name: 'Flutter',
+    details: 'Finance',
+    location: 'Lagos',
+    category: 'fin-tech',
+    Image: 'Link',
+    reviews: []
+  }
+];
+
+const reviews = [
+  {
+    id: 1,
+    content: 'Amazing tech company',
+    star: 4,
+    createdAt: '2018-07-07T14:26:51.963Z',
+    updatedAt: '2018-07-07T14:26:51.963Z',
+    businessId: 1,
+    userId: 1,
+    reviewer: {
+      firstName: 'AdminName'
+    },
+  },
+
+  {
+    id: 2,
+    content: 'nice tech',
+    star: 5,
+    createdAt: '2018-07-07T14:26:51.963Z',
+    updatedAt: '2018-07-07T14:26:51.963Z',
+    businessId: 1,
+    userId: 2,
+    reviewer: {
+      firstName: 'AdminName'
+    },
+  }
+];
+
 export const userDetailsAndBusiness = {
   id: 1,
   email: 'email@email.com',
@@ -25,8 +72,8 @@ export const userDetailsAndBusiness = {
   lastName: 'user.lastName',
   Image: 'user.Image',
   isLoading: false,
-  businesses: businessList0.businesses.rows,
-  reviews: reviewList.reviews
+  businesses,
+  reviews,
 };
 
 

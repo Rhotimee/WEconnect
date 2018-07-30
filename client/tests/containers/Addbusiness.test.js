@@ -6,8 +6,12 @@ import { AddBusiness } from '../../container/AddBusiness';
 let props;
 const setup = () => {
   props = {
-    history: {
-      push: jest.fn()
+    context: {
+      router: {
+        history: {
+          push: jest.fn()
+        },
+      }
     },
     userSignupRequest: jest.fn(() => Promise.resolve()),
   };

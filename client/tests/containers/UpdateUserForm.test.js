@@ -6,7 +6,6 @@ import { oneUserDetail } from '../mock/userData';
 let props;
 const setup = () => {
   props = {
-    router: {},
     history: {
       push: jest.fn()
     },
