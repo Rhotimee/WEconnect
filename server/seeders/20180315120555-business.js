@@ -15,7 +15,7 @@ module.exports = {
       details: 'Modern payments infrastructure to power Africa’s digital economy.',
       location: 'abuja',
       Image: 'https://res.cloudinary.com/timi/image/upload/v1532445129/flutterwave.png',
-      category: 'Profrssional',
+      category: 'Professional',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
