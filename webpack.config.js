@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       {
-        test: /\.s?css$/,
+        test: /\.(scss|css)$/,
         loader: ['style-loader', 'css-loader', 'sass-loader'],
 
       },
@@ -27,10 +27,7 @@ module.exports = {
         loader: 'url-loader',
         exclude: /node_modules/
       },
-      // {
-      //   test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      //   loader: 'file-loader'
-      // },
+
     ],
   },
   plugins: [
@@ -39,6 +36,6 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css']
+    extensions: ['*', '.js', '.jsx', '.css']
   },
 };

@@ -8,7 +8,7 @@ import alertify from 'alertifyjs';
  * @classdesc logs in user
  *
  */
-class UpdateUserForm extends Component {
+export class UpdateUserForm extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -87,6 +87,7 @@ class UpdateUserForm extends Component {
     const {
       firstName, lastName, email, password, Image
     } = this.state;
+
     const userInfo = {
       firstName,
       lastName,
@@ -105,6 +106,7 @@ class UpdateUserForm extends Component {
     const {
       props, context, setState, state
     } = this;
+
     props.updateUserDetails(props.user.id, registerUser).then(
       () => {
         context.router.history.push(`/user/${props.user.id}`);

@@ -9,7 +9,7 @@ import alertify from 'alertifyjs';
  * @classdesc Details of business
  *
  */
-class EditBusinessForm extends Component {
+export class EditBusinessForm extends Component {
   /**
    * constructor - contains the constructor
    *

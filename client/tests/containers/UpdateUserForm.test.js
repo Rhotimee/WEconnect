@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Login } from '../../container/Login';
+import { UpdateUserForm } from '../../components/UpdateUserForm';
+import { oneUserDetail } from '../mock/userData';
 
 let props;
 const setup = () => {
@@ -8,29 +9,30 @@ const setup = () => {
     history: {
       push: jest.fn()
     },
-    userSigninRequest: jest.fn(() => Promise.resolve()),
+    updateUserDetails: jest.fn(() => Promise.resolve()),
+    user: oneUserDetail
   };
-  return shallow(<Login {...props} />);
+  return shallow(<UpdateUserForm {...props} />);
 };
 
-describe('<Login test />', () => {
-  it('should return  items if not', () => {
-    const wrapper = setup();
-    expect(wrapper.find('LoginForm').length).toBe(1);
-  });
-
+describe('<UpdateUserForm test />', () => {
   it('should set state', () => {
     const wrapper = setup();
     const action = wrapper.instance();
 
     const event = {
       target: {
-        name: 'email',
-        value: 'i@i.com'
+        name: 'firstName',
+        value: 'Timi'
       }
     };
     action.onChange(event);
-    expect(action.state.email).toEqual('i@i.com');
+    expect(action.state.firstName).toEqual('Timi');
+  });
+
+  it('should return  items if not', () => {
+    const wrapper = setup();
+    expect(wrapper.find('div').length).toBe(3);
   });
 
   it('should submit', () => {
@@ -39,10 +41,11 @@ describe('<Login test />', () => {
     const onSubmit = jest.spyOn(action, 'onSubmit');
     const event = {
       target: {
-        firstName: 'rotimi',
+        firstName: 'lorem',
         lastName: 'yemi',
-        email: 'isaiah@gmail.com',
-        password: 'password'
+        email: 'eam@e.com',
+        password: 'pass',
+        Image: 'link'
       },
       preventDefault: jest.fn()
     };

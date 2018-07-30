@@ -1,9 +1,9 @@
-import 'rc-pagination/assets/index.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 import ListBusiness from '../components/BusinessListItem';
 import { fetchBusinesses, setSearch } from '../actions/businessAction';
 
@@ -13,7 +13,7 @@ import { fetchBusinesses, setSearch } from '../actions/businessAction';
  * @classdesc List all businesses
  *
  */
-class BusinessList extends Component {
+export class BusinessList extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -198,7 +198,6 @@ function mapStateToProps(state) {
 }
 
 BusinessList.propTypes = {
-  // rows: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
   setSearch: PropTypes.func.isRequired,
   fetchBusinesses: PropTypes.func.isRequired,

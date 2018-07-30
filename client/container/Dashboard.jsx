@@ -12,7 +12,7 @@ import ReviewCard from '../components/ReviewCard';
  * @classdesc Dashboard
  *
  */
-class Dashboard extends Component {
+export class Dashboard extends Component {
   /**
    * @description componentDidMount
    *

@@ -10,7 +10,7 @@ import UpdateUserForm from '../components/UpdateUserForm';
  * @classdesc logs in user
  *
  */
-class UpdateUser extends Component {
+export class UpdateUser extends Component {
   /**
    * @description componentDidMount
    *

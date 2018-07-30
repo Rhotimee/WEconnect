@@ -17,7 +17,7 @@ import Loader from '../components/Loader';
  * @classdesc Details of business
  *
  */
-class BusinessDetails extends Component {
+export class BusinessDetails extends Component {
   /**
    * constructor - contains the constructor
    *
