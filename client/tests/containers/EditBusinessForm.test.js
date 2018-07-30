@@ -6,6 +6,7 @@ import { businessDetails2 } from '../mock/businessData';
 let props;
 const setup = () => {
   props = {
+    router: {},
     history: {
       push: jest.fn()
     },

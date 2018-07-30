@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { businessList } from './businessData';
+import { businessList0 } from './businessData';
 import { reviewList } from './reviewData';
 
 
@@ -13,23 +13,20 @@ export const oneUserDetail = {
   email: 'email@email.com',
   firstName: 'user.firstName',
   lastName: 'user.lastName',
-  businesses: 'user.businesses',
-  reviews: 'user.reviews',
+  businesses: [],
+  reviews: [],
   Image: 'user.Image',
-  isLoading: false,
-};  
+};
 
 export const userDetailsAndBusiness = {
   id: 1,
   email: 'email@email.com',
   firstName: 'user.firstName',
   lastName: 'user.lastName',
-  businesses: 'user.businesses',
-  reviews: 'user.reviews',
   Image: 'user.Image',
   isLoading: false,
-  // businesses: businessList.businesses,
-  // reviews: reviewList.reviews
+  businesses: businessList0.businesses.rows,
+  reviews: reviewList.reviews
 };
 
 

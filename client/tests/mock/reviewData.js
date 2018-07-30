@@ -1,6 +1,5 @@
 import { token } from './userData';
 
-
 export const review = {
   content: 'Amazing tech company',
   star: 4,

@@ -6,6 +6,7 @@ import { userDetails } from '../mock/userData';
 let props;
 const setup = () => {
   props = {
+    router: {},
     match: {
       params: 1
     },

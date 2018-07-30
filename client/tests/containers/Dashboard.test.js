@@ -16,13 +16,15 @@ configure({ adapter: new Adapter() });
 let props;
 const setup = () => {
   props = {
+    router: {},
     match: {
       params: {
         id: 1
       }
     },
     fetchOneUser: jest.fn(() => Promise.resolve()),
-    user: userDetailsAndBusiness
+    user: userDetailsAndBusiness,
+    authUser: 1
   };
   return shallow(<Dashboard {...props} />);
 };
@@ -31,8 +33,6 @@ describe('<Dashboard />', () => {
   it('should return  items if not', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(17);
-    expect(wrapper.find('ReviewCard').length).toBe(2);
-    expect(wrapper.find('ListBusiness').length).toBe(2);
   });
 
 

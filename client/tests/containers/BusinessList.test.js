@@ -14,6 +14,7 @@ configure({ adapter: new Adapter() });
 let props;
 const setup = () => {
   props = {
+    router: {},
     history: {
       push: jest.fn()
     },
