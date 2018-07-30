@@ -158,9 +158,12 @@ export class BusinessDetails extends Component {
               </div>
             </div>
             <div className="col-sm-4 my-2 details-button">
-              <button className="btn btn-danger mr-1 mt-1" href="#write_review"><i className="far fa-star" /> Write a review</button>
+              <a className="btn btn-danger mr-1 mt-1" href="#write_review"><i className="far fa-star" /> Write a review</a>
               <button className="btn btn-light mr-1 mt-1"><i className="fas fa-heart text-danger" /> Save</button>
-              <button className="btn btn-light mr-1 mt-1"><i className="fas fa-share-alt" /> Share</button>
+              <button
+                className="btn btn-light mr-1 mt-1"
+              ><i className="fas fa-share-alt" /> Share
+              </button>
             </div>
           </div>
           {
@@ -175,9 +178,9 @@ export class BusinessDetails extends Component {
                   className="btn btn-danger"
                   to="/businesses"
                   onClick={() => {
-                  props.deleteOneBusiness(id);
-                  alertify.set('notifier', 'position', 'top-right');
-                  alertify.success('Business deleted Successfully');
+                    props.deleteOneBusiness(id);
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Business deleted Successfully');
                   }}
                 ><i className="far fa-trash-alt" /> Delete Business
                 </Link>
@@ -235,7 +238,11 @@ export class BusinessDetails extends Component {
             <div className="col-md-3 mb-4">
               <div className="content-box mb-4">
                 <div id="map" className="mb-4">
-                  <img className="" src="/img/mapIkaja.jpg" alt="Google Map of ikeja lagos" />
+                  <img
+                    width="600"
+                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${location}&zoom=13&scale=2&size=600x180&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C${location}`}
+                    alt={`Google Map of ${location}`}
+                  />
                 </div>
                 <div className="contact-details ml-3">
                   <p><i className="fas fa-map-marker-alt" /> {location}</p>

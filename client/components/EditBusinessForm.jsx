@@ -123,9 +123,8 @@ export class EditBusinessForm extends Component {
         alertify.success('Business Updated Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(state.errors);
+        alertify.error(response.data.message);
       }
     );
   }
