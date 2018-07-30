@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Loader = () => (
-  <div className="loader align-self-center"></div>
-)
+  <div className="loader align-self-center" />
+);
 
 export default Loader;

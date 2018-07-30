@@ -1,24 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AddBusiness } from '../../container/AddBusiness';
-// import AddBusinessForm from '../../components/AddBusinessForm';
+import { EditBusinessForm } from '../../components/EditBusinessForm';
+import { businessDetails2 } from '../mock/businessData';
 
 let props;
 const setup = () => {
   props = {
-    context: {
-      router: {
-        history: {
-          push: jest.fn()
-        },
-      }
+    router: {},
+    history: {
+      push: jest.fn()
     },
-    userSignupRequest: jest.fn(() => Promise.resolve()),
+    business: businessDetails2,
+    updateOneBusiness: jest.fn(() => Promise.resolve()),
   };
-  return shallow(<AddBusiness {...props} />);
+  return shallow(<EditBusinessForm {...props} />);
 };
 
-describe('<AddBusiness />', () => {
+describe('<EditBusinessForm />', () => {
   it('should set state', () => {
     const wrapper = setup();
     const action = wrapper.instance();
@@ -35,8 +33,7 @@ describe('<AddBusiness />', () => {
 
   it('should return  items if not', () => {
     const wrapper = setup();
-    expect(wrapper.find('div').length).toBe(2);
-    expect(wrapper.find('AddBusinessForm').length).toBe(1);
+    expect(wrapper.find('div').length).toBe(9);
   });
 
   it('should submit', () => {

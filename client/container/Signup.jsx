@@ -28,14 +28,14 @@ export class Signup extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      errors: null,
       Image: '',
       imagePreview: '',
       isLoading: false
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
+    const { onChange, onSubmit, onFileChange } = this;
+    this.onChange = onChange.bind(this);
+    this.onSubmit = onSubmit.bind(this);
+    this.onFileChange = onFileChange.bind(this);
   }
 
   /**
@@ -86,13 +86,22 @@ export class Signup extends Component {
    */
   onSubmit(event) {
     event.preventDefault();
+    alertify.set('notifier', 'position', 'top-right');
+
+    const {
+      firstName, lastName, email, password, Image, confirmPassword
+    } = this.state;
+
+    if (password !== confirmPassword) {
+      return alertify.error('Password and confirm password do not match');
+    }
 
     const userInfo = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      Image: this.state.Image,
+      firstName,
+      lastName,
+      email,
+      password,
+      Image,
     };
 
     const registerUser = new FormData();
@@ -106,13 +115,10 @@ export class Signup extends Component {
       () => {
         this.setState({ isLoading: true });
         this.context.router.history.push('/');
-        alertify.set('notifier', 'position', 'top-right');
         alertify.success('Signed up  Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.error(this.state.errors);
+        alertify.error(response.data.message);
       }
     );
   }

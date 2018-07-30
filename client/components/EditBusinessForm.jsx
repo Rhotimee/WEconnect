@@ -9,7 +9,7 @@ import alertify from 'alertifyjs';
  * @classdesc Details of business
  *
  */
-class EditBusinessForm extends Component {
+export class EditBusinessForm extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -21,24 +21,30 @@ class EditBusinessForm extends Component {
   constructor(props) {
     super(props);
 
-    const { business } = this.props;
+    const {
+      name, location, category, details, Image
+    } = this.props.business;
 
+    //  update the state with the data coming from the store.
     this.state = {
-      name: business.name,
-      location: business.location,
-      category: business.category,
-      details: business.details,
+      name,
+      location,
+      category,
+      details,
       errors: {},
       businessImage: '',
-      imagePreview: business.Image
+      imagePreview: Image
 
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
+    const { onChange, onSubmit, onFileChange } = this;
+
+    this.onChange = onChange.bind(this);
+    this.onSubmit = onSubmit.bind(this);
+    this.onFileChange = onFileChange.bind(this);
   }
 
+  // onChange updates the state with the value of the input
   /**
    * @description onChange
    *
@@ -50,6 +56,7 @@ class EditBusinessForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  // onFile chnage enables us read the uploaded image and preview it.
   /**
    * @description onChange
    *
@@ -88,12 +95,16 @@ class EditBusinessForm extends Component {
   onSubmit(event) {
     event.preventDefault();
 
+    const { context, props, state } = this;
+    const {
+      name, location, category, details, businessImage
+    } = state;
     const businessInfo = {
-      name: this.state.name,
-      location: this.state.location,
-      category: this.state.category,
-      details: this.state.details,
-      Image: this.state.businessImage
+      name,
+      location,
+      category,
+      details,
+      Image: businessImage
     };
 
     const updateBusiness = new FormData();
@@ -103,17 +114,17 @@ class EditBusinessForm extends Component {
       updateBusiness.append(key, businessInfo[key]);
     });
 
-    const { id } = this.props.business;
-    this.props.updateOneBusiness(id, updateBusiness).then(
+    const { updateOneBusiness, business } = props;
+    const { id } = business;
+    updateOneBusiness(id, updateBusiness).then(
       () => {
-        this.context.router.history.push(`/businesses/${id}`);
+        context.router.history.push(`/businesses/${id}`);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Business Updated Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(this.state.errors);
+        alertify.error(response.data.message);
       }
     );
   }
@@ -125,8 +136,13 @@ class EditBusinessForm extends Component {
    *
    */
   render() {
+    const {
+      name, category, details, location, number, state, imagePreview
+    } = this.state;
+    const { onChange, onSubmit, onFileChange } = this;
+
     return (
-      <form className="row" onSubmit={this.onSubmit} >
+      <form className="row" onSubmit={onSubmit} >
         <div className="form-group col-sm-6">
           <label htmlFor="text">Buisness Name <small>*</small> </label>
           <input
@@ -134,8 +150,8 @@ class EditBusinessForm extends Component {
             className="form-control"
             placeholder="Andela"
             required
-            value={this.state.name}
-            onChange={this.onChange}
+            value={name}
+            onChange={onChange}
             name="name"
           />
         </div>
@@ -144,8 +160,8 @@ class EditBusinessForm extends Component {
           <select
             id="inputcategory"
             className="form-control"
-            value={this.state.category}
-            onChange={this.onChange}
+            value={category}
+            onChange={onChange}
             name="category"
           >
             <option value="" disabled>choose category</option>
@@ -162,8 +178,8 @@ class EditBusinessForm extends Component {
             id="bizdetails"
             placeholder="lorem ipsum"
             required
-            value={this.state.details}
-            onChange={this.onChange}
+            value={details}
+            onChange={onChange}
             name="details"
             className="form-control"
           />
@@ -175,8 +191,8 @@ class EditBusinessForm extends Component {
             className="form-control"
             id="inputCity"
             placeholder="City"
-            value={this.state.location}
-            onChange={this.onChange}
+            value={location}
+            onChange={onChange}
             name="location"
           />
         </div>
@@ -187,8 +203,8 @@ class EditBusinessForm extends Component {
             className="form-control"
             placeholder="+2348000000000"
 
-            value={this.state.number}
-            onChange={this.onChange}
+            value={number}
+            onChange={onChange}
             name="number"
           />
         </div>
@@ -197,8 +213,8 @@ class EditBusinessForm extends Component {
           <select
             id="inputState"
             className="form-control"
-            value={this.state.state}
-            onChange={this.onChange}
+            value={state}
+            onChange={onChange}
             name="state"
           >
             <option>Lagos</option>
@@ -212,14 +228,14 @@ class EditBusinessForm extends Component {
               type="file"
               className="form-control-file"
               id="filefield"
-              onChange={this.onFileChange}
+              onChange={onFileChange}
               name="businessImage"
               accept="image/*"
             />
           </div>
 
           <div className="col-md-4 mb-2 ">
-            <img className="" src={this.state.imagePreview} alt="" />
+            <img className="" src={imagePreview} alt="" />
           </div>
         </div>
 
@@ -233,8 +249,6 @@ class EditBusinessForm extends Component {
 
 EditBusinessForm.propTypes = {
   business: PropTypes.object.isRequired,
-  id: PropTypes.number.isRequired,
-  updateOneBusiness: PropTypes.func.isRequired,
 };
 
 EditBusinessForm.contextTypes = {

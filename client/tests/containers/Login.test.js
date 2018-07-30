@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Signup } from '../../container/Signup';
+import { Login } from '../../container/Login';
 
 let props;
 const setup = () => {
@@ -8,15 +8,15 @@ const setup = () => {
     history: {
       push: jest.fn()
     },
-    userSignupRequest: jest.fn(() => Promise.resolve()),
+    userSigninRequest: jest.fn(() => Promise.resolve()),
   };
-  return shallow(<Signup {...props} />);
+  return shallow(<Login {...props} />);
 };
 
-describe('<Signup test />', () => {
+describe('<Login test />', () => {
   it('should return  items if not', () => {
     const wrapper = setup();
-    expect(wrapper.find('SignupForm').length).toBe(1);
+    expect(wrapper.find('LoginForm').length).toBe(1);
   });
 
   it('should set state', () => {
@@ -25,12 +25,12 @@ describe('<Signup test />', () => {
 
     const event = {
       target: {
-        name: 'name',
-        value: 'Isaiah'
+        name: 'email',
+        value: 'i@i.com'
       }
     };
     action.onChange(event);
-    expect(action.state.name).toEqual('Isaiah');
+    expect(action.state.email).toEqual('i@i.com');
   });
 
   it('should submit', () => {

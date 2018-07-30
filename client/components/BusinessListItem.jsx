@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import average from '../helpers/averageStar';
+import star from '../helpers/stars';
 
 
 const listBusinesses = ({
-  Image, id, category, location, name
+  Image, id, category, location, name, reviews
 }) => (
   <div className="business-card p-3 my-2 mx-sm-5">
     <div className="row">
@@ -24,13 +26,9 @@ const listBusinesses = ({
       <div className="col-md-4">
         <div className="row mx-1 justify-content-md-center pt-sm-2">
           <div className="mr-2 rating-star">
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-            <i className="far fa-star" />
-            <i className="far fa-star" />
+            { reviews ? star(average(reviews)) : null}
           </div>
-          <div className="rating-value p-1">3.0</div>
+          { !reviews || average(reviews) === 0 ? null : <div className="rating-value p-1 text-center">{average(reviews)}</div> }
         </div>
       </div>
     </div>
@@ -43,6 +41,7 @@ listBusinesses.propTypes = {
   category: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 listBusinesses.contextTypes = {

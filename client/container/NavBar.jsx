@@ -13,7 +13,7 @@ import { fetchBusinesses, setSearch } from '../actions/businessAction';
  * @classdesc logs in user
  *
  */
-class Navbar extends Component {
+export class Navbar extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -29,11 +29,11 @@ class Navbar extends Component {
       text: '',
       type: '',
       page: 1,
-      errors: {}
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onSignout = this.onSignout.bind(this);
+    const { onChange, onSignout, onSubmit } = this;
+    this.onChange = onChange.bind(this);
+    this.onSubmit = onSubmit.bind(this);
+    this.onSignout = onSignout.bind(this);
   }
 
   /**
@@ -57,17 +57,19 @@ class Navbar extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    this.props.setSearch({ search: this.state.text, type: this.state.type });
+    const { setSearch, fetchBusinesses } = this.props;
+    const { text, type, page } = this.state;
+
+    setSearch({ search: text, type });
     // this.setState({ errors: {}, isLoading: true });
-    this.props.fetchBusinesses(this.state.page, this.state.type, this.state.text)
+    fetchBusinesses(page, type, text)
       .then(
         () => {
           this.context.router.history.push('/businesses');
         },
         ({ response }) => {
-          this.setState({ errors: response.data.message });
           alertify.set('notifier', 'position', 'top-right');
-          alertify.error(this.state.errors);
+          alertify.error(response.data.message);
         }
       );
   }
@@ -96,6 +98,7 @@ class Navbar extends Component {
    */
   render() {
     const { signedInUser } = this.props.signedInUser;
+    const { id } = signedInUser;
     const Auth = (
       <Aux>
         <li className="nav-item mr-3">
@@ -107,10 +110,10 @@ class Navbar extends Component {
           </Link>
         </li>
         { signedInUser ? (
-          <div className="dropdown mr-3">
+          <div className="dropleft mr-3">
             <Link
               className="nav-link dropdown-toggle"
-              to={`/user/${signedInUser.id}`}
+              to={`/user/${id}`}
               id="dropdownMenuButton"
               data-toggle="dropdown"
               aria-haspopup="true"
@@ -119,8 +122,8 @@ class Navbar extends Component {
             >{signedInUser.firstName}
             </Link>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <Link className="dropdown-item" to={`/user/${signedInUser.id}`} href>My Profile</Link>
-              <Link className="dropdown-item" to={`/user/${signedInUser.id}/update`} href>Update Profile</Link>
+              <Link className="dropdown-item" to={`/user/${id}`} href>My Profile</Link>
+              <Link className="dropdown-item" to={`/user/${id}/update`} href>Update Profile</Link>
               <Link className="dropdown-item" to="/">Change Password</Link>
               <Link className="dropdown-item" to="/" onClick={this.onSignout} href>Signout</Link>
             </div>

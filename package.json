@@ -15,7 +15,8 @@
     "test-watch": "nodemon --exec \"npm test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "jest": "jest"
+    "jest": "jest",
+    "e2e": "node_modules/.bin/nightwatch"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "url": "https://github.com/Rhotimee/weconnect/issues"
   },
   "jest": {
+    "modulePathIgnorePatterns": ["tests/e2e/"],
     "verbose": true,
     "collectCoverage": true,
     "setupFiles": [
@@ -35,7 +37,11 @@
     ],
     "roots": [
       "<rootDir>/client/tests"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/__tests__/__mockData__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/client/tests/mock/styleMock.js"
+    }
   },
   "dependencies": {
     "alertifyjs": "^1.11.1",

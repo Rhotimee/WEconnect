@@ -12,7 +12,7 @@ import ReviewCard from '../components/ReviewCard';
  * @classdesc Dashboard
  *
  */
-class Dashboard extends Component {
+export class Dashboard extends Component {
   /**
    * @description componentDidMount
    *
@@ -31,45 +31,58 @@ class Dashboard extends Component {
   render() {
     const { user, authUser } = this.props;
 
-
     if (!user) {
       return <p>loading...</p>;
     }
 
-    const eachBusiness = user.businesses.map(business => (
-      <ListBusiness
-        key={business.id}
-        Image={business.Image}
-        id={business.id}
-        category={business.category}
-        location={business.location}
-        name={business.name}
-      />
-    ));
+    const eachBusiness = user.businesses.map((business) => {
+      const {
+        id, Image, category, location, name
+      } = business;
+      return (
+        <ListBusiness
+          key={id}
+          Image={Image}
+          id={id}
+          category={category}
+          location={location}
+          name={name}
+        />
+      );
+    });
 
-    const eachReview = user.reviews.map(review => (
-      <ReviewCard
-        id={review.id}
-        key={review.id}
-        content={review.content}
-        star={review.star}
-        reviewer={review.reviewer}
-        userId={review.userId}
-        businessId={review.businessId}
-      />
-    ));
+    const eachReview = user.reviews.map((review) => {
+      const {
+        id, content, star, reviewer, userId, businessId
+      } = review;
+      return (
+        <ReviewCard
+          id={id}
+          key={id}
+          content={content}
+          star={star}
+          reviewer={reviewer}
+          userId={userId}
+          businessId={businessId}
+        />
+      );
+    });
+
+    const {
+      Image, firstName, businesses, reviews, lastName,
+    } = user;
 
     return (
       <div>
         <div className="container">
           <div className="row my-4 user-profile p-4">
             <div className="col-md-2">
-              <img src={user.Image ? user.Image : '/img/user1.jpg'} alt="" />
+              <img src={Image || '/img/user1.jpg'} alt="" />
             </div>
             <div className="col-md-6 mx-4">
-              <h4>{user.firstName} {user.lastName}</h4>
-              <p>{user.businesses.length} {user.businesses.length > 1 ? 'Listed Businesses' : 'Listed Business' }</p>
-              <p>{user.reviews.length} {user.reviews.length > 1 ? 'reviews' : 'review' }</p>
+              <h4>{firstName} {lastName}</h4>
+              <p>{businesses.length} {businesses.length > 1 ? 'Listed Businesses' : 'Listed Business' }</p>
+              <p>{reviews.length} {reviews.length > 1 ? 'reviews' : 'review' }</p>
               {
           user.id === authUser ?
             <Link to={`/user/${authUser}/update`} className="btn btn-outline-dark">Edit</Link>
@@ -88,9 +101,26 @@ class Dashboard extends Component {
           <div className="row profile mb-5">
             <div className="col-md-3">
               <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Businesses</a>
-                <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Reviews</a>
-                <a className="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Liked Businesses</a>
+                <a
+                  className="nav-link active"
+                  id="v-pills-home-tab"
+                  data-toggle="pill"
+                  href="#v-pills-home"
+                  role="tab"
+                  aria-controls="v-pills-home"
+                  aria-selected="true"
+                >Businesses
+                </a>
+                <a
+                  className="nav-link"
+                  id="v-pills-profile-tab"
+                  data-toggle="pill"
+                  href="#v-pills-profile"
+                  role="tab"
+                  aria-controls="v-pills-profile"
+                  aria-selected="false"
+                >Reviews
+                </a>
               </div>
             </div>
             <div className="col-md-9">
@@ -98,19 +128,18 @@ class Dashboard extends Component {
                 <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
                   <div className="container">
-                    {user.businesses.length > 0 ? eachBusiness : 'No Business Found'}
+                    {businesses.length > 0 ? eachBusiness : 'No Business Found'}
                   </div>
                 </div>
                 <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
                   <div className="review-list mb-4">
                     <div className="">
-                      { user.reviews.length > 0 ? eachReview : 'No Review Found' }
+                      { reviews.length > 0 ? eachReview : 'No Review Found' }
                     </div>
 
                   </div>
                 </div>
-                <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">c</div>
               </div>
             </div>
           </div>

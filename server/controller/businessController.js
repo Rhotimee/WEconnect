@@ -1,6 +1,6 @@
 import Model from '../models';
 
-const { Business, User } = Model;
+const { Business, User, Review } = Model;
 
 /**
  * Business Controller.
@@ -170,7 +170,12 @@ export default class BusinessController {
     Business.findAndCountAll({
       order: [['createdAt', 'DESC']],
       limit,
-      offset
+      offset,
+      include: [{
+        model: Review,
+        as: 'reviews',
+        attributes: ['star']
+      }]
     }).then((businesses) => {
       const pages = Math.ceil(businesses.count / limit);
       if (businesses.length === 0 || page > pages) {
@@ -211,7 +216,7 @@ export default class BusinessController {
       include: [{
         model: User,
         as: 'business_owner',
-        attributes: ['firstName']
+        attributes: ['firstName', 'Image']
       }]
     }).then((business) => {
       if (!business) {

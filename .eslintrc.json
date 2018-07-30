@@ -22,7 +22,6 @@
             "every": [ "id" ]
         }
       }],
-      "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
       "valid-jsdoc": ["error", {
         "requireReturn": true,
         "requireReturnType": true,
@@ -37,6 +36,9 @@
           }
       }],
       "react/forbid-prop-types": 0,
-      "jsx-a11y/anchor-is-valid": [ "error", { "components": [ "Link" ], "specialLink": [ "to" ] } ]
+      "jsx-a11y/anchor-is-valid": [ "error", { "components": [ "Link" ], "specialLink": [ "to" ] } ],
+      "jsx-a11y/click-events-have-key-events": 0,
+      "jsx-a11y/no-static-element-interactions": 0,
+      "no-shadow": 0
     }
   }

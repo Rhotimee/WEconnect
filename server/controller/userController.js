@@ -57,6 +57,19 @@ export default class UserController {
       });
     }
 
+    // This regex will enforce these rules:
+    // At least one upper case English letter, (?=.*?[A-Z])
+    // At least one lower case English letter, (?=.*?[a-z])
+    // At least one digit, (?=.*?[0-9])
+    // At least one special character, (?=.*?[#?!@$%^&*-])
+    // Minimum eight in length .{8,} (with the anchors)
+    if (!password.match('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')) {
+      return response.status(400).json({
+        message: 'Password must contain minimum of 8 characters, Uppercase, Lowercase, number and special character.',
+        error: true,
+      });
+    }
+
     User.findOne({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
         if (userExists) {
@@ -162,7 +175,7 @@ export default class UserController {
       include: [{
         model: Business,
         as: 'businesses',
-        attributes: ['name', 'details', 'id']
+        attributes: ['name', 'details', 'id', 'Image', 'category', 'location']
       },
       {
         model: Review,

@@ -10,7 +10,7 @@ import { fetchOneBusiness, updateOneBusiness } from '../actions/businessAction';
  * @classdesc Details of business
  *
  */
-class EditBusiness extends Component {
+export class EditBusiness extends Component {
 /**
    * @description componentDidMount
    *
@@ -43,7 +43,9 @@ class EditBusiness extends Component {
 
 EditBusiness.propTypes = {
   fetchOneBusiness: PropTypes.func.isRequired,
-
+  business: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 /**

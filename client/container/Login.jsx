@@ -12,7 +12,7 @@ import { userSigninRequest } from '../actions/userActions';
  * @classdesc logs in user
  *
  */
-class Login extends Component {
+export class Login extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -26,7 +26,6 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -59,9 +58,8 @@ class Login extends Component {
         alertify.success('Logged In Successfully');
       },
       ({ response }) => {
-        this.setState({ errors: response.data.message });
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error(this.state.errors);
+        alertify.error(response.data.message);
       }
     );
   }
