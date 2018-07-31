@@ -18,7 +18,7 @@ const Business = {
 describe('GET businesses/', () => {
   it('should get all businesses', (done) => {
     chai.request(server)
-      .get('/api/v1/businesses')
+      .get('/api/v1/businesses?page=1')
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
@@ -136,7 +136,7 @@ describe('POST businesses/', () => {
         done();
       });
   });
-  it('should return 400 if name is empty', (done) => {
+  it('should return 400 all values are empty', (done) => {
     chai.request(server)
       .post('/api/v1/businesses')
       .set('x-access-token', token)
@@ -179,7 +179,7 @@ describe('PUT businesses/1', () => {
       .put('/api/v1/businesses/1')
       .set('x-access-token', token)
       .send({
-        name: 'Rotimi Texh',
+        name: 'Rotimi Texhkj',
         details: 'Software company',
         location: 'lagos',
         category: 'ICT',
@@ -222,23 +222,6 @@ describe('PUT businesses/1', () => {
         expect(res).to.have.status(401);
         expect(res.body).to.be.a('object');
         expect(res.body.message).to.eqls('You do not have the permission to update this business');
-        done();
-      });
-  });
-  it('should return, Business Name Already exists', (done) => {
-    chai.request(server)
-      .put('/api/v1/businesses/1')
-      .set('x-access-token', token)
-      .send({
-        name: 'Flutterwave',
-        details: 'Software company',
-        location: 'lagos',
-        category: 'ICT',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(409);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.eqls('Business name already exists');
         done();
       });
   });

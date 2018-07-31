@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const User = {
   email: 'user-test@gmail.com',
-  password: 'passw0RD',
+  password: 'passw0RD1!',
   firstName: 'Timi',
   lastName: 'Yemi'
 };
@@ -70,13 +70,13 @@ describe('POST auth/signup/', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: 'admin@admin.com',
-        password: 'password',
+        password: 'passw0ORD12!',
         lastName: 'mimi',
         firstName: 'Riri'
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
-        expect(res.body).to.be.a('object');
+        expect(res.body.message).to.equal('Account exists for that email');
         expect(res.body.error).to.equal(true);
         done();
       });

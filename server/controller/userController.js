@@ -78,32 +78,31 @@ export default class UserController {
             message: 'Account exists for that email'
           });
         }
+        const hash = bcrypt.hashSync(password, 10);
+        User.create({
+          firstName,
+          lastName,
+          email: email.trim().toLowerCase(),
+          password: hash,
+          Image
+        }).then((user) => {
+          const token = jwt.sign({
+            id: user.id, firstName: user.firstName
+          }, process.env.SALT, { expiresIn: 86400 * 3 });
+          return response.status(201).json({
+            token,
+            error: false,
+            message: 'User created and logged in',
+            user: {
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              Image: user.Image
+            },
+          });
+        });
       });
-
-    const hash = bcrypt.hashSync(password, 10);
-    User.create({
-      firstName,
-      lastName,
-      email: email.trim().toLowerCase(),
-      password: hash,
-      Image
-    }).then((user) => {
-      const token = jwt.sign({
-        id: user.id, firstName: user.firstName
-      }, process.env.SALT, { expiresIn: 86400 * 3 });
-      return response.status(201).json({
-        token,
-        error: false,
-        message: 'User created and logged in',
-        user: {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          Image: user.Image
-        },
-      });
-    });
   }
 
   /**

@@ -37,22 +37,22 @@ export default class BusinessController {
 
     // Check if business name already exists
     Business.find({ where: { name } }).then((business) => {
-      if (business.name === name) {
+      if (business) {
         return response.status(409).json({
           error: true,
           message: 'Business name already exists',
         });
       }
-    });
 
-    // Create the business
-    Business.create({
-      name, details, location, category, userId, Image
-    }).then(business => response.status(201).json({
-      error: false,
-      message: 'Business Created',
-      business,
-    })).catch((error) => {
+      // Create the business
+      Business.create({
+        name, details, location, category, userId, Image
+      }).then(business => response.status(201).json({
+        error: false,
+        message: 'Business Created',
+        business,
+      }));
+    }).catch((error) => {
       response.status(500).json({
         error,
         message: 'Server Error',

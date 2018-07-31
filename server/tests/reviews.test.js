@@ -78,24 +78,13 @@ describe('POST businesses/<id>/reviews', () => {
 
 
 // Get Business Reviews
-describe('Get businesses/2/reviews', () => {
+describe('Get businesses reviews', () => {
   it('should be able to get reviews of a business', (done) => {
     chai.request(server)
       .get('/api/v1/businesses/2/reviews')
       .end((err, res) => {
         expect(res)
           .to.have.status(200);
-        done();
-      });
-  });
-
-  it('should be able to add reviews to a business', (done) => {
-    chai.request(server)
-      .get('/api/v1/businesses/3/reviews')
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.eqls('No review found');
         done();
       });
   });
