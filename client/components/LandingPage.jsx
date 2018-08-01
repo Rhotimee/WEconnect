@@ -6,12 +6,12 @@ import { fetchBusinesses, setSearch } from '../actions/businessAction';
 import ListBusiness2 from '../components/BusinessListItem2';
 
 /**
- * @class LoginForm
+ * @class LandingPage
  *
  * @classdesc logs in user
  *
  */
-class LandingPage extends Component {
+export class LandingPage extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -200,6 +200,7 @@ class LandingPage extends Component {
               <div className="row text-white text-center justify-content-center pt-4 pb-5">
                 <div
                   className="category-item"
+                  id="c1"
                   onClick={() => this.onClick('restaurant')}
                 >
                   <ion-icon name="restaurant" />
@@ -207,6 +208,7 @@ class LandingPage extends Component {
                 </div>
                 <div
                   className="category-item"
+                  id="c2"
                   onClick={() => this.onClick('professional')}
                 >
                   <ion-icon name="briefcase" />
@@ -214,6 +216,7 @@ class LandingPage extends Component {
                 </div>
                 <div
                   className="category-item"
+                  id="c3"
                   onClick={() => this.onClick('nightlife')}
                 >
                   <ion-icon name="wine" />
@@ -221,6 +224,7 @@ class LandingPage extends Component {
                 </div>
                 <div
                   className="category-item"
+                  id="c4"
                   onClick={() => this.onClick('shopping')}
                 >
                   <ion-icon name="cart" />
@@ -302,6 +306,7 @@ class LandingPage extends Component {
           <div className="row my-5 justify-content-center" id="cate-g">
             <div
               className="card"
+              id="#c5"
               onClick={() => this.onClick('restaurant')}
             >
               <img className="card-img-top img-overlay" src="/img/restaurant.jpg" alt="" />
@@ -312,6 +317,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
+              id="#c6"
               onClick={() => this.onClick('professional')}
             >
               <img className="card-img-top img-overlay" src="/img/corporate.jpg" alt="" />
@@ -323,6 +329,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
+              id="#c7"
               onClick={() => this.onClick('nightlife')}
             >
               <img className="card-img-top img-overlay" src="/img/drinks.jpg" alt="" />
@@ -333,6 +340,7 @@ class LandingPage extends Component {
 
             <div
               className="card"
+              id="#c8"
               onClick={() => this.onClick('shopping')}
             >
               <img className="card-img-top img-overlay" src="/img/shopping.jpg" alt="" />

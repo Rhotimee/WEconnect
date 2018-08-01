@@ -125,7 +125,7 @@ export class Navbar extends Component {
               <Link className="dropdown-item" to={`/user/${id}`} href>My Profile</Link>
               <Link className="dropdown-item" to={`/user/${id}/update`} href>Update Profile</Link>
               <Link className="dropdown-item" to="/">Change Password</Link>
-              <Link className="dropdown-item" to="/" onClick={this.onSignout} href>Signout</Link>
+              <Link className="dropdown-item" to="/" id="signout" onClick={this.onSignout} href>Signout</Link>
             </div>
           </div>
         ) : null}

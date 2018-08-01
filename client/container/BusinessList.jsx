@@ -119,6 +119,7 @@ export class BusinessList extends Component {
             <li className="nav-item">
               <div
                 className="nav-link btn btn-outline-dark mx-2 my-1"
+                id="click1"
                 onClick={() => this.onClick('restaurant')}
               >Resturant
               </div>
@@ -126,6 +127,7 @@ export class BusinessList extends Component {
             <li className="nav-item">
               <div
                 className="nav-link btn btn-outline-dark mx-2 my-1"
+                id="click2"
                 onClick={() => this.onClick('professional')}
               >Professional
               </div>
@@ -134,6 +136,7 @@ export class BusinessList extends Component {
               <div
                 className="nav-link btn btn-outline-dark mx-2 my-1"
                 onClick={() => this.onClick('fun')}
+                id="click3"
               >Fun
               </div>
             </li>
@@ -141,6 +144,7 @@ export class BusinessList extends Component {
               <div
                 className="nav-link btn btn-outline-dark mx-2 my-1"
                 onClick={() => this.onClick('nightlife')}
+                id="click4"
               >Nightlife
               </div>
             </li>
@@ -148,6 +152,7 @@ export class BusinessList extends Component {
               <div
                 className="nav-link btn btn-outline-dark mx-2 my-1"
                 onClick={() => this.onClick('shopping')}
+                id="click5"
               >Shopping
               </div>
             </li>
