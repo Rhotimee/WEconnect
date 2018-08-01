@@ -35,6 +35,26 @@ const setup = () => {
   return shallow(<BusinessDetails {...props} />);
 };
 
+let props2;
+const setup2 = () => {
+  props2 = {
+    router: {},
+    match: {
+      params: {
+        id: 1
+      }
+    },
+    fetchOneBusiness: jest.fn(() => Promise.resolve()),
+    deleteOneBusiness: jest.fn(() => Promise.resolve()),
+    fetchReviews: jest.fn(() => Promise.resolve()),
+    addReview: jest.fn(() => Promise.resolve()),
+    business: null,
+    reviews: reviewList.reviews,
+    user: userDetails
+  };
+  return shallow(<BusinessDetails {...props2} />);
+};
+
 describe('<BusinessDetails />', () => {
   it('should set state', () => {
     const wrapper = setup();
@@ -50,10 +70,15 @@ describe('<BusinessDetails />', () => {
     expect(action.state.content).toEqual('lorem');
   });
 
-  it('should return  items if not', () => {
+  it('should return  items', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(21);
     expect(wrapper.find('ReviewCard').length).toBe(2);
+  });
+
+  it('should return  items if no business', () => {
+    const wrapper = setup2();
+    expect(wrapper.find('Loader').length).toBe(1);
   });
 
   it('should submit', () => {

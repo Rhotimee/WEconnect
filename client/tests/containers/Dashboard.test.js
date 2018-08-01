@@ -29,12 +29,32 @@ const setup = () => {
   return shallow(<Dashboard {...props} />);
 };
 
+let props2;
+const setup2 = () => {
+  props2 = {
+    router: {},
+    match: {
+      params: {
+        id: 1
+      }
+    },
+    fetchOneUser: jest.fn(() => Promise.resolve()),
+    user: null,
+    authUser: 1
+  };
+  return shallow(<Dashboard {...props2} />);
+};
+
 describe('<Dashboard />', () => {
-  it('should return  items if not', () => {
+  it('should return  items exists', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(17);
   });
 
+  it('should return item', () => {
+    const wrapper = setup2();
+    expect(wrapper.find('p').length).toBe(1);
+  });
 
   describe('state to props', () => {
     it('should render connected page', () => {

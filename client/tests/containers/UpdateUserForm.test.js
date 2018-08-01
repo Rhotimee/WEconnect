@@ -16,6 +16,18 @@ const setup = () => {
 };
 
 describe('<UpdateUserForm test />', () => {
+  beforeEach(() => {
+    global.alertify = {
+      set: () => {},
+      success: () => {},
+      error: () => {}
+    };
+    global.FileReader = () => ({
+      readAsDataURL: () => {},
+      onload: () => {},
+      result: () => {}
+    });
+  });
   it('should set state', () => {
     const wrapper = setup();
     const action = wrapper.instance();
@@ -52,5 +64,37 @@ describe('<UpdateUserForm test />', () => {
     action.onSubmit(event);
 
     expect(onSubmit).toBeCalled();
+  });
+});
+
+describe('onFileChange()', () => {
+  it('should call onFileChange()', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'image',
+        files: [{
+          name: 'sdkhbjn.jpg',
+          lastModified: 151435461554600,
+          size: 132454,
+          type: 'image/jpeg',
+          webkitRelativePath: ''
+
+        }]
+      }
+    };
+    action.onFileChange(event);
+    let newImage = new Image();
+    newImage = {
+      src: FileReader.result
+    };
+    const file = event.target.files[0];
+    action.setState({
+      Image: file,
+      imagePreview: newImage.src
+    });
+    expect(action.state.Image).toBe(file);
   });
 });

@@ -13,12 +13,24 @@ const setup = () => {
         },
       }
     },
-    userSignupRequest: jest.fn(() => Promise.resolve()),
+    addOneBusiness: jest.fn(() => Promise.resolve()),
   };
   return shallow(<AddBusiness {...props} />);
 };
 
 describe('<AddBusiness />', () => {
+  beforeEach(() => {
+    global.alertify = {
+      set: () => {},
+      success: () => {},
+      error: () => {}
+    };
+    global.FileReader = () => ({
+      readAsDataURL: () => {},
+      onload: () => {},
+      result: () => {}
+    });
+  });
   it('should set state', () => {
     const wrapper = setup();
     const action = wrapper.instance();
@@ -56,6 +68,38 @@ describe('<AddBusiness />', () => {
     action.onSubmit(event);
 
     expect(onSubmit).toBeCalled();
+  });
+});
+
+describe('onFileChange()', () => {
+  it('should call onFileChange()', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'image',
+        files: [{
+          name: 'sdkhbjn.jpg',
+          lastModified: 151435461554600,
+          size: 132454,
+          type: 'image/jpeg',
+          webkitRelativePath: ''
+
+        }]
+      }
+    };
+    action.onFileChange(event);
+    let newImage = new Image();
+    newImage = {
+      src: FileReader.result
+    };
+    const file = event.target.files[0];
+    action.setState({
+      businessImage: file,
+      imagePreview: newImage.src
+    });
+    expect(action.state.businessImage).toBe(file);
   });
 });
 

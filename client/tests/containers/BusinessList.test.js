@@ -25,6 +25,22 @@ const setup = () => {
   return shallow(<BusinessList {...props} />);
 };
 
+let props2;
+const setup2 = () => {
+  props2 = {
+    router: {},
+    history: {
+      push: jest.fn()
+    },
+    fetchBusinesses: jest.fn(() => Promise.resolve()),
+    setSearch: jest.fn(() => Promise.resolve()),
+    data: {
+      businesses: null
+    }
+  };
+  return shallow(<BusinessList {...props2} />);
+};
+
 describe('<BusinessList />', () => {
   it('should set state', () => {
     const wrapper = setup();
@@ -34,20 +50,24 @@ describe('<BusinessList />', () => {
     expect(action.state.current).toEqual(1);
   });
 
-  it('should click', () => {
+  it('Test click event', () => {
     const wrapper = setup();
-    const action = wrapper.instance();
-    const onClick = jest.spyOn(action, 'onClick');
-    const text = 'String';
-    action.onClick(text);
-
-    expect(onClick).toBeCalled();
+    wrapper.find('#click1').simulate('click');
+    wrapper.find('#click2').simulate('click');
+    wrapper.find('#click3').simulate('click');
+    wrapper.find('#click4').simulate('click');
+    wrapper.find('#click5').simulate('click');
   });
 
-  it('should return  items if not', () => {
+  it('should return  items if', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(9);
     expect(wrapper.find('ListBusiness').length).toBe(0);
+  });
+
+  it('should return  items if no business yet', () => {
+    const wrapper = setup2();
+    expect(wrapper.find('p').length).toBe(1);
   });
 
   describe('state to props', () => {
