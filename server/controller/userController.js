@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { isEmail } from 'validator';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import Model from '../models';
 
 const { User, Business, Review } = Model;
