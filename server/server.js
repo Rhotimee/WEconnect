@@ -12,7 +12,7 @@ import webpackConfig from '../webpack.config';
 
 
 const app = express();
-const compiler = webpack(webpackConfig)
+const compiler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(compiler));
 app.use(require('webpack-hot-middleware')(compiler, {
@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1', index);
 
-app.use('/*', (request, response) => {
+app.use('/', (request, response) => {
   response.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
