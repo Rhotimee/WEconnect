@@ -5,9 +5,9 @@ import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
 import path from 'path';
-import index from './routes/v1/index';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
+import index from './routes/v1/index';
 import webpackConfig from '../webpack.config';
 
 
